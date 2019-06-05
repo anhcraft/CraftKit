@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="craftkit.cb_1_13_r1" />
+        <module name="craftkit.cb_1_11_r1" />
+        <module name="bukkit_1_14" />
+        <module name="bukkit_1_13" />
+        <module name="bukkit_1_12" />
+        <module name="bukkit_1_11" />
+        <module name="bukkit_1_10" />
+        <module name="craftkit.spigot" />
+        <module name="craftkit.cb_1_9_r2" />
+        <module name="craftkit.cb_1_14_r1" />
+        <module name="craftkit.cb_common" />
+        <module name="craftkit.cb_1_13_r2" />
+        <module name="bukkit_1_9" />
+        <module name="craftkit.bungee" />
+        <module name="craftkit.common" />
+        <module name="craftkit.cb_1_12_r1" />
+        <module name="craftkit.cb_1_10_r1" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bukkit_1_10" target="1.5" />
+      <module name="bukkit_1_11" target="1.5" />
+      <module name="bukkit_1_12" target="1.5" />
+      <module name="bukkit_1_13" target="1.5" />
+      <module name="bukkit_1_14" target="1.5" />
+      <module name="bukkit_1_9" target="1.8" />
+      <module name="cb_1_9_R1" target="1.8" />
+      <module name="cb_1_9_r1" target="1.8" />
+      <module name="cb_1_9_r2" target="11" />
+      <module name="common" target="11" />
+      <module name="craftkit.bungee" target="11" />
+      <module name="craftkit.cb_1_10_r1" target="11" />
+      <module name="craftkit.cb_1_11_r1" target="11" />
+      <module name="craftkit.cb_1_12_r1" target="11" />
+      <module name="craftkit.cb_1_13_r1" target="11" />
+      <module name="craftkit.cb_1_13_r2" target="11" />
+      <module name="craftkit.cb_1_14_r1" target="11" />
+      <module name="craftkit.cb_1_9_r2" target="11" />
+      <module name="craftkit.cb_common" target="11" />
+      <module name="craftkit.common" target="11" />
+      <module name="craftkit.parent" target="11" />
+      <module name="craftkit.spigot" target="11" />
+      <module name="spigot" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cb_1_9_r2" options="-Xlint:-requires-transitive-automatic" />
+      <module name="common" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.bungee" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_10_r1" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_11_r1" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_12_r1" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_13_r1" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_13_r2" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_14_r1" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_1_9_r2" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.cb_common" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.common" options="-Xlint:-requires-transitive-automatic" />
+      <module name="craftkit.spigot" options="-Xlint:-requires-transitive-automatic" />
+      <module name="spigot" options="-Xlint:-requires-transitive-automatic" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
+      <item index="1" class="java.lang.String" itemvalue="net.md_5.bungee.event.EventHandler" />
+    </list>
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/bungee/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_9_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_10_r1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_11_r1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_12_r1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_13_r1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_13_r2/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_1_14_r1/pom.xml" />
+        <option value="$PROJECT_DIR$/cb_common/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="true" project-jdk-name="12" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

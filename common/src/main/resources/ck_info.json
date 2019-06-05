@@ -1,0 +1,4 @@
+{
+  "plugin_version": "${project.version}",
+  "config_version": "${craftkit.configVersion}"
+}
