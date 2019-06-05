@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <description>A lightweight and effective utility framework for Spigot/Bungeecord plugins</description>
+    <description>A lightweight and effective utility kit for Spigot/Bungeecord plugins</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
