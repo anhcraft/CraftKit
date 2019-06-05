@@ -1,5 +1,5 @@
 # CraftKit
-A lightweight and effective utility framework for Spigot/Bungeecord plugins.<br>
+A lightweight and effective utility kit for Spigot/Bungeecord plugins.<br>
 This library only works on Java SE 11 and above.
 
 Contributions are welcome!
