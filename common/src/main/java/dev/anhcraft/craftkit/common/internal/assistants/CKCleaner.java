@@ -17,6 +17,7 @@ public class CKCleaner {
     public static void clean(Predicate<Object> filter){
         try {
             List<Field> fields = CKAssistant.INDEXED_FIELDS.get(RequiredCleaner.class);
+            if(fields == null) return;
             for (Field f : fields) {
                 RequiredCleaner rc = f.getAnnotation(RequiredCleaner.class);
                 var v = f.get(null);
