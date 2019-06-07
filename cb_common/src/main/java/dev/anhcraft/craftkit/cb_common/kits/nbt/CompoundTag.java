@@ -214,6 +214,6 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     @Deprecated
     @Override
     public Map<String, NBTTag> getValue(){
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
