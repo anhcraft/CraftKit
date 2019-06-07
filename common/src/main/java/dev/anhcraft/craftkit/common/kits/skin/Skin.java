@@ -1,20 +1,60 @@
 package dev.anhcraft.craftkit.common.kits.skin;
 
+import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Represents player skins.
  */
-public class Skin {
-    // https://mineskin.org/218314
-    public static final Skin STEVE = new Skin("eyJ0aW1lc3RhbXAiOjE1MjczNTE4NzU2MzYsInByb2ZpbGVJZCI6Ijg2NjdiYTcxYjg1YTQwMDRhZjU0NDU3YTk3MzRlZWQ3IiwicHJvZmlsZU5hbWUiOiJTdGV2ZSIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGMxYzc3Y2U4ZTU0OTI1YWI1ODEyNTQ0NmVjNTNiMGNkZDNkMGNhM2RiMjczZWI5MDhkNTQ4Mjc4N2VmNDAxNiJ9LCJDQVBFIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjc2N2Q0ODMyNWVhNTMyNDU2MTQwNmI4YzgyYWJiZDRlMjc1NWYxMTE1M2NkODVhYjA1NDVjYzIifX19", "f/C13ic+nVc/TWHQoKFNu9481+YMm0e/l8krgnSpUCPktmUaFHEiwz4F1w8YJaivX1V72OhO65ylFbTk7LuX+SqWj4Ba87mzmdVILA9gZifmKS80dYKvor8pE5sGYl1DdL8ipvXN6HzFbXyDVTG3Cey5es5z4vtLxRYSB0PPl2DGYqXjjvIuxmLiOugpSOmgQskdUeDolC6HZFgl7ZlFnpxaqkD96eHtZx4LA0M1kj0bhBXLmZoL8RynIttfQVdcH4oQL5MJoHzzDov1hqYbB/3I/0Tc+QFhIKSE1KiHC0kJko/sdjgKPJRpwstM/zzDTcdAwz5P1fO26LLVuY1dSQDwtZbB6rDc1TUU6VcmVw1Ly2gnalimxA8QHwyTLxtafKDhyHU4/jxgj2FnicS7KpGtsQERzLqempJotF6x8UyQN/i/lHHe2JpamV1lva4LesOL01YSv8UQY0K7Y6V8mK6gi4ZtQh1isM9O/bamxyBkIho+gqMTidXfVBaG/JtuxAsqOEZFER4UbwjnGaqcPhJtC3MkseRQe7W9w7JxA1F1UD7S3jyEkT6zdBX4EJLl8fVa7HJyPlIU8QYAAUs0P2Qw3aVEFY3aCdFlYlL63H0izVe0wF4snvH0qImW5MF8UjrzUbY4Fw4glX25tR1Orb6h5bitS8mW9By2o5KAHLY=");
-    // https://mineskin.org/396213
-    public static final Skin ALEX = new Skin("eyJ0aW1lc3RhbXAiOjE1NDAwODc3MDUyNzYsInByb2ZpbGVJZCI6IjZhYjQzMTc4ODlmZDQ5MDU5N2Y2MGY2N2Q5ZDc2ZmQ5IiwicHJvZmlsZU5hbWUiOiJNSEZfQWxleCIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODNjZWU1Y2E2YWZjZGIxNzEyODVhYTAwZTgwNDljMjk3YjJkYmViYTBlZmI4ZmY5NzBhNTY3N2ExYjY0NDAzMiIsIm1ldGFkYXRhIjp7Im1vZGVsIjoic2xpbSJ9fX19", "k62gX82u1JBsUMXPAzADWTlpzrBNti01wwnJ+l9TnNP7PuZ7dvlHztAsIr3H4EdBWmyjq3lpdWRgRkuQ0BiFai/cNuqTJBRJENIXH0pdNQnLBkyJmGsFAYHrufEtUr0ikSF2afjAY65wH6v3iCiMofnEXuzB/xrhjIlGl83LCeTLSWJ36d321XCiP2hJ/LF9a6UY7x4Po2qSzFyC5naqm84+BaTzRlnhX5spJjkexJ5N9APhcmzzALybwEfCXmeRMct+8s8qTdmHPm9H8hNg+FxsOekSPgcbZTaLmz8j1tfiX0SBPPhjPNBA604pP53a9ZcOt+6eMJXWy79i9BIlScua4iC5BT7WXitck5h+kNT0mBmMt+YEcbw0VVAVQzE29+MPC+QmrLky1vqZoXb/wsZbnZmbD6npR3b+Fnd0wNW5u83P0ssRUDzqDhPAryPayzDLQ+jLP1GSMA12etFcOE7cFkyv2H1Tz/U9iLJ0kug19dCq6GBB4EkXS51VKbCD23e2gbHwogsW0gzAKiu9d4IcA9lRUB9QMGbHQNzJnD+nU9uxGFryrXx2q0VOcaszmbuC0IKyWSxLtDenO5CBng5Wwlwtmcg9fkqawMhUAuT8+7vyBzV/Oj0gtVCxLEm/cxkXBW6O833p4CmQfXd0Ry2y73GMt2FPHFQgAFS7Q/w=");
+public class Skin implements Serializable {
+    private static final long serialVersionUID = 1537124277924320087L;
 
-    // TODO Add MHF skins
+    public static final Skin MHF_ALEX = new Skin(CKInfo.getMHFSkin("MHF_Alex"), null);
+    public static final Skin MHF_BLAZE = new Skin(CKInfo.getMHFSkin("MHF_Blaze"), null);
+    public static final Skin MHF_CAVESPIDER = new Skin(CKInfo.getMHFSkin("MHF_CaveSpider"), null);
+    public static final Skin MHF_CHICKEN = new Skin(CKInfo.getMHFSkin("MHF_Chicken"), null);
+    public static final Skin MHF_COW = new Skin(CKInfo.getMHFSkin("MHF_Cow"), null);
+    public static final Skin MHF_CREEPER = new Skin(CKInfo.getMHFSkin("MHF_Creeper"), null);
+    public static final Skin MHF_ENDERMAN = new Skin(CKInfo.getMHFSkin("MHF_Enderman"), null);
+    public static final Skin MHF_GHAST = new Skin(CKInfo.getMHFSkin("MHF_Ghast"), null);
+    public static final Skin MHF_GOLEM = new Skin(CKInfo.getMHFSkin("MHF_Golem"), null);
+    public static final Skin MHF_HEROBRINE = new Skin(CKInfo.getMHFSkin("MHF_Herobrine"), null);
+    public static final Skin MHF_LAVASLIME = new Skin(CKInfo.getMHFSkin("MHF_LavaSlime"), null);
+    public static final Skin MHF_MUSHROOMCOW = new Skin(CKInfo.getMHFSkin("MHF_MushroomCow"), null);
+    public static final Skin MHF_OCELOT = new Skin(CKInfo.getMHFSkin("MHF_Ocelot"), null);
+    public static final Skin MHF_PIG = new Skin(CKInfo.getMHFSkin("MHF_Pig"), null);
+    public static final Skin MHF_PIGZOMBIE = new Skin(CKInfo.getMHFSkin("MHF_PigZombie"), null);
+    public static final Skin MHF_SHEEP = new Skin(CKInfo.getMHFSkin("MHF_Sheep"), null);
+    public static final Skin MHF_SKELETON = new Skin(CKInfo.getMHFSkin("MHF_Skeleton"), null);
+    public static final Skin MHF_SLIME = new Skin(CKInfo.getMHFSkin("MHF_Slime"), null);
+    public static final Skin MHF_SPIDER = new Skin(CKInfo.getMHFSkin("MHF_Spider"), null);
+    public static final Skin MHF_SQUID = new Skin(CKInfo.getMHFSkin("MHF_Squid"), null);
+    public static final Skin MHF_STEVE = new Skin(CKInfo.getMHFSkin("MHF_Steve"), null);
+    public static final Skin MHF_VILLAGER = new Skin(CKInfo.getMHFSkin("MHF_Villager"), null);
+    public static final Skin MHF_WSKELETON = new Skin(CKInfo.getMHFSkin("MHF_WSkeleton"), null);
+    public static final Skin MHF_ZOMBIE = new Skin(CKInfo.getMHFSkin("MHF_Zombie"), null);
+    public static final Skin MHF_CACTUS = new Skin(CKInfo.getMHFSkin("MHF_Cactus"), null);
+    public static final Skin MHF_CAKE = new Skin(CKInfo.getMHFSkin("MHF_Cake"), null);
+    public static final Skin MHF_CHEST = new Skin(CKInfo.getMHFSkin("MHF_Chest"), null);
+    public static final Skin MHF_COCONUTB = new Skin(CKInfo.getMHFSkin("MHF_CoconutB"), null);
+    public static final Skin MHF_COCONUTG = new Skin(CKInfo.getMHFSkin("MHF_CoconutG"), null);
+    public static final Skin MHF_MELON = new Skin(CKInfo.getMHFSkin("MHF_Melon"), null);
+    public static final Skin MHF_OAKLOG = new Skin(CKInfo.getMHFSkin("MHF_OakLog"), null);
+    public static final Skin MHF_PRESENT1 = new Skin(CKInfo.getMHFSkin("MHF_Present1"), null);
+    public static final Skin MHF_PRESENT2 = new Skin(CKInfo.getMHFSkin("MHF_Present2"), null);
+    public static final Skin MHF_PUMPKIN = new Skin(CKInfo.getMHFSkin("MHF_Pumpkin"), null);
+    public static final Skin MHF_TNT = new Skin(CKInfo.getMHFSkin("MHF_TNT"), null);
+    public static final Skin MHF_TNT2 = new Skin(CKInfo.getMHFSkin("MHF_TNT2"), null);
+    public static final Skin MHF_ARROWUP = new Skin(CKInfo.getMHFSkin("MHF_ArrowUp"), null);
+    public static final Skin MHF_ARROWDOWN = new Skin(CKInfo.getMHFSkin("MHF_ArrowDown"), null);
+    public static final Skin MHF_ARROWLEFT = new Skin(CKInfo.getMHFSkin("MHF_ArrowLeft"), null);
+    public static final Skin MHF_ARROWRIGHT = new Skin(CKInfo.getMHFSkin("MHF_ArrowRight"), null);
+    public static final Skin MHF_EXCLAMATION = new Skin(CKInfo.getMHFSkin("MHF_Exclamation"), null);
+    public static final Skin MHF_QUESTION = new Skin(CKInfo.getMHFSkin("MHF_Question"), null);
 
     private String value;
     private String signature;
@@ -22,11 +62,10 @@ public class Skin {
     /**
      * Constructs an instance of {@code Skin} with the given information.
      * @param value the value of the skin
-     * @param signature the signature of the skin
+     * @param signature the signature of the skin (you only need this for player skins, skull skins do not require)
      */
-    public Skin(@NotNull String value, @NotNull String signature){
+    public Skin(@NotNull String value, String signature){
         Condition.argNotNull("value", value);
-        Condition.argNotNull("signature", signature);
         this.value = value;
         this.signature = signature;
     }
@@ -46,13 +85,13 @@ public class Skin {
     public String getSignature() {
         return signature;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skin skin = (Skin) o;
-        return Objects.equals(value, skin.value) &&
+        return value.equals(skin.value) &&
                 Objects.equals(signature, skin.signature);
     }
 
