@@ -19,7 +19,7 @@ import java.util.Objects;
 @NoAutomaticCleaner
 public abstract class CustomEntity {
     private final Object VIEWER_MODIFY_LOCK = new Object(); // we must warrant the synchronization across three methods #addViewer, #removeViewer and #setViewers
-    @NoAutomaticCleaner private List<Player> viewers = new ArrayList<>(); // TODO clean offline players automatically
+    @NoAutomaticCleaner private List<Player> viewers = new ArrayList<>();
     private boolean isDead;
     int id = -1;
     Location location;
