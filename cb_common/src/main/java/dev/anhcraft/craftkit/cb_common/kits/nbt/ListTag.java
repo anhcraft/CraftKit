@@ -19,6 +19,6 @@ public class ListTag extends NBTTag<List<NBTTag>> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 9;
+        return TagType.LIST_TAG;
     }
 }

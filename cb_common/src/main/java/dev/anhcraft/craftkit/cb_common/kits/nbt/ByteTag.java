@@ -18,8 +18,16 @@ public class ByteTag extends NBTTag<Byte> implements Serializable {
         super(value);
     }
 
+    /**
+     * Constructs an instance of {@code ByteTag} with the given value.
+     * @param value the value as {@link Integer}
+     */
+    public ByteTag(@NotNull Integer value) {
+        super(value.byteValue());
+    }
+
     @Override
     public int getTypeId() {
-        return 1;
+        return TagType.BYTE_TAG;
     }
 }

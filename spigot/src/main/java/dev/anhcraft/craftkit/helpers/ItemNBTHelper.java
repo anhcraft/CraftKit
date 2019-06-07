@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
  * <b>Warning: Due to some limitations, there is no object reference to the original. When you select the target, you are creating a copy of it. Therefore, you must call {@link #save()} to get the copy which was applied all changes.</b>
  */
 public class ItemNBTHelper extends Selector<ItemStack> {
-    private CompoundTag temp_tag;
+    private CompoundTag tag;
 
     /**
      * Constructs an {@code ItemNBTHelper} object which selects the given item stack.
@@ -26,7 +26,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
 
     @Override
     protected boolean onSelected(ItemStack target) {
-        temp_tag = new CompoundTag();
+        tag = CompoundTag.of(target).getOrCreateDefault("tag", CompoundTag.class);
         return true;
     }
 
@@ -35,14 +35,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return the target
      */
     public ItemStack save(){
-        temp_tag.save();
         var nbt = CompoundTag.of(getTarget());
-
-        var tag = (CompoundTag) nbt.get("tag");
-        if(tag == null) tag = new CompoundTag();
-        tag.merge(temp_tag);
-        tag.save();
-
         nbt.put("tag", tag);
         setTarget(nbt.save(getTarget()));
         return getTarget();
@@ -54,8 +47,8 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return this object
      */
     public ItemNBTHelper setUnbreakable(boolean unbreakable){
-        if(unbreakable) temp_tag.put("Unbreakable", new ByteTag((byte) 1));
-        else temp_tag.remove("Unbreakable");
+        if(unbreakable) tag.put("Unbreakable", new ByteTag(1));
+        else tag.remove("Unbreakable");
         return this;
     }
 
@@ -64,8 +57,8 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return {@code true} if it is or {@code false} otherwise
      */
     public boolean isUnbreakable(){
-        var t = temp_tag.get("Unbreakable");
-        return (t instanceof ByteTag) && ((ByteTag) t).getValue() == 1;
+        var t = tag.get("Unbreakable", ByteTag.class);
+        return t != null && t.getValue() == 1;
     }
 
     // TODO Attribute manipulation

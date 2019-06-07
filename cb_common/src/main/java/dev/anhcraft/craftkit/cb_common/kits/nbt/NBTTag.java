@@ -16,23 +16,58 @@ public abstract class NBTTag<T> implements Serializable {
 
     /**
      * Creates a default NBT tag.
-     * @param typeId the id of tag's type
+     * @param typeId the tag's type
      * @return the tag
      */
     public static NBTTag createDefaultTag(int typeId){
         switch (typeId){
-            case 1: return new ByteTag((byte) 0);
-            case 2: return new ShortTag((short) 0);
-            case 3: return new IntTag(0);
-            case 4: return new LongTag(0L);
-            case 5: return new FloatTag(0f);
-            case 6: return new DoubleTag(0d);
-            case 7: return new ByteArrayTag(new byte[]{});
-            case 8: return new StringTag("");
-            case 9: return new ListTag();
-            case 10: return new CompoundTag();
-            case 11: return new IntArrayTag(new int[]{});
-            case 12: return new LongArrayTag(new long[]{});
+            case TagType.BYTE_TAG: return new ByteTag((byte) 0);
+            case TagType.SHORT_TAG: return new ShortTag((short) 0);
+            case TagType.INT_TAG: return new IntTag(0);
+            case TagType.LONG_TAG: return new LongTag(0L);
+            case TagType.FLOAT_TAG: return new FloatTag(0f);
+            case TagType.DOUBLE_TAG: return new DoubleTag(0d);
+            case TagType.BYTE_ARRAY_TAG: return new ByteArrayTag(new byte[]{});
+            case TagType.STRING_TAG: return new StringTag("");
+            case TagType.LIST_TAG: return new ListTag();
+            case TagType.COMPOUND_TAG: return new CompoundTag();
+            case TagType.INT_ARRAY_TAG: return new IntArrayTag(new int[]{});
+            case TagType.LONG_ARRAY_TAG: return new LongArrayTag(new long[]{});
+        }
+        return null;
+    }
+
+    /**
+     * Creates a default NBT tag.
+     * @param classType the tag's class type
+     * @return the tag
+     */
+    @SuppressWarnings("unchecked")
+    public static <E extends NBTTag> E createDefaultTag(Class<E> classType){
+        if (ByteTag.class.isAssignableFrom(classType)) {
+            return (E) new ByteTag((byte) 0);
+        } else if (ShortTag.class.isAssignableFrom(classType)) {
+            return (E) new ShortTag((short) 0);
+        } else if (IntTag.class.isAssignableFrom(classType)) {
+            return (E) new IntTag(0);
+        } else if (LongTag.class.isAssignableFrom(classType)) {
+            return (E) new LongTag(0L);
+        } else if (FloatTag.class.isAssignableFrom(classType)) {
+            return (E) new FloatTag(0f);
+        } else if (DoubleTag.class.isAssignableFrom(classType)) {
+            return (E) new DoubleTag(0d);
+        } else if (ByteArrayTag.class.isAssignableFrom(classType)) {
+            return (E) new ByteArrayTag(new byte[]{});
+        } else if (StringTag.class.isAssignableFrom(classType)) {
+            return (E) new StringTag("");
+        } else if (ListTag.class.isAssignableFrom(classType)) {
+            return (E) new ListTag();
+        } else if (CompoundTag.class.isAssignableFrom(classType)) {
+            return (E) new CompoundTag();
+        } else if (IntArrayTag.class.isAssignableFrom(classType)) {
+            return (E) new IntArrayTag(new int[]{});
+        } else if (LongArrayTag.class.isAssignableFrom(classType)) {
+            return (E) new LongArrayTag(new long[]{});
         }
         return null;
     }

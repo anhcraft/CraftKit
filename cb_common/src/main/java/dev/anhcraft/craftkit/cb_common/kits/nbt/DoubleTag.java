@@ -20,6 +20,6 @@ public class DoubleTag extends NBTTag<Double> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 6;
+        return TagType.DOUBLE_TAG;
     }
 }

@@ -20,6 +20,6 @@ public class IntTag extends NBTTag<Integer> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 3;
+        return TagType.INT_TAG;
     }
 }

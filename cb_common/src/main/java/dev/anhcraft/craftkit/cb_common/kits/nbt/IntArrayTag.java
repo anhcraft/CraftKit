@@ -20,6 +20,6 @@ public class IntArrayTag extends NBTTag<int[]> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 11;
+        return TagType.INT_ARRAY_TAG;
     }
 }

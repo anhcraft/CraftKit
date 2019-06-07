@@ -20,6 +20,6 @@ public class ByteArrayTag extends NBTTag<byte[]> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 7;
+        return TagType.BYTE_ARRAY_TAG;
     }
 }

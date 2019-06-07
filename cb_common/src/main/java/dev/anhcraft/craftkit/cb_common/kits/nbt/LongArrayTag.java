@@ -25,6 +25,6 @@ public class LongArrayTag extends NBTTag<long[]> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 12;
+        return TagType.LONG_ARRAY_TAG;
     }
 }

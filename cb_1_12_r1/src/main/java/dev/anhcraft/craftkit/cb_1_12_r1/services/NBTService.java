@@ -16,54 +16,55 @@ public class NBTService extends CBModule implements CBNBTService {
     private NBTTagCompound root = new NBTTagCompound();
 
     private static void fromNMS(NBTTagCompound from, CompoundTag to){
-        for (String s : from.c()) to.getValue().put(s, fromNMS(from.get(s)));
+        for (String s : from.c()) to.put(s, fromNMS(from.get(s)));
     }
 
     private static NBTTag fromNMS(NBTBase tag){
         switch (tag.getTypeId()) {
-            case 1: return new ByteTag(((NBTTagByte) tag).g());
-            case 2: return new ShortTag(((NBTTagShort) tag).f());
-            case 3: return new IntTag(((NBTTagInt) tag).e());
-            case 4: return new LongTag(((NBTTagLong) tag).d());
-            case 5: return new FloatTag(((NBTTagFloat) tag).i());
-            case 6: return new DoubleTag(((NBTTagDouble) tag).asDouble());
-            case 7: return new ByteArrayTag(((NBTTagByteArray) tag).c());
-            case 8: return new StringTag(((NBTTagString) tag).c_());
-            case 9:
+            case TagType.BYTE_TAG: return new ByteTag(((NBTTagByte) tag).g());
+            case TagType.SHORT_TAG: return new ShortTag(((NBTTagShort) tag).f());
+            case TagType.INT_TAG: return new IntTag(((NBTTagInt) tag).e());
+            case TagType.LONG_TAG: return new LongTag(((NBTTagLong) tag).d());
+            case TagType.FLOAT_TAG: return new FloatTag(((NBTTagFloat) tag).i());
+            case TagType.DOUBLE_TAG: return new DoubleTag(((NBTTagDouble) tag).asDouble());
+            case TagType.BYTE_ARRAY_TAG: return new ByteArrayTag(((NBTTagByteArray) tag).c());
+            case TagType.STRING_TAG: return new StringTag(((NBTTagString) tag).c_());
+            case TagType.LIST_TAG:
                 var list = new ListTag();
                 var nbtList = (NBTTagList) tag;
                 for(var i = 0; i < nbtList.size(); i++) list.getValue().add(fromNMS(nbtList.i(i)));
                 return list;
-            case 10:
+            case TagType.COMPOUND_TAG:
                 var compound = new CompoundTag();
                 fromNMS((NBTTagCompound) tag, compound);
                 return compound;
-            case 11: return new IntArrayTag(((NBTTagIntArray) tag).d());
-            case 12: return new LongArrayTag((long[]) ReflectionUtil.getDeclaredField(NBTTagLongArray.class, tag, "b"));
+            case TagType.INT_ARRAY_TAG: return new IntArrayTag(((NBTTagIntArray) tag).d());
+            case TagType.LONG_ARRAY_TAG: return new LongArrayTag((long[]) ReflectionUtil.getDeclaredField(NBTTagLongArray.class, tag, "b"));
         }
         throw new UnsupportedOperationException();
     }
 
     private static NBTBase toNMS(NBTTag tag){
         switch (tag.getTypeId()) {
-            case 1: return new NBTTagByte((Byte) tag.getValue());
-            case 2: return new NBTTagShort((Short) tag.getValue());
-            case 3: return new NBTTagInt((Integer) tag.getValue());
-            case 4: return new NBTTagLong((Long) tag.getValue());
-            case 5: return new NBTTagFloat((Float) tag.getValue());
-            case 6: return new NBTTagDouble((Double) tag.getValue());
-            case 7: return new NBTTagByteArray((byte[]) tag.getValue());
-            case 8: return new NBTTagString((String) tag.getValue());
-            case 9:
+            case TagType.BYTE_TAG: return new NBTTagByte((Byte) tag.getValue());
+            case TagType.SHORT_TAG: return new NBTTagShort((Short) tag.getValue());
+            case TagType.INT_TAG: return new NBTTagInt((Integer) tag.getValue());
+            case TagType.LONG_TAG: return new NBTTagLong((Long) tag.getValue());
+            case TagType.FLOAT_TAG: return new NBTTagFloat((Float) tag.getValue());
+            case TagType.DOUBLE_TAG: return new NBTTagDouble((Double) tag.getValue());
+            case TagType.BYTE_ARRAY_TAG: return new NBTTagByteArray((byte[]) tag.getValue());
+            case TagType.STRING_TAG: return new NBTTagString((String) tag.getValue());
+            case TagType.LIST_TAG:
                 var list = new NBTTagList();
                 ((List<NBTTag>) tag.getValue()).stream().map(NBTService::toNMS).forEach(list::add);
                 return list;
-            case 10:
+            case TagType.COMPOUND_TAG:
                 var compound = new NBTTagCompound();
-                ((CompoundTag) tag).getValue().forEach((k, v) -> compound.set(k, toNMS(v)));
+                var ctag = (CompoundTag) tag;
+                ctag.listNames().forEach(k -> compound.set(k, toNMS(ctag.get(k))));
                 return compound;
-            case 11: return new NBTTagIntArray((int[]) tag.getValue());
-            case 12: return new NBTTagLongArray((long[]) tag.getValue());
+            case TagType.INT_ARRAY_TAG: return new NBTTagIntArray((int[]) tag.getValue());
+            case TagType.LONG_ARRAY_TAG: return new NBTTagLongArray((long[]) tag.getValue());
         }
         throw new UnsupportedOperationException();
     }

@@ -20,6 +20,6 @@ public class LongTag extends NBTTag<Long> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 4;
+        return TagType.LONG_TAG;
     }
 }

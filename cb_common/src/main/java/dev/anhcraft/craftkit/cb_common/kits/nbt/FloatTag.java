@@ -20,6 +20,6 @@ public class FloatTag extends NBTTag<Float> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 5;
+        return TagType.FLOAT_TAG;
     }
 }

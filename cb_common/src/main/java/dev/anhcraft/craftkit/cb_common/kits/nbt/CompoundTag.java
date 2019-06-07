@@ -55,7 +55,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
 
     @Override
     public int getTypeId() {
-        return 10;
+        return TagType.COMPOUND_TAG;
     }
 
     /**
@@ -125,6 +125,33 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
+     * Gets the tag which has both given name and class type.
+     * @param name the tag's name
+     * @param classType the tag's class type
+     * @return the tag (may be null if the tag did not exist)
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends NBTTag> T get(@NotNull String name, Class<T> classType){
+        Condition.argNotNull("name", name);
+        var s = service.get(name);
+        return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : null;
+    }
+
+    /**
+     * Gets the tag which has both given name and class type.<br>
+     * If it did not exist, this method will try to create it with default value.
+     * @param name the tag's name
+     * @param classType the tag's class type
+     * @return the tag
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends NBTTag> T getOrCreateDefault(@NotNull String name, Class<T> classType){
+        Condition.argNotNull("name", name);
+        var s = service.get(name);
+        return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : NBTTag.createDefaultTag(classType);
+    }
+
+    /**
      * Returns the total number of tags in this compound.
      * @return this compound's size
      */
@@ -155,7 +182,8 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @return a set of tags
      */
     public Set<NBTTag> listTags(){
-        return listNames().stream().map(this::get).collect(Collectors.toSet());
+        return listNames().stream().map(this::get)
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -175,27 +203,17 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
-     * Saves all changes to this compound.
-     */
-    public void save(){
-        service.save(this);
-    }
-
-    /**
      * Merges the given compound into this one.
      * @param another another NBT compound
      */
     public void merge(@NotNull CompoundTag another){
         Condition.argNotNull("another", another);
-        another.getValue().forEach(this::put);
+        another.listNames().forEach(s -> put(s, another.get(s)));
     }
 
-    /**
-     * This function is for internal only.
-     * @return a map of NBT tags
-     */
+    @Deprecated
     @Override
     public Map<String, NBTTag> getValue(){
-        return super.getValue();
+        return null;
     }
 }

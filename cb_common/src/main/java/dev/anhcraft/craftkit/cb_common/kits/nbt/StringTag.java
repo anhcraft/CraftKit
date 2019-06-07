@@ -20,6 +20,6 @@ public class StringTag extends NBTTag<String> implements Serializable {
 
     @Override
     public int getTypeId() {
-        return 8;
+        return TagType.STRING_TAG;
     }
 }
