@@ -8,8 +8,8 @@ Contributions are welcome!
 My repo:
 ```xml
 <repository>
-    <id>anhcraft-snapshots</id>
-    <url>https://anhcraft.dev:7554/repository/spigot/</url>
+    <id>anhcraft-repo</id>
+    <url>https://anhcraft.dev:7554/repository/mvn/</url>
 </repository>
 ```
 
@@ -21,6 +21,7 @@ Spigot side:
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.spigot</artifactId>
     <version>VERSION</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
@@ -32,6 +33,7 @@ Bungeecord side:
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.bungee</artifactId>
     <version>VERSION</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
