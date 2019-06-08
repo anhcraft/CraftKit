@@ -127,5 +127,11 @@
             <version>${version.authlib}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>abif</artifactId>
+            <version>${version.abif}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
