@@ -9,7 +9,7 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <description>A lightweight and effective utility kit for Spigot/Bungeecord plugins</description>
+    <description>An effective utility kit for Spigot/Bungeecord plugins</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -137,11 +137,7 @@
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <url>https://anhcraft.dev:7554/repository/maven-releases/</url>
+            <url>https://anhcraft.dev:7554/repository/spigot/</url>
         </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <url>https://anhcraft.dev:7554/repository/maven-snapshots/</url>
-        </snapshotRepository>
     </distributionManagement>
 </project>

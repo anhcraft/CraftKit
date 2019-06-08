@@ -9,7 +9,7 @@ My repo:
 ```xml
 <repository>
     <id>anhcraft-snapshots</id>
-    <url>https://anhcraft.dev:7554/repository/maven-snapshots/</url>
+    <url>https://anhcraft.dev:7554/repository/spigot/</url>
 </repository>
 ```
 
