@@ -43,7 +43,8 @@ public abstract class NBTTag<T> implements Serializable {
      * @return the tag
      */
     @SuppressWarnings("unchecked")
-    public static <E extends NBTTag> E createDefaultTag(Class<E> classType){
+    public static <E extends NBTTag> E createDefaultTag(@NotNull Class<E> classType){
+        Condition.argNotNull("classType", classType);
         if (ByteTag.class.isAssignableFrom(classType)) {
             return (E) new ByteTag((byte) 0);
         } else if (ShortTag.class.isAssignableFrom(classType)) {

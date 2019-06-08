@@ -34,7 +34,7 @@ public class ItemHelper extends Selector<ItemStack> {
     }
 
     @Override
-    protected boolean onSelected(ItemStack target) {
+    protected boolean onSelected(@NotNull ItemStack target) {
         meta = target.getItemMeta();
         return true;
     }

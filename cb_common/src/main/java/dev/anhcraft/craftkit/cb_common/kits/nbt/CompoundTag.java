@@ -148,8 +148,9 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @return the tag
      */
     @SuppressWarnings("unchecked")
-    public <T extends NBTTag> T getOrCreateDefault(@NotNull String name, Class<T> classType){
+    public <T extends NBTTag> T getOrCreateDefault(@NotNull String name, @NotNull Class<T> classType){
         Condition.argNotNull("name", name);
+        // do not check classType == null here, NBTTag.createDefaultTag will do that
         var s = service.get(name);
         return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : NBTTag.createDefaultTag(classType);
     }
