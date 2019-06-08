@@ -36,7 +36,7 @@ public final class CraftKit extends Plugin implements CKPlugin {
         CKInfo.init(getClass().getResourceAsStream("/ck_info.json"));
 
         // init files and load the configuration
-        SKIN_DIR.mkdirs();
+        ROOT_DIR.mkdirs();
         INFO_CHAT.messageConsole("Loading configuration files...");
         FileUtil.init(CONFIG_FILE, getClass().getResourceAsStream("/config.yml"));
         new ConfigHelper(CONFIG_FILE).loadTo(CONFIG);

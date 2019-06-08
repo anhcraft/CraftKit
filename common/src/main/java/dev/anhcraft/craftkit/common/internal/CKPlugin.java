@@ -10,7 +10,6 @@ import java.io.File;
 public interface CKPlugin {
     Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     File ROOT_DIR = new File(new FilePathBuilder().dir("plugins", "CraftKit").build());
-    File SKIN_DIR = new File(ROOT_DIR, "skins");
     File CONFIG_FILE = new File(ROOT_DIR, "config.yml");
     File OLD_CONFIG_FILE = new File(ROOT_DIR, "config.old.yml");
     CKConfig CONFIG = new CKConfig();
