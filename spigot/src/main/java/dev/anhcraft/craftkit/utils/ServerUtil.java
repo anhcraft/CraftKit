@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
 import dev.anhcraft.craftkit.cb_common.internal.CBServerService;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

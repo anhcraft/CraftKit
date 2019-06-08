@@ -6,7 +6,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import dev.anhcraft.jvmkit.builders.Builder;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.Bukkit;
@@ -99,7 +99,6 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      */
     public GameProfileBuilder setSkin(@NotNull Skin skin){
         Condition.argNotNull("skin", skin);
-
         gp.getProperties().removeAll("textures");
         gp.getProperties().put("textures", new Property("textures", skin.getValue(), skin.getSignature()));
         return this;

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * Constructs an instance of {@code ItemBuilder}.
      * @param type the type of the item stack which you are going to build
      */
-    public ItemBuilder(Material type){
+    public ItemBuilder(@Nullable Material type){
         this.type = (type == null ? Material.AIR : type);
     }
 

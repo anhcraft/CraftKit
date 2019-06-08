@@ -1,13 +1,14 @@
 package dev.anhcraft.craftkit.kits.chat;
 
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class is used for sending chat messages on the action bar.
@@ -35,7 +36,7 @@ public class ActionBar extends Chat {
      * Constructs an instance of {@code ActionBar} with the given chat prefix.
      * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
      */
-    public ActionBar(String prefix) {
+    public ActionBar(@Nullable String prefix) {
         super(prefix);
         chatMessageType = ChatMessageType.ACTION_BAR;
     }
@@ -44,7 +45,7 @@ public class ActionBar extends Chat {
      * Constructs an instance of {@code ActionBar} with the given prefix component.
      * @param prefixComponent the prefix component
      */
-    public ActionBar(BaseComponent prefixComponent) {
+    public ActionBar(@Nullable BaseComponent prefixComponent) {
         super(prefixComponent);
         chatMessageType = ChatMessageType.ACTION_BAR;
     }
@@ -56,12 +57,12 @@ public class ActionBar extends Chat {
     }
 
     @Override
-    public ActionBar messageConsole(String msg) {
+    public ActionBar messageConsole(@NotNull String msg) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ActionBar messageConsole(BaseComponent... components) {
+    public ActionBar messageConsole(@NotNull BaseComponent... components) {
         throw new UnsupportedOperationException();
     }
 

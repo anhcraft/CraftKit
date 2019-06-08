@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.helpers;
 
 import dev.anhcraft.craftkit.common.helpers.ITaskHelper;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import gnu.trove.map.TIntObjectMap;

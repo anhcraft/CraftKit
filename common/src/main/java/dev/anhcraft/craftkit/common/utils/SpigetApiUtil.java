@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.common.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.FileUtil;
 

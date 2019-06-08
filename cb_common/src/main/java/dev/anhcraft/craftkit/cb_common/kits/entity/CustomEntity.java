@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_common.kits.entity;
 
 import dev.anhcraft.craftkit.common.lang.annotation.NoAutomaticCleaner;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

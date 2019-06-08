@@ -7,7 +7,7 @@ import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;

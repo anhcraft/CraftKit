@@ -2,7 +2,6 @@ package dev.anhcraft.craftkit.kits.chat;
 
 import dev.anhcraft.craftkit.common.kits.chat.AbstractChat;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import dev.anhcraft.jvmkit.utils.ArrayUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatMessageType;
@@ -12,6 +11,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class is used for sending chat messages on the chat box.
@@ -39,7 +40,7 @@ public class Chat extends AbstractChat {
      * Constructs an instance of {@code Chat} with the given chat prefix.
      * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
      */
-    public Chat(String prefix) {
+    public Chat(@Nullable String prefix) {
         super(prefix);
     }
 
@@ -47,7 +48,7 @@ public class Chat extends AbstractChat {
      * Constructs an instance of {@code Chat} with the given prefix component.
      * @param prefixComponent the prefix component
      */
-    public Chat(BaseComponent prefixComponent) {
+    public Chat(@Nullable BaseComponent prefixComponent) {
         super(prefixComponent);
     }
 

@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.cb_common.kits.nbt;
 
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 

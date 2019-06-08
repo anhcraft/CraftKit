@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_common.internal.*;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

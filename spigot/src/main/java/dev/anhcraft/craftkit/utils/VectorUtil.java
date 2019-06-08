@@ -1,8 +1,9 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Utility methods for working with {@link Vector}.
@@ -13,7 +14,7 @@ public class VectorUtil {
      * @param vector the vector
      * @return the vector as a string
      */
-    public static String toString(Vector vector) {
+    public static String toString(@Nullable Vector vector) {
         return vector == null ? "null" : (vector.getX() + ":" +
                 vector.getY() + ":" + vector.getZ());
     }
@@ -23,7 +24,7 @@ public class VectorUtil {
      * @param str a vector string
      * @return the vector
      */
-    public static Vector fromString(String str) {
+    public static Vector fromString(@Nullable String str) {
         if(str == null || str.equalsIgnoreCase("null")) return new Vector();
         String[] str2vec = str.split(":");
         return new Vector(Double.parseDouble(str2vec[0]),

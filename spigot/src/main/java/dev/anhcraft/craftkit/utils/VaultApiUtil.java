@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.internal.integrations.VaultIntegration;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;

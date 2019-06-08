@@ -1,10 +1,11 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.connection.InitialHandler;
+import org.jetbrains.annotations.Nullable;
 
 import javax.naming.OperationNotSupportedException;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +31,7 @@ public class PlayerUtil {
      * @param player player
      * @return the skin
      */
+    @Nullable
     public static Skin getSkin(@NotNull ProxiedPlayer player){
         Condition.argNotNull("player", player);
         var ih = (InitialHandler) player.getPendingConnection();

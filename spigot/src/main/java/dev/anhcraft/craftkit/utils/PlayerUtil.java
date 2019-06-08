@@ -7,10 +7,11 @@ import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.lang.enumeration.HandSlot;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -69,6 +70,7 @@ public class PlayerUtil {
      * @param player player
      * @return the skin
      */
+    @Nullable
     public static Skin getSkin(@NotNull Player player){
         // we do not need the validator here since #getProfile() already does that
         var gp = getProfile(player);
@@ -126,7 +128,7 @@ public class PlayerUtil {
      * Unfreezes the given player.
      * @param player the player
      */
-    public static void unfreeze(Player player){
+    public static void unfreeze(@Nullable Player player){
         PlayerListener.freezedPlayers.remove(player.getUniqueId());
     }
 

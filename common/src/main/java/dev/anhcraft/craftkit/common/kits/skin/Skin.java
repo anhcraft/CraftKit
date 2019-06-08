@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.common.kits.skin;
 
 import dev.anhcraft.craftkit.common.internal.CKInfo;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 
 import java.io.Serializable;

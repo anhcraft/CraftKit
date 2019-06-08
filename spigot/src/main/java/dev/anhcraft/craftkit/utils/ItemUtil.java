@@ -1,9 +1,10 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Extra methods for working with items.
@@ -33,7 +34,7 @@ public class ItemUtil {
      * @param b the second item stack
      * @return {@code true} if they are equal. Otherwise is {@code false}.
      */
-    public static boolean compare(ItemStack a, ItemStack b) {
+    public static boolean compare(@Nullable ItemStack a, @Nullable ItemStack b) {
         if(isNull(a)) return isNull(b);
         else if(isNull(b)) return isNull(a);
         return a.equals(b);
@@ -62,7 +63,7 @@ public class ItemUtil {
      * @param item an items tack
      * @return the copy of given item
      */
-    public static ItemStack clone(ItemStack item) {
+    public static ItemStack clone(@Nullable ItemStack item) {
         return item == null ? null : item.clone();
     }
 }

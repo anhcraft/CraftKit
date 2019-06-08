@@ -1,9 +1,10 @@
 package dev.anhcraft.craftkit.common.kits.chat;
 
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents {@code Chat} implementation.
@@ -16,7 +17,7 @@ public abstract class AbstractChat {
      * Constructs an instance of {@code AbstractChat} with the given chat prefix.
      * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
      */
-    public AbstractChat(String prefix){
+    public AbstractChat(@Nullable String prefix){
         if(prefix == null) return;
         prefixComponent = new TextComponent(TextComponent.fromLegacyText(ChatUtil.formatColorCodes(prefix)));
         this.prefix = ChatUtil.formatColorCodes(prefix);
@@ -26,7 +27,7 @@ public abstract class AbstractChat {
      * Constructs an instance of {@code AbstractChat} with the given prefix component.
      * @param prefixComponent prefix component
      */
-    public AbstractChat(BaseComponent prefixComponent){
+    public AbstractChat(@Nullable BaseComponent prefixComponent){
         if(prefixComponent == null) return;
         this.prefixComponent = prefixComponent;
         prefix = prefixComponent.toLegacyText();

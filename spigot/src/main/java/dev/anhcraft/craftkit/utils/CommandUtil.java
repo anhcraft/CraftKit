@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.internal.CBCommandService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.command.Command;
 import org.bukkit.command.PluginCommand;

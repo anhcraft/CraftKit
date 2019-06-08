@@ -2,13 +2,14 @@ package dev.anhcraft.craftkit.helpers;
 
 import dev.anhcraft.craftkit.common.helpers.Selector;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Returns the name of the stack.
      * @return stack's name
      */
+    @Nullable
     public String getName() {
         return meta.getDisplayName();
     }
@@ -71,7 +73,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param name the new name
      * @return this object
      */
-    public ItemHelper setName(String name) {
+    public ItemHelper setName(@Nullable String name) {
         meta.setDisplayName(name == null ? null : ChatUtil.formatColorCodes(name)); // it is better to set null directly instead of calling another method
         return this;
     }
@@ -195,7 +197,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param lore the new lore (if this is null, the lore will be empty)
      * @return this object
      */
-    public ItemHelper setLore(List<String> lore) {
+    public ItemHelper setLore(@Nullable List<String> lore) {
         meta.setLore(lore == null ? null : ChatUtil.formatColorCodes(lore));
         return this;
     }
@@ -227,6 +229,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Returns the lore of the stack.
      * @return the lore
      */
+    @NotNull
     public List<String> getLore() {
         return meta.hasLore() ? meta.getLore() : new ArrayList<>();
     }
@@ -267,6 +270,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Returns all existing flags on the stack.
      * @return an immutable set of flags
      */
+    @NotNull
     public Set<ItemFlag> getFlags() {
         return meta.getItemFlags();
     }
@@ -294,7 +298,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param type new type
      * @return this object
      */
-    public ItemHelper setType(Material type) {
+    public ItemHelper setType(@Nullable Material type) {
         getTarget().setType(type == null ? Material.AIR : type);
         return this;
     }
@@ -303,6 +307,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Returns the material type of the stack.
      * @return stack's type
      */
+    @NotNull
     public Material getType() {
         return getTarget().getType();
     }

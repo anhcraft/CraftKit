@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <description>A lightweight and effective utility kit for Spigot/Bungeecord plugins</description>
@@ -14,7 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.jvmKit>1.0.6-SNAPSHOT</version.jvmKit>
+        <version.jvmKit>1.0.7-SNAPSHOT</version.jvmKit>
         <version.bungeecordChat>1.9-SNAPSHOT</version.bungeecordChat>
         <version.spigotApi>1.9.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>

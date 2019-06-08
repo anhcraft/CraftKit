@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.helpers;
 
 import dev.anhcraft.craftkit.common.helpers.AbstractConfigHelper;
 import dev.anhcraft.jvmkit.lang.annotation.Label;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.ArrayUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.configuration.file.YamlConfiguration;

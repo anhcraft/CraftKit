@@ -3,10 +3,11 @@ package dev.anhcraft.craftkit.cb_common.kits.nbt;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
 import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -119,6 +120,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @param name the tag's name
      * @return the tag (may be null if the tag did not exist)
      */
+    @Nullable
     public NBTTag get(@NotNull String name){
         Condition.argNotNull("name", name);
         return service.get(name);
@@ -130,6 +132,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @param classType the tag's class type
      * @return the tag (may be null if the tag did not exist)
      */
+    @Nullable
     @SuppressWarnings("unchecked")
     public <T extends NBTTag> T get(@NotNull String name, Class<T> classType){
         Condition.argNotNull("name", name);
@@ -208,7 +211,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      */
     public void merge(@NotNull CompoundTag another){
         Condition.argNotNull("another", another);
-        another.listNames().forEach(s -> put(s, another.get(s)));
+        another.service.keySet().forEach(s -> service.set(s, another.service.get(s)));
     }
 
     @Deprecated

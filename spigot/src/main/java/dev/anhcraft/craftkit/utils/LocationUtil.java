@@ -1,10 +1,11 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class LocationUtil {
      * @param loc the location
      * @return the location as a string
      */
-    public static String toString(Location loc) {
+    public static String toString(@Nullable Location loc) {
         return loc == null ? "null" : (loc.getWorld().getName() + ":" + loc.getX() + ":" +
                 loc.getY() + ":" + loc.getZ() +
                 ":" + loc.getPitch() + ":" + loc.getYaw());
@@ -29,7 +30,7 @@ public class LocationUtil {
      * @param str a location string
      * @return the location
      */
-    public static Location fromString(String str) {
+    public static Location fromString(@Nullable String str) {
         if(str == null || str.equalsIgnoreCase("null")) return Bukkit.getWorld("world").getSpawnLocation();
         String[] str2loc = str.split(":");
         Location loc = new Location(

@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.common.builders;
 
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.jvmkit.builders.Builder;
-import dev.anhcraft.jvmkit.lang.annotation.NotNull;
+import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.*;

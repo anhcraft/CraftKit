@@ -4,6 +4,7 @@ import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -975,7 +976,7 @@ public class MaterialUtil {
      * @param md the material data
      * @return the material data as a string
      */
-    public static String toString(MaterialData md){
+    public static String toString(@Nullable MaterialData md){
         return md == null ? "null" : (md.getItemType().toString()+":"+md.getData());
     }
 
@@ -984,7 +985,7 @@ public class MaterialUtil {
      * @param str a string
      * @return the material data
      */
-    public static MaterialData fromString(String str){
+    public static MaterialData fromString(@Nullable String str){
         if(str == null || str.equalsIgnoreCase("null")) return new MaterialData(Material.AIR);
         var x = str.split(":");
         Material mt;
