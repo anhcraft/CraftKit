@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.kits.entity;
+package dev.anhcraft.craftkit.kits.entity;
 
 import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_common.internal.*;

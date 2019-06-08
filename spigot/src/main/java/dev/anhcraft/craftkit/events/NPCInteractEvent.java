@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.events;
 
-import dev.anhcraft.craftkit.cb_common.kits.entity.NPC;
+import dev.anhcraft.craftkit.kits.entity.NPC;
 import dev.anhcraft.craftkit.lang.enumeration.HandSlot;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

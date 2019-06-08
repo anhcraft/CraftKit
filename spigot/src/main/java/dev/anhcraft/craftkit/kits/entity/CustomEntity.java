@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.kits.entity;
+package dev.anhcraft.craftkit.kits.entity;
 
 import dev.anhcraft.craftkit.common.lang.annotation.NoAutomaticCleaner;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
