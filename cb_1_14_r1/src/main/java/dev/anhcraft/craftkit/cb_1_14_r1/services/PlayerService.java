@@ -3,7 +3,9 @@ package dev.anhcraft.craftkit.cb_1_14_r1.services;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
+import dev.anhcraft.craftkit.cb_1_14_r1.objects.CKFakeOperator;
 import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
+import dev.anhcraft.craftkit.cb_common.kits.entity.FakeOperator;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import io.netty.buffer.ByteBuf;
@@ -57,6 +59,11 @@ public class PlayerService extends CBModule implements CBPlayerService {
         var cw = (CraftWorld) player.getWorld();
         var dimension = (DimensionManager) ReflectionUtil.getDeclaredField(WorldServer.class, cw.getHandle(), "dimension");
         craftServer.getHandle().moveToWorld(ent, dimension, true, player.getLocation(), true);
+    }
+
+    @Override
+    public FakeOperator fakeOp(Player player) {
+        return new CKFakeOperator(craftServer, toEntityPlayer(player));
     }
 
     @Override

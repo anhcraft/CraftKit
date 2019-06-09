@@ -3,14 +3,14 @@ package dev.anhcraft.craftkit.utils;
 import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.kits.entity.FakeOperator;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
-import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.lang.enumeration.HandSlot;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
@@ -129,28 +129,17 @@ public class PlayerUtil {
      * @param player the player
      */
     public static void unfreeze(@Nullable Player player){
-        PlayerListener.freezedPlayers.remove(player.getUniqueId());
+        if(player != null) PlayerListener.freezedPlayers.remove(player.getUniqueId());
     }
 
     /**
-     * Forces the given player to execute a command as a fake operator.
+     * Creates a fake operator from the given player.
      * @param player the player
-     * @param command the command
+     * @return the operator
      */
-    public static void executeCommandAsOp(@NotNull Player player, @NotNull String command){
+    public static FakeOperator fakeOperator(@NotNull Player player){
         Condition.argNotNull("player", player);
-        Condition.argNotNull("command", command);
-        if(player.isOp()) player.performCommand(command);
-        else {
-            try {
-                player.setOp(true);
-                player.performCommand(command);
-                player.setOp(false);
-            } catch (Exception e){
-                e.printStackTrace();
-                CraftKit.WARN_CHAT.messageConsole(player.getName()+" has become a real operator by mistakes! Please remove his operator status via command &f/deop "+player.getName());
-            }
-        }
+        return SERVICE.fakeOp(player);
     }
 
     /**
