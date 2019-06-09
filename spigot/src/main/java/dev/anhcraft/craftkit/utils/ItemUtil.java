@@ -1,10 +1,10 @@
 package dev.anhcraft.craftkit.utils;
 
-import org.jetbrains.annotations.NotNull;
-import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Extra methods for working with items.
@@ -46,13 +46,31 @@ public class ItemUtil {
      * @param b the second array
      * @return {@code true} if they are equal. Otherwise is {@code false}.
      */
-    public static boolean compare(@NotNull ItemStack[] a, @NotNull ItemStack[] b) {
-        Condition.argNotNull("a", a);
-        Condition.argNotNull("b", b);
+    public static boolean compare(@Nullable ItemStack[] a, @Nullable ItemStack[] b) {
+        if(a == null && b == null) return true;
+        if(a == null || b == null) return false;
         if(a.length != b.length) return false;
         var i = 0;
         while (i < a.length){
             if(!compare(a[i], b[i])) return false;
+            i++;
+        }
+        return true;
+    }
+
+    /**
+     * Compares two given list of item stacks.
+     * @param a the first list
+     * @param b the second list
+     * @return {@code true} if they are equal. Otherwise is {@code false}.
+     */
+    public static boolean compare(@Nullable List<ItemStack> a, @Nullable List<ItemStack> b) {
+        if(a == null && b == null) return true;
+        if(a == null || b == null) return false;
+        if(a.size() != b.size()) return false;
+        var i = 0;
+        while (i < a.size()){
+            if(!compare(a.get(i), b.get(i))) return false;
             i++;
         }
         return true;
