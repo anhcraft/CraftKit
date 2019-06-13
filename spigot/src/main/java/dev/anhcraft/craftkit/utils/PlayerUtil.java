@@ -8,7 +8,6 @@ import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.lang.enumeration.HandSlot;
 import dev.anhcraft.jvmkit.utils.Condition;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -92,11 +91,9 @@ public class PlayerUtil {
     public static void changeSkin(@NotNull Player player, @NotNull Skin skin){
         Condition.argNotNull("player", player);
         Condition.argNotNull("skin", skin);
-        var d = Bukkit.getViewDistance();
-        List<Player> players = player.getWorld().getNearbyEntities(player.getLocation(), d, d, d)
+        List<Player> players = player.getWorld().getPlayers()
                 .stream()
-                .filter(entity -> entity instanceof Player && ((Player) entity).canSee(player))
-                .map(entity -> (Player) entity)
+                .filter(entity -> entity.canSee(player))
                 .collect(Collectors.toList());
         players.add(player);
         SERVICE.changeSkin(player, skin, players);
