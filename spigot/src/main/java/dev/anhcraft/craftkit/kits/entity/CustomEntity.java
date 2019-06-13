@@ -29,6 +29,14 @@ public abstract class CustomEntity {
     protected abstract void killCallback();
 
     /**
+     * Returns the id of this entity.
+     * @return entity's id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Checks if this entity was spawned.<br>
      * This entity may be determined as "spawned" even if it died after.
      * @return {@code true} if it was or {@code false} if not
