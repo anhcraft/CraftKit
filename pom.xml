@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
 
     <description>An effective utility kit for Spigot/Bungeecord plugins</description>
@@ -32,8 +32,8 @@
 
     <modules>
         <module>common</module>
-        <module>cb_common</module>
         <module>bungee</module>
+        <module>cb_common</module>
         <module>cb_1_9_r2</module>
         <module>cb_1_10_r1</module>
         <module>cb_1_11_r1</module>
