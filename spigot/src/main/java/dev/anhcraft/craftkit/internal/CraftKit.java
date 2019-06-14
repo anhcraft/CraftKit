@@ -94,6 +94,8 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         INFO_CHAT.messageConsole("Registering messaging channels...");
         getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE);
         getServer().getMessenger().registerIncomingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE, new BungeeUtilMessenger());
+        getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL_NAMESPACE);
+        getServer().getMessenger().registerIncomingPluginChannel(this, CHANNEL_NAMESPACE, new BungeeUtilMessenger());
 
         // plugin integrations
         INFO_CHAT.messageConsole("Discovering soft-dependencies...");

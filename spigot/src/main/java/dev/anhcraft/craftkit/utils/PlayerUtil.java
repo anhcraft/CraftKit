@@ -84,7 +84,8 @@ public class PlayerUtil {
     }
 
     /**
-     * Changes the skin of given player.
+     * Changes the skin of given player.<br>
+     * If the server is running under proxy, please use {@link BungeeUtil#changeSkin(String, Skin)} instead.
      * @param player the player
      * @param skin the new skin
      */
@@ -100,7 +101,8 @@ public class PlayerUtil {
     }
 
     /**
-     * Changes the skin of given player.
+     * Changes the skin of given player.<br>
+     * If the server is running under proxy, please use {@link BungeeUtil#changeSkin(String, Skin)} instead.
      * @param player the player
      * @param skin the new skin
      * @param viewers list of players who can see the new skin of that player (if that player is not included in this list, he will not able to view his new skin)

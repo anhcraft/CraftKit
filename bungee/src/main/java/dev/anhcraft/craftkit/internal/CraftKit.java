@@ -7,6 +7,7 @@ import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.craftkit.common.internal.assistants.CKAssistant;
 import dev.anhcraft.craftkit.helpers.ConfigHelper;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
+import dev.anhcraft.craftkit.internal.listeners.CKChannelListener;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.kits.chat.ActionBar;
 import dev.anhcraft.craftkit.kits.chat.Chat;
@@ -73,6 +74,7 @@ public final class CraftKit extends Plugin implements CKPlugin {
         // register listeners
         INFO_CHAT.messageConsole("Registering internal listeners...");
         getProxy().getPluginManager().registerListener(this, new PlayerListener());
+        getProxy().getPluginManager().registerListener(this, new CKChannelListener());
 
         // register messaging channels
         INFO_CHAT.messageConsole("Registering messaging channels...");

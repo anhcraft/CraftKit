@@ -1,15 +1,17 @@
 package dev.anhcraft.craftkit.utils;
 
+import com.google.common.io.ByteStreams;
+import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.connection.InitialHandler;
+import net.md_5.bungee.connection.LoginResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.naming.OperationNotSupportedException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -52,29 +54,18 @@ public class PlayerUtil {
     public static void changeSkin(@NotNull ProxiedPlayer player, @NotNull Skin skin){
         Condition.argNotNull("player", player);
         Condition.argNotNull("skin", skin);
-        try {
-            throw new OperationNotSupportedException();
-        } catch (OperationNotSupportedException e) {
-            e.printStackTrace();
-        }
-        // TODO Add change skin for proxy side
-    }
-
-    /**
-     * Changes the skin of given player.
-     * @param player the player
-     * @param skin the new skin
-     * @param viewers list of players who can see the new skin of that player (if that player is not included in this list, he will not able to view his new skin)
-     */
-    public static void changeSkin(@NotNull ProxiedPlayer player, @NotNull Skin skin, @NotNull List<ProxiedPlayer> viewers){
-        Condition.argNotNull("player", player);
-        Condition.argNotNull("skin", skin);
-        Condition.argNotNull("viewers", viewers);
-        try {
-            throw new OperationNotSupportedException();
-        } catch (OperationNotSupportedException e) {
-            e.printStackTrace();
-        }
-        // TODO Add change skin for proxy side
+        var ih = (InitialHandler) player.getPendingConnection();
+        var lr = ih.getLoginProfile();
+        if(lr == null) lr = new LoginResult(player.getUniqueId().toString().replace("-", ""),player.getName(), null);
+        lr.setProperties(new LoginResult.Property[]{
+                new LoginResult.Property("textures", skin.getValue(), skin.getSignature())
+    });
+        ReflectionUtil.setDeclaredField(InitialHandler.class, ih,"loginProfile", lr);
+        var out = ByteStreams.newDataOutput();
+        out.writeUTF("ChangeSkin");
+        out.writeUTF(player.getName());
+        out.writeUTF(skin.getValue());
+        out.writeUTF(skin.getSignature());
+        player.getServer().getInfo().sendData(CKPlugin.CHANNEL_NAMESPACE, out.toByteArray(), true);
     }
 }
