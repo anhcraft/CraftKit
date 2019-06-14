@@ -16,17 +16,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * This helper gives you universal ways to work with tasks, which are same on both Spigot and Bungeecord servers.
  */
-public class TaskHelper implements ITaskHelper {
+public class TaskHelper extends AbstractPluginHelper implements ITaskHelper {
     private static final TaskScheduler SCHEDULER = ProxyServer.getInstance().getScheduler();
-    private Plugin plugin;
 
     /**
-     * Constructs an instance of {@code TaskHelper}.
+     * Constructs an instance of {@code TaskHelper} with the given plugin.
      * @param plugin the plugin which owns all future tasks created from the instance
      */
     public TaskHelper(@NotNull Plugin plugin){
-        Condition.argNotNull("plugin", plugin);
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
