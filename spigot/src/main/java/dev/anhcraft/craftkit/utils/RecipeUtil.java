@@ -85,7 +85,7 @@ public class RecipeUtil {
                     && ItemUtil.compare(a.getInput(), b.getInput())
                     && ItemUtil.compare(a.getResult(), b.getResult());
         }
-        // TODO Support Stonecutting Recipe [1.14]
+        // TODO Support other Recipe types [1.14]
         return false;
     }
 }
