@@ -14,6 +14,12 @@ import java.util.List;
 /**
  * Extra methods for working with recipes.
  */
+/*
+ TODO Compare by namedspace key for 1.12+
+ - This must be optional since existing recipe can use random namedspace
+
+ TODO Support caparison for other recipes that are newly added in 1.14
+ */
 public class RecipeUtil {
     private static final CBRecipeService SERVICE = CBProvider.getService(CBRecipeService.class).orElseThrow();
 
@@ -31,7 +37,6 @@ public class RecipeUtil {
      */
     @Beta
     public static void unregister(@NotNull Recipe recipe){
-        // TODO Compare by namedspace key for 1.12+
         SERVICE.removeIf(r -> compare(r, recipe));
     }
 
@@ -42,7 +47,6 @@ public class RecipeUtil {
      */
     @Beta
     public static boolean isRegistered(@NotNull Recipe recipe){
-        // TODO Compare by namedspace key for 1.12+
         return SERVICE.anyMatch(r -> compare(r, recipe));
     }
 
