@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.internal.messengers;
 
-import dev.anhcraft.craftkit.callbacks.Callback;
+import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.callbacks.bungee.*;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;

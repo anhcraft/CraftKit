@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.callbacks.Callback;
+import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.callbacks.bungee.*;
 import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
