@@ -13,6 +13,19 @@ import org.bukkit.inventory.ItemStack;
  */
 public interface InventoryCallback extends Callback {
     /**
+     * A built-in callback that resets an inventory when it is opened.
+     */
+    InventoryCallback RESET_ON_OPEN = new InventoryCallback() {
+        private ItemStack[] contents;
+
+        @Override
+        public void open(InventoryOpenEvent event, Player player, CustomInventory inventory) {
+            if(contents == null) contents = (ItemStack[]) ArrayUtils.clone(inventory.getContents());
+            else inventory.setContents(contents);
+        }
+    };
+
+    /**
      * A built-in callback that resets an inventory when it is closed.
      */
     InventoryCallback RESET_ON_CLOSE = new InventoryCallback() {
