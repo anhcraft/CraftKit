@@ -1,5 +1,6 @@
 dev\anhcraft\craftkit\cb_1_14_r1\services\OutPacketService.class
 dev\anhcraft\craftkit\cb_1_14_r1\objects\CKFakeOperator.class
+dev\anhcraft\craftkit\cb_1_14_r1\services\AnvilService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\CustomInventoryService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\NBTService.class
 dev\anhcraft\craftkit\cb_1_14_r1\CBModule.class
@@ -7,6 +8,7 @@ dev\anhcraft\craftkit\cb_1_14_r1\services\BlockService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\ServerService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\RecipeService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\EntityService.class
+dev\anhcraft\craftkit\cb_1_14_r1\objects\CKFakeAnvilContainer.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\CommandService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\EntityNPCService.class
 dev\anhcraft\craftkit\cb_1_14_r1\services\PlayerService.class
