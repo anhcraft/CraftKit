@@ -4,6 +4,7 @@ import dev.anhcraft.craftkit.cb_common.kits.inventory.CustomInventory;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
@@ -17,6 +18,7 @@ public interface SlotCallback extends Callback {
         @Override
         public void click(InventoryClickEvent event, Player player, CustomInventory inventory) {
             event.setCancelled(true);
+            event.setResult(Event.Result.DENY);
         }
     };
 
