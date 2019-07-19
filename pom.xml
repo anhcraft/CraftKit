@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
 
     <description>An effective utility kit for Spigot/Bungeecord plugins</description>
@@ -19,7 +19,7 @@
         <version.spigotApi>1.9.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.5.25</version.authlib>
-        <version.abif>1.0.1</version.abif>
+        <version.abif>1.0.6</version.abif>
     </properties>
 
     <developers>
