@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.callbacks.bungee.*;
 import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
+import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
@@ -10,7 +10,7 @@ import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.jvmkit.utils.Condition;
-import org.apache.commons.lang3.tuple.Pair;
+import kotlin.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -39,10 +39,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
             if(!Bukkit.getOnlinePlayers().isEmpty()){
                 var p = Bukkit.getOnlinePlayers().iterator().next();
                 TEMP_BG_QUEUE.forEach(x -> {
-                    p.sendPluginMessage(CraftKit.instance, BC_CHANNEL_NAMESPACE, x.getLeft());
-                    if(x.getRight() != null) {
+                    p.sendPluginMessage(CraftKit.instance, BC_CHANNEL_NAMESPACE, x.getFirst());
+                    if(x.getSecond() != null) {
                         try {
-                            CALLBACK_QUEUE.put(x.getRight());
+                            CALLBACK_QUEUE.put(x.getSecond());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -50,10 +50,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
                 });
 
                 TEMP_CK_QUEUE.forEach(x -> {
-                    p.sendPluginMessage(CraftKit.instance, CKPlugin.CHANNEL_NAMESPACE, x.getLeft());
-                    if(x.getRight() != null) {
+                    p.sendPluginMessage(CraftKit.instance, CKPlugin.CHANNEL_NAMESPACE, x.getFirst());
+                    if(x.getSecond() != null) {
                         try {
-                            CALLBACK_QUEUE.put(x.getRight());
+                            CALLBACK_QUEUE.put(x.getSecond());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -77,12 +77,12 @@ public class BungeeUtil extends BungeeUtilMessenger {
     }
 
     private static void sendCK(ByteArrayOutputStream stream){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(Pair.of(stream.toByteArray(), null));
+        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(new Pair<>(stream.toByteArray(), null));
         else sendCK(Bukkit.getOnlinePlayers().iterator().next(), stream);
     }
 
     private static void sendCK(ByteArrayOutputStream stream, Callback callback){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(Pair.of(stream.toByteArray(), callback));
+        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(new Pair<>(stream.toByteArray(), callback));
         else sendCK(Bukkit.getOnlinePlayers().iterator().next(), stream, callback);
     }
 
@@ -100,12 +100,12 @@ public class BungeeUtil extends BungeeUtilMessenger {
     }
 
     private static void sendBungee(ByteArrayOutputStream stream){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(Pair.of(stream.toByteArray(), null));
+        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(new Pair<>(stream.toByteArray(), null));
         else sendBungee(Bukkit.getOnlinePlayers().iterator().next(), stream);
     }
     
     private static void sendBungee(ByteArrayOutputStream stream, Callback callback){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(Pair.of(stream.toByteArray(), callback));
+        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(new Pair<>(stream.toByteArray(), callback));
         else sendBungee(Bukkit.getOnlinePlayers().iterator().next(), stream, callback);
     }
 
