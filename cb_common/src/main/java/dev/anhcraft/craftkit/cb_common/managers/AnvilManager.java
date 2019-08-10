@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * This class manages anvils which are created by CraftKit.
  */
 public class AnvilManager implements Listener {
-    private static final CBAnvilService SERVICE = CBProvider.getService(CBAnvilService.class).orElseThrow();
+    private static final CBAnvilService SERVICE = CBProvider.getService(CBAnvilService.class).orElseThrow(UnsupportedOperationException::new);
     private final Map<Integer, ItemStack> slotItem = new HashMap<>();
     private final Multimap<AnvilSlot, AnvilSlotCallback> slotCallback = HashMultimap.create();
     private final List<Inventory> activeAnvils = new CopyOnWriteArrayList<>();

@@ -46,6 +46,7 @@ public enum NMSVersion {
 
     /**
      * Gets the current NMS version.
+     * @return NMSVersion
      */
     public static NMSVersion getNMSVersion(){
         return nms;

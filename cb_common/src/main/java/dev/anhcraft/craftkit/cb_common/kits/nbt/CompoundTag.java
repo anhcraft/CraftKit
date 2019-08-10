@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  */
 public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializable {
     private static final long serialVersionUID = 18520914327229522L;
-    private static final CBEntityService E_SERVICE = CBProvider.getService(CBEntityService.class).orElseThrow();
-    private final CBNBTService service = CBProvider.getService(CBNBTService.class, false).orElseThrow();
+    private static final CBEntityService E_SERVICE = CBProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
+    private final CBNBTService service = CBProvider.getService(CBNBTService.class, false).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Constructs an instance of {@code CompoundTag}.
@@ -37,7 +37,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      */
     public static CompoundTag of(@NotNull ItemStack item){
         Condition.argNotNull("item", item);
-        var c = new CompoundTag();
+        CompoundTag c = new CompoundTag();
         c.load(item);
         return c;
     }
@@ -49,7 +49,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      */
     public static CompoundTag of(@NotNull Entity entity){
         Condition.argNotNull("entity", entity);
-        var c = new CompoundTag();
+        CompoundTag c = new CompoundTag();
         c.load(entity);
         return c;
     }
@@ -80,6 +80,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     /**
      * Saves this compound to the given item stack.
      * @param item the item stack
+     * @return a cloned item
      */
     public ItemStack save(@NotNull ItemStack item){
         Condition.argNotNull("item", item);
@@ -128,15 +129,16 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
 
     /**
      * Gets the tag which has both given name and class type.
-     * @param name the tag's name
-     * @param classType the tag's class type
+     * @param name the tags name
+     * @param classType the tags class type
+     * @param <T> the type of the tag
      * @return the tag (may be null if the tag did not exist)
      */
     @Nullable
     @SuppressWarnings("unchecked")
     public <T extends NBTTag> T get(@NotNull String name, Class<T> classType){
         Condition.argNotNull("name", name);
-        var s = service.get(name);
+        NBTTag s = service.get(name);
         return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : null;
     }
 
@@ -145,13 +147,14 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * If it did not exist, this method will try to create it with default value.
      * @param name the tag's name
      * @param classType the tag's class type
+     * @param <T> type of the tag
      * @return the tag
      */
     @SuppressWarnings("unchecked")
     public <T extends NBTTag> T getOrCreateDefault(@NotNull String name, @NotNull Class<T> classType){
         Condition.argNotNull("name", name);
-        // do not check classType == null here, NBTTag.createDefaultTag will do that
-        var s = service.get(name);
+        // do not check classType == null here, NBTTag.createDefaultTag does that
+        NBTTag s = service.get(name);
         return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : NBTTag.createDefaultTag(classType);
     }
 

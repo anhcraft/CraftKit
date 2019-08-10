@@ -23,22 +23,22 @@ public class EntityService extends CBModule implements CBEntityService {
 
     @Override
     public void rotate(Object entity, float yaw, float pitch, List<Object> viewers) {
-        var ent = (Entity) entity;
+        Entity ent = (Entity) entity;
         ent.lastYaw = ent.yaw;
         ent.yaw = yaw % 360.0f;
         ent.lastPitch = ent.pitch;
         ent.pitch = pitch % 360.0f;
 
-        var packet = new PacketPlayOutEntity.PacketPlayOutEntityLook(ent.getId(), (byte) yaw, (byte) pitch, false);
+        PacketPlayOutEntity.PacketPlayOutEntityLook packet = new PacketPlayOutEntity.PacketPlayOutEntityLook(ent.getId(), (byte) yaw, (byte) pitch, false);
         sendPacket(packet, castEntityPlayers(viewers));
     }
 
     @Override
     public void teleport(Object entity, Location location, List<Object> viewers) {
-        var ent = (Entity) entity;
+        Entity ent = (Entity) entity;
         ent.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 
-        var packet = new PacketPlayOutEntityTeleport(ent);
+        PacketPlayOutEntityTeleport packet = new PacketPlayOutEntityTeleport(ent);
         sendPacket(packet, castEntityPlayers(viewers));
     }
 }

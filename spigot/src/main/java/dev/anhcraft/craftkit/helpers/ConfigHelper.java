@@ -10,9 +10,10 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 /**
- * A class which helps you to transfer data between a configuration {@link Object} and a configuration {@link File}.
+ * A class which helps you to interact with configuration.
  */
 public class ConfigHelper extends AbstractConfigHelper {
     /**
@@ -36,14 +37,14 @@ public class ConfigHelper extends AbstractConfigHelper {
         Condition.argNotNull("config", config);
 
         if(file.exists()) {
-            var conf = YamlConfiguration.loadConfiguration(file);
-            var fields = config.getClass().getDeclaredFields();
+            YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
+            Field[] fields = config.getClass().getDeclaredFields();
             try {
-                for (var f : fields) {
+                for (Field f : fields) {
                     if (f.isAnnotationPresent(Label.class)) {
                         f.setAccessible(true);
-                        var paths = f.getDeclaredAnnotation(Label.class).value();
-                        for (var p : paths) {
+                        String[] paths = f.getDeclaredAnnotation(Label.class).value();
+                        for (String p : paths) {
                             if (conf.isSet(p)) {
                                 f.set(config, conf.get(p));
                                 break;
@@ -61,13 +62,13 @@ public class ConfigHelper extends AbstractConfigHelper {
     public void saveFrom(@NotNull Object config) {
         Condition.argNotNull("config", config);
 
-        var conf = new YamlConfiguration();
-        var fields = config.getClass().getDeclaredFields();
+        YamlConfiguration conf = new YamlConfiguration();
+        Field[] fields = config.getClass().getDeclaredFields();
         try {
-            for (var f : fields) {
+            for (Field f : fields) {
                 if (f.isAnnotationPresent(Label.class)) {
                     f.setAccessible(true);
-                    var path = ArrayUtil.last(f.getDeclaredAnnotation(Label.class).value());
+                    String path = ArrayUtil.last(f.getDeclaredAnnotation(Label.class).value());
                     conf.set(path, f.get(config));
                 }
             }

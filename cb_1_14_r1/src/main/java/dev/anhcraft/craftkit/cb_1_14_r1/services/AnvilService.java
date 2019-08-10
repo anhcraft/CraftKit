@@ -3,10 +3,8 @@ package dev.anhcraft.craftkit.cb_1_14_r1.services;
 import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
 import dev.anhcraft.craftkit.cb_1_14_r1.objects.CKFakeAnvilContainer;
 import dev.anhcraft.craftkit.cb_common.internal.CBAnvilService;
-import net.minecraft.server.v1_14_R1.ChatMessage;
-import net.minecraft.server.v1_14_R1.Container;
-import net.minecraft.server.v1_14_R1.Containers;
-import net.minecraft.server.v1_14_R1.PacketPlayOutOpenWindow;
+import net.minecraft.server.v1_14_R1.*;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftInventoryView;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -17,10 +15,10 @@ import java.util.function.Consumer;
 public class AnvilService extends CBModule implements CBAnvilService {
     @Override
     public void open(Player player, Consumer<Inventory> inv) {
-        var ep = toEntityPlayer(player);
-        var id = ep.nextContainerCounter();
-        var container = new CKFakeAnvilContainer(id, ep);
-        var civ = container.getBukkitView();
+        EntityPlayer ep = toEntityPlayer(player);
+        int id = ep.nextContainerCounter();
+        CKFakeAnvilContainer container = new CKFakeAnvilContainer(id, ep);
+        CraftInventoryView civ = container.getBukkitView();
         inv.accept(civ.getTopInventory());
         ep.playerConnection.sendPacket(new PacketPlayOutOpenWindow(id,
                 Containers.ANVIL, new ChatMessage("tile.anvil.name")));

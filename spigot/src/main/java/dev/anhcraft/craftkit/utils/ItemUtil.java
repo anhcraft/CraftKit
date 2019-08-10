@@ -50,7 +50,7 @@ public class ItemUtil {
         if(a == null && b == null) return true;
         if(a == null || b == null) return false;
         if(a.length != b.length) return false;
-        var i = 0;
+        int i = 0;
         while (i < a.length){
             if(!compare(a[i], b[i])) return false;
             i++;
@@ -68,7 +68,7 @@ public class ItemUtil {
         if(a == null && b == null) return true;
         if(a == null || b == null) return false;
         if(a.size() != b.size()) return false;
-        var i = 0;
+        int i = 0;
         while (i < a.size()){
             if(!compare(a.get(i), b.get(i))) return false;
             i++;

@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class CommandService extends CBModule implements CBCommandService {
 
         if(!command.getLabel().contains(":")) knownCommands.remove(command.getLabel());
 
-        var activeAliases = command.getAliases();
+        @NotNull List<String> activeAliases = command.getAliases();
         for (String alias : activeAliases) knownCommands.remove(alias);
 
         List<String> registeredAliases = (List<String>) ReflectionUtil.getDeclaredField(Command.class, command, "aliases");

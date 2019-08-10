@@ -18,10 +18,10 @@ public interface CKPlugin {
 
     default void checkUpdate(){
         CKProvider.TASK_HELPER.newAsyncTask(() -> {
-            var expectedVer = SpigetApiUtil.getResourceLatestVersion("39007").chars().sum();
-            var currentVer = CKInfo.getPluginVersion().chars().sum();
+            int expectedVer = SpigetApiUtil.getResourceLatestVersion("39007").chars().sum();
+            int currentVer = CKInfo.getPluginVersion().chars().sum();
             if(expectedVer < currentVer) CKProvider.CHAT_NO_PREFIX
-                    .messageConsole("&c&lCraftKit is outdated! Please consider to update it xD")
+                    .messageConsole("&c&lCraftKit is outdated! Please update <3")
                     .messageConsole("&a&l>>> Link: https://spigotmc.org/resources/39007/");
         });
     }

@@ -14,6 +14,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.command.ConsoleCommandSender;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+
 /**
  * This class is used for sending chat messages on the chat box.
  */
@@ -38,7 +40,7 @@ public class Chat extends AbstractChat {
 
     /**
      * Constructs an instance of {@code Chat} with the given chat prefix.
-     * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param prefix the chat prefix (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public Chat(@Nullable String prefix) {
         super(prefix);
@@ -55,18 +57,18 @@ public class Chat extends AbstractChat {
     @Override
     public Chat broadcast(@NotNull String msg) {
         Condition.argNotNull("msg", msg);
-        var players = ProxyServer.getInstance().getPlayers();
-        var s = prefix + ChatUtil.formatColorCodes(msg);
-        for (var p : players) p.sendMessage(s);
+        Collection<ProxiedPlayer> players = ProxyServer.getInstance().getPlayers();
+        String s = prefix + ChatUtil.formatColorCodes(msg);
+        for (ProxiedPlayer p : players) p.sendMessage(s);
         return this;
     }
 
     @Override
     public Chat broadcast(@NotNull BaseComponent... components) {
         Condition.argNotNull("components", components);
-        var players = ProxyServer.getInstance().getPlayers();
+        Collection<ProxiedPlayer> players = ProxyServer.getInstance().getPlayers();
         components = ArrayUtil.insert(components, prefixComponent, 0);
-        for (var p : players) p.sendMessage(chatMessageType, components);
+        for (ProxiedPlayer p : players) p.sendMessage(chatMessageType, components);
         return this;
     }
 
@@ -81,14 +83,14 @@ public class Chat extends AbstractChat {
     public Chat messageConsole(@NotNull BaseComponent... components) {
         Condition.argNotNull("components", components);
         StringBuilder s = new StringBuilder(prefix);
-        for(var cpn : components) s.append(cpn.toLegacyText());
+        for(@NotNull BaseComponent cpn : components) s.append(cpn.toLegacyText());
         ProxyServer.getInstance().getConsole().sendMessage(s.toString());
         return this;
     }
 
     /**
      * Broadcasts the given message to all players in a server.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param server a server
      * @param msg a message
      * @return this object
@@ -96,9 +98,9 @@ public class Chat extends AbstractChat {
     public Chat broadcast(@NotNull ServerInfo server, @NotNull String msg) {
         Condition.argNotNull("server", server);
         Condition.argNotNull("msg", msg);
-        var players = server.getPlayers();
-        var s = prefix + ChatUtil.formatColorCodes(msg);
-        for (var p : players) p.sendMessage(s);
+        Collection<ProxiedPlayer> players = server.getPlayers();
+        String s = prefix + ChatUtil.formatColorCodes(msg);
+        for (ProxiedPlayer p : players) p.sendMessage(s);
         return this;
     }
 
@@ -112,15 +114,15 @@ public class Chat extends AbstractChat {
     public Chat broadcast(@NotNull ServerInfo server, @NotNull BaseComponent... components) {
         Condition.argNotNull("server", server);
         Condition.argNotNull("components", components);
-        var players = server.getPlayers();
+        Collection<ProxiedPlayer> players = server.getPlayers();
         components = ArrayUtil.insert(components, prefixComponent, 0);
-        for (var p : players) p.sendMessage(chatMessageType, components);
+        for (ProxiedPlayer p : players) p.sendMessage(chatMessageType, components);
         return this;
     }
 
     /**
      * Sends the given message to the target.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param target the target (can be a player, a command sender or the console, etc)
      * @param msg a message
      * @return this object

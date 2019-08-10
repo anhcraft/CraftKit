@@ -2,111 +2,38 @@ package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.callbacks.bungee.*;
 import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
-import dev.anhcraft.craftkit.common.callbacks.Callback;
-import dev.anhcraft.craftkit.common.internal.CKPlugin;
-import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.jvmkit.utils.Condition;
-import kotlin.Pair;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Utility class to communicate with the BungeeCord proxy.
  */
-public class BungeeUtil extends BungeeUtilMessenger {
+public class BungeeUtil {
     /**
      * The namespace of the BungeeCord channel.
      */
     public static final String BC_CHANNEL_NAMESPACE = NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_13_R1) ? "bungeecord:main" : "BungeeCord";
-
-    // any requests that need at least one player can be queued here
-    private static final List<Pair<byte[], Callback>> TEMP_BG_QUEUE = new ArrayList<>();
-    private static final List<Pair<byte[], Callback>> TEMP_CK_QUEUE = new ArrayList<>();
-
-    static {
-        CKProvider.TASK_HELPER.newAsyncTimerTask(() -> {
-            if(!Bukkit.getOnlinePlayers().isEmpty()){
-                var p = Bukkit.getOnlinePlayers().iterator().next();
-                TEMP_BG_QUEUE.forEach(x -> {
-                    p.sendPluginMessage(CraftKit.instance, BC_CHANNEL_NAMESPACE, x.getFirst());
-                    if(x.getSecond() != null) {
-                        try {
-                            CALLBACK_QUEUE.put(x.getSecond());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-
-                TEMP_CK_QUEUE.forEach(x -> {
-                    p.sendPluginMessage(CraftKit.instance, CKPlugin.CHANNEL_NAMESPACE, x.getFirst());
-                    if(x.getSecond() != null) {
-                        try {
-                            CALLBACK_QUEUE.put(x.getSecond());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        }, 0, 20);
-    }
-
-    private static void sendCK(Player p, ByteArrayOutputStream stream){
-        p.sendPluginMessage(CraftKit.instance, CKPlugin.CHANNEL_NAMESPACE, stream.toByteArray());
-    }
-
-    private static void sendCK(Player p, ByteArrayOutputStream stream, Callback callback){
-        sendCK(p, stream);
-        try {
-            CALLBACK_QUEUE.put(callback);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void sendCK(ByteArrayOutputStream stream){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(new Pair<>(stream.toByteArray(), null));
-        else sendCK(Bukkit.getOnlinePlayers().iterator().next(), stream);
-    }
-
-    private static void sendCK(ByteArrayOutputStream stream, Callback callback){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_CK_QUEUE.add(new Pair<>(stream.toByteArray(), callback));
-        else sendCK(Bukkit.getOnlinePlayers().iterator().next(), stream, callback);
-    }
-
-    private static void sendBungee(Player p, ByteArrayOutputStream stream){
-        p.sendPluginMessage(CraftKit.instance, BC_CHANNEL_NAMESPACE, stream.toByteArray());
-    }
     
-    private static void sendBungee(Player p, ByteArrayOutputStream stream, Callback callback){
-        sendBungee(p, stream);
-        try {
-            CALLBACK_QUEUE.put(callback);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private static BungeeUtilMessenger messenger;
 
-    private static void sendBungee(ByteArrayOutputStream stream){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(new Pair<>(stream.toByteArray(), null));
-        else sendBungee(Bukkit.getOnlinePlayers().iterator().next(), stream);
-    }
-    
-    private static void sendBungee(ByteArrayOutputStream stream, Callback callback){
-        if(Bukkit.getOnlinePlayers().isEmpty()) TEMP_BG_QUEUE.add(new Pair<>(stream.toByteArray(), callback));
-        else sendBungee(Bukkit.getOnlinePlayers().iterator().next(), stream, callback);
+    /**
+     * Sets the messenger.<br>
+     * For internal uses only!!!
+     *
+     * @param messenger the messenger
+     */
+    @Deprecated
+    public static void setMessenger(BungeeUtilMessenger messenger) {
+        if(BungeeUtil.messenger != null) throw new UnsupportedOperationException();
+        BungeeUtil.messenger = messenger;
     }
 
     /**
@@ -118,11 +45,11 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("server", server);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("Connect");
             out.writeUTF(server);
-            sendBungee(player, stream);
+            messenger.sendBungee(player, stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -137,12 +64,12 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("server", server);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("ConnectOther");
             out.writeUTF(player);
             out.writeUTF(server);
-            sendBungee(stream);
+            messenger.sendBungee(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -157,10 +84,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("IP");
-            sendBungee(player, stream, callback);
+            messenger.sendBungee(player, stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -175,11 +102,11 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("server", server);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("PlayerCount");
             out.writeUTF(server);
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -202,11 +129,11 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("server", server);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("PlayerList");
             out.writeUTF(server);
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -227,10 +154,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
     public static void listServers(@NotNull ServerListCallback callback){
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("GetServers");
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -238,7 +165,7 @@ public class BungeeUtil extends BungeeUtilMessenger {
 
     /**
      * Messages the given player.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param player the name of that player
      * @param content the message content
      */
@@ -246,12 +173,12 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("content", content);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("Message");
             out.writeUTF(player);
             out.writeUTF(ChatUtil.formatColorCodes(content));
-            sendBungee(stream);
+            messenger.sendBungee(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -259,7 +186,7 @@ public class BungeeUtil extends BungeeUtilMessenger {
 
     /**
      * Messages all players on this proxy.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param content the message content
      */
     public static void messageAll(@NotNull String content){
@@ -273,10 +200,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
     public static void getServerName(@NotNull ServerNameCallback callback){
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("GetServer");
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -291,10 +218,10 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("UUID");
-            sendBungee(player, stream, callback);
+            messenger.sendBungee(player, stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -309,11 +236,11 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("UUIDOther");
             out.writeUTF(player);
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -328,11 +255,11 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("server", server);
         Condition.argNotNull("callback", callback);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("ServerIP");
             out.writeUTF(server);
-            sendBungee(stream, callback);
+            messenger.sendBungee(stream, callback);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -341,18 +268,18 @@ public class BungeeUtil extends BungeeUtilMessenger {
     /**
      * Requests the proxy to kick the given player.
      * @param player the player who you want to kick
-     * @param reason the reason why you kick him (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param reason the reason why you kick him (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public static void kickPlayer(@NotNull String player, @NotNull String reason){
         Condition.argNotNull("player", player);
         Condition.argNotNull("reason", reason);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("KickPlayer");
             out.writeUTF(player);
             out.writeUTF(ChatUtil.formatColorCodes(reason));
-            sendBungee(stream);
+            messenger.sendBungee(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -369,14 +296,14 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("channel", channel);
         Condition.argNotNull("data", data);
         try {
-            var stream  = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("Forward");
             out.writeUTF(server);
             out.writeUTF(channel);
             out.writeShort(data.length);
             out.write(data);
-            sendBungee(stream);
+            messenger.sendBungee(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -411,14 +338,14 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("channel", channel);
         Condition.argNotNull("data", data);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("ForwardToPlayer");
             out.writeUTF(player);
             out.writeUTF(channel);
             out.writeShort(data.length);
             out.write(data);
-            sendBungee(stream);
+            messenger.sendBungee(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -434,41 +361,50 @@ public class BungeeUtil extends BungeeUtilMessenger {
         Condition.argNotNull("player", player);
         Condition.argNotNull("skin", skin);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("ChangeSkin");
             out.writeUTF(player);
             out.writeUTF(skin.getValue());
             out.writeUTF(skin.getSignature() == null ? "" : skin.getSignature());
-            sendCK(stream);
+            messenger.sendCK(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Forces the console of the proxy to run the given command.
+     * @param cmd the command to be executed
+     */
     public static void runProxyCmdByConsole(@NotNull String cmd){
         Condition.argNotNull("cmd", cmd);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("RunProxyCmdConsole");
             out.writeUTF(cmd);
-            sendCK(stream);
+            messenger.sendCK(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Forces {@code player} to run the given proxy command.
+     * @param player the player
+     * @param cmd the command to be executed
+     */
     public static void runProxyCmdByPlayer(@NotNull String player, @NotNull String cmd){
         Condition.argNotNull("player", player);
         Condition.argNotNull("cmd", cmd);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("RunProxyCmdPlayer");
             out.writeUTF(player);
             out.writeUTF(cmd);
-            sendCK(stream);
+            messenger.sendCK(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -477,18 +413,18 @@ public class BungeeUtil extends BungeeUtilMessenger {
     /**
      * Forces the console of {@code server} to run the given command.
      * @param server the server
-     * @param cmd the command to be executed on its server
+     * @param cmd the command to be executed
      */
     public static void runServerCmdByConsole(@NotNull String server, @NotNull String cmd){
         Condition.argNotNull("server", server);
         Condition.argNotNull("cmd", cmd);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("RunServerCmdConsole");
             out.writeUTF(server);
             out.writeUTF(cmd);
-            sendCK(stream);
+            messenger.sendCK(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -497,18 +433,18 @@ public class BungeeUtil extends BungeeUtilMessenger {
     /**
      * Forces {@code player} to run the given server command.
      * @param player the player
-     * @param cmd the command to be executed on his server
+     * @param cmd the command to be executed
      */
     public static void runServerCmdByPlayer(@NotNull String player, @NotNull String cmd){
         Condition.argNotNull("player", player);
         Condition.argNotNull("cmd", cmd);
         try {
-            var stream = new ByteArrayOutputStream();
-            var out = new DataOutputStream(stream);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(stream);
             out.writeUTF("RunServerCmdPlayer");
             out.writeUTF(player);
             out.writeUTF(cmd);
-            sendCK(stream);
+            messenger.sendCK(stream);
         } catch(IOException e) {
             e.printStackTrace();
         }

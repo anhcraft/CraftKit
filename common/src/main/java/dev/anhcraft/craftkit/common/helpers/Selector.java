@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.common.helpers;
 
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An addition which goes with helpers to select the target object.
@@ -21,6 +21,7 @@ public abstract class Selector<T> {
      * @return the target
      */
     public T getTarget(){
+        Condition.check(isSelected(), "No object is selected");
         return object;
     }
 

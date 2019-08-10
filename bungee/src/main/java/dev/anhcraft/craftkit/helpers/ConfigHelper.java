@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit.helpers;
 
 import dev.anhcraft.craftkit.common.helpers.AbstractConfigHelper;
 import dev.anhcraft.jvmkit.lang.annotation.Label;
+import net.md_5.bungee.config.Configuration;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.ArrayUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -11,6 +12,7 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 /**
  * A class which helps you to transfer data between a configuration {@link Object} and a configuration {@link File}.
@@ -40,13 +42,13 @@ public class ConfigHelper extends AbstractConfigHelper {
 
         if(file.exists()) {
             try {
-                var conf = PROVIDER.load(file);
-                var fields = config.getClass().getDeclaredFields();
-                for (var f : fields) {
+                Configuration conf = PROVIDER.load(file);
+                Field[] fields = config.getClass().getDeclaredFields();
+                for (Field f : fields) {
                     if (f.isAnnotationPresent(Label.class)) {
                         f.setAccessible(true);
-                        var paths = f.getDeclaredAnnotation(Label.class).value();
-                        for (var p : paths) {
+                        String[] paths = f.getDeclaredAnnotation(Label.class).value();
+                        for (String p : paths) {
                             if (conf.contains(p)) {
                                 f.set(config, conf.get(p));
                                 break;
@@ -65,12 +67,12 @@ public class ConfigHelper extends AbstractConfigHelper {
         Condition.argNotNull("config", config);
 
         try {
-            var conf = PROVIDER.load(file);
-            var fields = config.getClass().getDeclaredFields();
-            for (var f : fields) {
+            Configuration conf = PROVIDER.load(file);
+            Field[] fields = config.getClass().getDeclaredFields();
+            for (Field f : fields) {
                 if (f.isAnnotationPresent(Label.class)) {
                     f.setAccessible(true);
-                    var path = ArrayUtil.last(f.getDeclaredAnnotation(Label.class).value());
+                    String path = ArrayUtil.last(f.getDeclaredAnnotation(Label.class).value());
                     conf.set(path, f.get(config));
                 }
             }

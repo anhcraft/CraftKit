@@ -1,8 +1,5 @@
 package dev.anhcraft.craftkit.internal.listeners;
 
-import dev.anhcraft.craftkit.common.internal.CKProvider;
-import dev.anhcraft.craftkit.common.internal.assistants.CKCleaner;
-import dev.anhcraft.craftkit.common.lang.annotation.RequiredCleaner;
 import dev.anhcraft.craftkit.events.BowArrowHitEvent;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
@@ -20,12 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EntityListener implements Listener {
-    @RequiredCleaner
-    private static final Map<Entity, Pair<LivingEntity, ItemStack>> bowArrows = new HashMap<>();
+    private final Map<Entity, Pair<LivingEntity, ItemStack>> bowArrows = new HashMap<>();
 
     @EventHandler
     public void death(EntityDeathEvent event){
-        CKProvider.TASK_HELPER.newAsyncTask(() -> CKCleaner.clean(o -> o.equals(event.getEntity())));
+        bowArrows.remove(event.getEntity());
     }
 
     @EventHandler

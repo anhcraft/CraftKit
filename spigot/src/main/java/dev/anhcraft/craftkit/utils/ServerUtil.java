@@ -15,7 +15,7 @@ import java.util.List;
  * This class contains extra methods which are related to the whole server.
  */
 public class ServerUtil {
-    private static final CBServerService SERVICE = CBProvider.getService(CBServerService.class).orElseThrow();
+    private static final CBServerService SERVICE = CBProvider.getService(CBServerService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Gets all entities over the server.
@@ -30,6 +30,7 @@ public class ServerUtil {
     /**
      * Gets all entities which are same species over the server.
      * @param entityClass the class represents a type of entity
+     * @param <E> the entity type
      * @return list of entities
      */
     public static <E extends Entity> List<Entity> getAllEntitiesByClass(@NotNull Class<E> entityClass){

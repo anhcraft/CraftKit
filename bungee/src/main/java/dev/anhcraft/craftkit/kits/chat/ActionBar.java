@@ -34,7 +34,7 @@ public class ActionBar extends Chat {
 
     /**
      * Constructs an instance of {@code ActionBar} with the given chat prefix.
-     * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param prefix the chat prefix (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public ActionBar(@Nullable String prefix) {
         super(prefix);

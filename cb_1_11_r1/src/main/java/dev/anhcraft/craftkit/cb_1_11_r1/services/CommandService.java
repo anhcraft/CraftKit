@@ -42,7 +42,7 @@ public class CommandService extends CBModule implements CBCommandService {
 
         if(!command.getLabel().contains(":")) knownCommands.remove(command.getLabel());
 
-        var activeAliases = command.getAliases();
+        List<String> activeAliases = command.getAliases();
         for (String alias : activeAliases) knownCommands.remove(alias);
 
         List<String> registeredAliases = (List<String>) ReflectionUtil.getDeclaredField(Command.class, command, "aliases");

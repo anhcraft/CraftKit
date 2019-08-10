@@ -15,7 +15,7 @@ public abstract class AbstractChat {
 
     /**
      * Constructs an instance of {@code AbstractChat} with the given chat prefix.
-     * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param prefix the chat prefix (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public AbstractChat(@Nullable String prefix){
         if(prefix == null) return;
@@ -35,7 +35,7 @@ public abstract class AbstractChat {
 
     /**
      * Broadcasts the given message.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param msg a message
      * @return this object
      */
@@ -51,7 +51,7 @@ public abstract class AbstractChat {
 
     /**
      * Sends the given message to the console.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param msg a message
      * @return this object
      */

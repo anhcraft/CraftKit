@@ -18,7 +18,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
     private ClickEvent clickEvent;
     private HoverEvent hoverEvent;
     private String insertion;
-    private LinkedHashMap<Object, Object[]> extra = new LinkedHashMap<>();
+    private Map<Object, Object[]> extra = new LinkedHashMap<>();
     private ChatColor color = ChatColor.WHITE;
     private boolean bold = false;
     private boolean obfuscate = false;
@@ -28,7 +28,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
 
     /**
      * Constructs an instance of {@code ChatComponentBuilder} with the given text to create a new component.
-     * @param text the text (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public ChatComponentBuilder(String text){
         this.component = new TextComponent(TextComponent.fromLegacyText(text == null ? "" :
@@ -37,7 +37,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
 
     /**
      * Constructs an instance of {@code ChatComponentBuilder} with the given text to create a new component.
-     * @param text the text (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @param clazz the class type of the component
      */
     public ChatComponentBuilder(String text, @NotNull Class<? extends BaseComponent> clazz){
@@ -75,7 +75,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
 
     /**
      * Add an extra {@link TextComponent} as well as its events.
-     * @param text the text (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @param events events to trigger when interact with the extra component
      * @return this object
      */
@@ -181,7 +181,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
 
     /**
      * This method is similar to {@link BaseComponent#setInsertion(String)}.
-     * @param text the text (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @return this object
      */
     public ChatComponentBuilder insertion(String text){
@@ -204,14 +204,19 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
         if(clickEvent != null) component.setClickEvent(clickEvent);
         if(hoverEvent != null) component.setHoverEvent(hoverEvent);
         if(insertion != null) component.setInsertion(ChatUtil.formatColorCodes(insertion));
+
         for(Map.Entry<Object, Object[]> entry : extra.entrySet()){
             ChatComponentBuilder cb;
-            if(entry.getKey() instanceof String) cb = new ChatComponentBuilder((String) entry.getKey(), TextComponent.class);
-            else if(entry.getKey() instanceof BaseComponent) cb = new ChatComponentBuilder((BaseComponent) entry.getKey());
+            if(entry.getKey() instanceof String)
+                cb = new ChatComponentBuilder((String) entry.getKey(), TextComponent.class);
+            else if(entry.getKey() instanceof BaseComponent)
+                cb = new ChatComponentBuilder((BaseComponent) entry.getKey());
             else continue;
             for(Object obj : entry.getValue()){
-                if(obj instanceof ClickEvent) cb.event((ClickEvent) obj);
-                else if(obj instanceof HoverEvent) cb.event((HoverEvent) obj);
+                if(obj instanceof ClickEvent)
+                    cb.event((ClickEvent) obj);
+                else if(obj instanceof HoverEvent)
+                    cb.event((HoverEvent) obj);
             }
             component.addExtra(cb.build());
         }

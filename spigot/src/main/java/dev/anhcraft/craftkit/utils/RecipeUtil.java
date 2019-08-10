@@ -16,12 +16,12 @@ import java.util.List;
  */
 /*
  TODO Compare by namedspace key for 1.12+
- - This must be optional since existing recipe can use random namedspace
+ - This must be optional since existing recipe can use random namespace
 
- TODO Support caparison for other recipes that are newly added in 1.14
+ TODO Support comparison for other recipes that are newly added in 1.14
  */
 public class RecipeUtil {
-    private static final CBRecipeService SERVICE = CBProvider.getService(CBRecipeService.class).orElseThrow();
+    private static final CBRecipeService SERVICE = CBProvider.getService(CBRecipeService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Registers the given recipe.
@@ -58,8 +58,8 @@ public class RecipeUtil {
      */
     public static boolean compare(@Nullable Recipe recipe, @Nullable Recipe otherRecipe){
         if(recipe instanceof ShapedRecipe && otherRecipe instanceof ShapedRecipe) {
-            var a = (ShapedRecipe) recipe;
-            var b = (ShapedRecipe) otherRecipe;
+            ShapedRecipe a = (ShapedRecipe) recipe;
+            ShapedRecipe b = (ShapedRecipe) otherRecipe;
             if(ItemUtil.compare(a.getResult(), b.getResult())){
                 List<ItemStack> ai = new ArrayList<>();
                 List<ItemStack> bi = new ArrayList<>();
@@ -73,14 +73,14 @@ public class RecipeUtil {
             }
         }
         else if(recipe instanceof ShapelessRecipe && otherRecipe instanceof ShapelessRecipe){
-            var a = (ShapelessRecipe) recipe;
-            var b = (ShapelessRecipe) otherRecipe;
+            ShapelessRecipe a = (ShapelessRecipe) recipe;
+            ShapelessRecipe b = (ShapelessRecipe) otherRecipe;
             if(ItemUtil.compare(a.getResult(), b.getResult()))
                 return ItemUtil.compare(a.getIngredientList(), b.getIngredientList());
         }
         else if(recipe instanceof FurnaceRecipe && otherRecipe instanceof FurnaceRecipe){
-            var a = (FurnaceRecipe) recipe;
-            var b = (FurnaceRecipe) otherRecipe;
+            FurnaceRecipe a = (FurnaceRecipe) recipe;
+            FurnaceRecipe b = (FurnaceRecipe) otherRecipe;
             return a.getExperience() == b.getExperience()
                     && ItemUtil.compare(a.getInput(), b.getInput())
                     && ItemUtil.compare(a.getResult(), b.getResult());

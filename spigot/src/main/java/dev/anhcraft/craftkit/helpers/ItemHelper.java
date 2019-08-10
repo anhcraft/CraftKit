@@ -28,7 +28,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @return ItemHelper
      */
     public static ItemHelper of(@NotNull ItemStack itemStack){
-        var i = new ItemHelper();
+        ItemHelper i = new ItemHelper();
         i.select(itemStack);
         return i;
     }
@@ -69,7 +69,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Sets a new name for the stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param name the new name
      * @return this object
      */
@@ -132,7 +132,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Adds a lore line into the stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param line the lore line
      * @return this object
      */
@@ -146,7 +146,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Adds multiple lore lines into the stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param lines an array of lore lines
      * @return this object
      */
@@ -160,7 +160,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Adds multiple lore lines into the stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param lines a list of lore lines
      * @return this object
      */
@@ -174,7 +174,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Overrides the content of a lore line.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param index the index of the line
      * @param content the new content
      * @return this object
@@ -183,7 +183,7 @@ public class ItemHelper extends Selector<ItemStack> {
         Condition.argNotNull("content", content);
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
         if(meta.hasLore()) {
-            var lore = meta.getLore();
+            List<String> lore = meta.getLore();
             Condition.check(index < lore.size(), "`index` is out of bounds");
             lore.set(index, content);
             meta.setLore(lore);
@@ -193,7 +193,7 @@ public class ItemHelper extends Selector<ItemStack> {
 
     /**
      * Sets the lore of the stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param lore the new lore (if this is null, the lore will be empty)
      * @return this object
      */
@@ -210,7 +210,7 @@ public class ItemHelper extends Selector<ItemStack> {
     public ItemHelper removeLoreLine(int index) {
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
         if(meta.hasLore()) {
-            var lore = meta.getLore();
+            List<String> lore = meta.getLore();
             Condition.check(index < lore.size(), "`index` is out of bounds");
             lore.remove(index);
             meta.setLore(lore);

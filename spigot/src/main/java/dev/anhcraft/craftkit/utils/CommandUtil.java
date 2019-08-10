@@ -16,7 +16,7 @@ import java.util.Map;
  * Extra methods for working with commands.
  */
 public class CommandUtil {
-    private static final CBCommandService SERVICE = CBProvider.getService(CBCommandService.class).orElseThrow();
+    private static final CBCommandService SERVICE = CBProvider.getService(CBCommandService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Gets all known commands (include vanilla/bukkit commands).

@@ -1,4 +1,5 @@
-name: CraftKit
+name: ${project.parent.name}
 version: ${project.version}
 main: dev.anhcraft.craftkit.internal.CraftKit
 description: ${project.parent.description}
+author: anhcraft

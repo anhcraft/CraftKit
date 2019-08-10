@@ -6,14 +6,15 @@ import net.minecraft.server.v1_12_R1.CraftingManager;
 import net.minecraft.server.v1_12_R1.IRecipe;
 import org.bukkit.inventory.Recipe;
 
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class RecipeService extends CBModule implements CBRecipeService {
     @Override
     public void removeIf(Predicate<Recipe> filter) {
-        var v = CraftingManager.recipes.iterator();
+        Iterator<IRecipe> v = CraftingManager.recipes.iterator();
         while(v.hasNext()){
-            var r = v.next();
+            IRecipe r = v.next();
             if(filter.test(r.toBukkitRecipe())) v.remove();
         }
     }

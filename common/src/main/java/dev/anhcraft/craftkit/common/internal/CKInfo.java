@@ -14,10 +14,10 @@ public class CKInfo {
     private static int configVersion;
 
     public static void init(InputStream stream){
-        var json = CKPlugin.GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), JsonObject.class);
+        JsonObject json = CKPlugin.GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), JsonObject.class);
         pluginVersion = json.getAsJsonPrimitive("plugin_version").getAsString();
         configVersion = json.getAsJsonPrimitive("config_version").getAsInt();
-        var skins = json.getAsJsonObject("mhf_skins");
+        JsonObject skins = json.getAsJsonObject("mhf_skins");
         skins.entrySet().forEach(x -> MHF_SKIN.put(x.getKey(), x.getValue().getAsString()));
     }
 

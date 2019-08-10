@@ -13,7 +13,7 @@ public class BlockService extends CBModule implements CBBlockService {
     @Override
     public void fakeBreak(int id, Block block, int stage, List<Player> viewers) {
         stage = Math.min(Math.max(0, stage), 9);
-        var pos = new BlockPosition(
+        BlockPosition pos = new BlockPosition(
                 block.getLocation().getBlockX(),
                 block.getLocation().getBlockY(),
                 block.getLocation().getBlockZ());

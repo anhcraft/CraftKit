@@ -1,5 +1,6 @@
 package dev.anhcraft.craftkit.internal.listeners;
 
+import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
@@ -19,9 +20,9 @@ public class CKChannelListener implements Listener {
     public void onPluginMessage(PluginMessageEvent ev) {
         if (!ev.getTag().equals(CKPlugin.CHANNEL_NAMESPACE)) return;
         try {
-            var stream = new ByteArrayInputStream(ev.getData());
-            var data = new DataInputStream(stream);
-            var sc = data.readUTF();
+            ByteArrayInputStream stream = new ByteArrayInputStream(ev.getData());
+            DataInputStream data = new DataInputStream(stream);
+            String sc = data.readUTF();
             switch(sc) {
                 case "ChangeSkin": {
                     String sign;
@@ -44,8 +45,8 @@ public class CKChannelListener implements Listener {
                     );
                     break;
                 case "RunServerCmdConsole": {
-                    var out = ByteStreams.newDataOutput();
-                    var sv = data.readUTF();
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    String sv = data.readUTF();
                     out.writeUTF("RunServerCmdConsole");
                     out.writeUTF(data.readUTF());
                     getInstance().getServerInfo(sv).sendData(CKPlugin.CHANNEL_NAMESPACE,
@@ -53,8 +54,8 @@ public class CKChannelListener implements Listener {
                     break;
                 }
                 case "RunServerCmdPlayer": {
-                    var out = ByteStreams.newDataOutput();
-                    var player = data.readUTF();
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    String player = data.readUTF();
                     out.writeUTF("RunServerCmdPlayer");
                     out.writeUTF(player);
                     out.writeUTF(data.readUTF());

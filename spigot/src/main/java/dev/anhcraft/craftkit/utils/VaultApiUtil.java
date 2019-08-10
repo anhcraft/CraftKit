@@ -60,8 +60,8 @@ public class VaultApiUtil extends VaultIntegration {
         Condition.argNotNull("player", player);
         if(eco == null) return false;
 
-        var delta = eco.getBalance(player)-newBalance;
-        var abs = Math.abs(delta);
+        double delta = eco.getBalance(player) - newBalance;
+        double abs = Math.abs(delta);
         if(delta == 0) return true;
         else if(delta > 0) return eco.withdrawPlayer(player, abs).transactionSuccess();
         else return eco.depositPlayer(player, abs).transactionSuccess();

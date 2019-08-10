@@ -74,7 +74,7 @@ public interface CustomInventory extends Listener, Inventory {
      */
     default void addRowCallback(int row, SlotCallback callback){
         row *= 9;
-        for(var i = 0; i < 9; i++) addSlotCallback(i+row, callback);
+        for(int i = 0; i < 9; i++) addSlotCallback(i+row, callback);
     }
 
     /**
@@ -83,7 +83,7 @@ public interface CustomInventory extends Listener, Inventory {
      */
     default void clearRowCallback(int row){
         row *= 9;
-        for(var i = 0; i < 9; i++) clearSlotCallback(i+row);
+        for(int i = 0; i < 9; i++) clearSlotCallback(i+row);
     }
 
     /**
@@ -91,13 +91,13 @@ public interface CustomInventory extends Listener, Inventory {
      * @param callback the callback
      */
     default void addContentCallback(SlotCallback callback){
-        for(var i = 0; i < getSize(); i++) addSlotCallback(i, callback);
+        for(int i = 0; i < getSize(); i++) addSlotCallback(i, callback);
     }
 
     /**
      * Clears all {@link SlotCallback} from all slots in this inventory.
      */
     default void clearContentCallback(){
-        for(var i = 0; i < getSize(); i++) clearSlotCallback(i);
+        for(int i = 0; i < getSize(); i++) clearSlotCallback(i);
     }
 }

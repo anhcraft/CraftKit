@@ -1,27 +1,36 @@
 package dev.anhcraft.craftkit.utils;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.craftkit.cb_common.kits.entity.FakeOperator;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.lang.enumeration.HandSlot;
 import dev.anhcraft.jvmkit.utils.Condition;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Utility methods which are related to {@link Player}.
+ * Utility methods which are related to Player.
  */
 public class PlayerUtil {
-    private static final CBPlayerService SERVICE = CBProvider.getService(CBPlayerService.class).orElseThrow();
+    private static final CBPlayerService SERVICE = CBProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Gets the current ping of given player.
@@ -72,11 +81,11 @@ public class PlayerUtil {
     @Nullable
     public static Skin getSkin(@NotNull Player player){
         // we do not need the validator here since #getProfile() already does that
-        var gp = getProfile(player);
+        GameProfile gp = getProfile(player);
         if(gp.getProperties().containsKey("textures")){
-            var v = gp.getProperties().get("textures").iterator();
+            Iterator<Property> v = gp.getProperties().get("textures").iterator();
             if(v.hasNext()){
-                var s = v.next();
+                Property s = v.next();
                 return new Skin(s.getValue(), s.getSignature());
             }
         }
@@ -130,15 +139,15 @@ public class PlayerUtil {
     public static void unfreeze(@Nullable Player player){
         if(player != null) PlayerListener.freezedPlayers.remove(player.getUniqueId());
     }
-
     /**
-     * Creates a fake operator from the given player.
+     * Executes the command as an operator.
      * @param player the player
-     * @return the operator
+     * @param cmds commands to be executed
      */
-    public static FakeOperator fakeOperator(@NotNull Player player){
+    public static void execCmdAsOp(@NotNull Player player, @NotNull String... cmds){
         Condition.argNotNull("player", player);
-        return SERVICE.fakeOp(player);
+        Condition.argNotNull("cmds", cmds);
+        for(String s : cmds) Bukkit.dispatchCommand(new FakeOperator(player), s);
     }
 
     /**
@@ -180,5 +189,100 @@ public class PlayerUtil {
     public static void fakeExp(@NotNull Player player, float expBar, int level, int totalExp){
         Condition.argNotNull("player", player);
         SERVICE.fakeExp(expBar, level, totalExp, player);
+    }
+
+    // A fake operator (tks OpticFusion)
+    static class FakeOperator implements CommandSender {
+        private Player player;
+
+        FakeOperator(Player player) {
+            this.player = player;
+        }
+
+        public Player getPlayer() {
+            return player;
+        }
+
+        public boolean isPermissionSet(@NotNull String name) {
+            return true;
+        }
+
+        public boolean isPermissionSet(@NotNull Permission perm) {
+            return true;
+        }
+
+        @Override
+        public boolean isOp() {
+            return true;
+        }
+
+        @Override
+        public void setOp(boolean value) {
+        }
+
+        @Override
+        public boolean hasPermission(@NotNull String name) {
+            return true;
+        }
+
+        @Override
+        public boolean hasPermission(@NotNull Permission perm) {
+            return true;
+        }
+
+        @Override
+        public void sendMessage(String string) {
+            player.sendMessage(string);
+        }
+
+        @Override
+        public void sendMessage(String[] strings) {
+            player.sendMessage(strings);
+        }
+
+        @Override
+        public Server getServer() {
+            return player.getServer();
+        }
+
+        @Override
+        public String getName() {
+            return player.getName();
+        }
+
+        @Override
+        public PermissionAttachment addAttachment(Plugin plugin, String string, boolean bln) {
+            return player.addAttachment(plugin, string, bln);
+        }
+
+        @Override
+        public PermissionAttachment addAttachment(Plugin plugin) {
+            return player.addAttachment(plugin);
+        }
+
+        @Override
+        public PermissionAttachment addAttachment(Plugin plugin, String string, boolean bln, int i) {
+            return player.addAttachment(plugin, string, bln, i);
+        }
+
+        @Override
+        public PermissionAttachment addAttachment(Plugin plugin, int i) {
+            return player.addAttachment(plugin, i);
+        }
+
+        @Override
+        public void removeAttachment(PermissionAttachment pa) {
+            player.removeAttachment(pa);
+        }
+
+        @Override
+        public void recalculatePermissions() {
+            player.recalculatePermissions();
+        }
+
+        @Override
+        public Set<PermissionAttachmentInfo> getEffectivePermissions() {
+            return player.getEffectivePermissions();
+        }
     }
 }

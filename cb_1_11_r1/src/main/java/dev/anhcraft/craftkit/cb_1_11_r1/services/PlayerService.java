@@ -3,9 +3,7 @@ package dev.anhcraft.craftkit.cb_1_11_r1.services;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.anhcraft.craftkit.cb_1_11_r1.CBModule;
-import dev.anhcraft.craftkit.cb_1_11_r1.objects.CKFakeOperator;
 import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
-import dev.anhcraft.craftkit.cb_common.kits.entity.FakeOperator;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import io.netty.buffer.ByteBuf;
@@ -46,9 +44,9 @@ public class PlayerService extends CBModule implements CBPlayerService {
 
     @Override
     public void changeSkin(Player player, Skin skin, List<Player> viewers) {
-        var cp = (CraftPlayer) player;
-        var ent = cp.getHandle();
-        var vws = toEntityPlayers(viewers);
+        CraftPlayer cp = (CraftPlayer) player;
+        EntityPlayer ent = cp.getHandle();
+        List<EntityPlayer> vws = toEntityPlayers(viewers);
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, ent), vws);
         sendPacket(new PacketPlayOutEntityDestroy(ent.getId()), vws);
         ent.getProfile().getProperties().removeAll("textures");
@@ -56,19 +54,14 @@ public class PlayerService extends CBModule implements CBPlayerService {
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, ent), vws);
         sendPacket(new PacketPlayOutNamedEntitySpawn(ent), vws);
 
-        var cw = (CraftWorld) player.getWorld();
-        var dimension = (int) ReflectionUtil.getDeclaredField(WorldServer.class, cw.getHandle(), "dimension");
+        CraftWorld cw = (CraftWorld) player.getWorld();
+        int dimension = (int) ReflectionUtil.getDeclaredField(WorldServer.class, cw.getHandle(), "dimension");
         craftServer.getHandle().moveToWorld(ent, dimension, true, player.getLocation(), true);
     }
 
     @Override
-    public FakeOperator fakeOp(Player player) {
-        return new CKFakeOperator(craftServer, toEntityPlayer(player));
-    }
-
-    @Override
     public void setCamera(int entityId, Player viewer) {
-        var packet = new PacketPlayOutCamera();
+        PacketPlayOutCamera packet = new PacketPlayOutCamera();
         packet.a = entityId;
         sendPacket(packet, toEntityPlayer(viewer));
     }

@@ -1,11 +1,10 @@
 package dev.anhcraft.craftkit.kits.entity;
 
-import dev.anhcraft.craftkit.common.lang.annotation.NoAutomaticCleaner;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,10 +15,8 @@ import java.util.Objects;
  * Represents {@code CustomEntity} implementation.
  */
 @Beta
-@NoAutomaticCleaner
 public abstract class CustomEntity {
-    private final Object VIEWER_MODIFY_LOCK = new Object(); // we must warrant the synchronization across three methods #addViewer, #removeViewer and #setViewers
-    @NoAutomaticCleaner private List<Player> viewers = new ArrayList<>();
+    private List<Player> viewers = Collections.synchronizedList(new ArrayList<>());
     private boolean isDead;
     int id = -1;
     Location location;
@@ -53,10 +50,8 @@ public abstract class CustomEntity {
         Condition.check(!isDead, "Oops... This entity died!");
         Condition.argNotNull("player", player);
         Condition.check(player.isOnline(), "Wait... the player is not online!!!");
-        synchronized (VIEWER_MODIFY_LOCK) {
-            viewers.add(player);
-            addViewerCallback(Collections.singletonList(player));
-        }
+        viewers.add(player);
+        addViewerCallback(Collections.singletonList(player));
     }
 
     /**
@@ -66,10 +61,8 @@ public abstract class CustomEntity {
     public void removeViewer(@NotNull Player player){
         Condition.check(!isDead, "Oops... This entity died!");
         Condition.argNotNull("player", player);
-        synchronized (VIEWER_MODIFY_LOCK) {
-            viewers.remove(player);
-            removeViewerCallback(Collections.singletonList(player));
-        }
+        viewers.remove(player);
+        removeViewerCallback(Collections.singletonList(player));
     }
 
     /**
@@ -79,15 +72,13 @@ public abstract class CustomEntity {
     public void setViewers(@NotNull List<Player> players){
         Condition.check(!isDead, "Oops... This entity died!");
         Condition.argNotNull("players", players);
-        synchronized (VIEWER_MODIFY_LOCK) {
-            List<Player> newPlayers = new ArrayList<>(players);
-            List<Player> oldPlayers = new ArrayList<>(viewers);
-            newPlayers.removeAll(viewers); // skip all current viewers
-            addViewerCallback(newPlayers); // only add new viewers
-            oldPlayers.removeAll(players); // skip all available viewers
-            removeViewerCallback(oldPlayers); // only remove unavailable viewers
-            viewers = new ArrayList<>(players); // we do not want to get changes from the given list
-        }
+        List<Player> newPlayers = new ArrayList<>(players);
+        List<Player> oldPlayers = new ArrayList<>(viewers);
+        newPlayers.removeAll(viewers); // skip all current viewers
+        addViewerCallback(newPlayers); // only add new viewers
+        oldPlayers.removeAll(players); // skip all available viewers
+        removeViewerCallback(oldPlayers); // only remove unavailable viewers
+        viewers = new ArrayList<>(players); // we do not want to get changes from the given list
     }
 
     /**

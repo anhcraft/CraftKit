@@ -99,7 +99,7 @@ public class InventoryUtil {
      */
     public static void fillAll(@NotNull Inventory inventory, @Nullable ItemStack itemStack){
         Condition.argNotNull("inventory", inventory);
-        for(var i = 0; i < inventory.getSize(); i++) inventory.setItem(i, itemStack);
+        for(int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, itemStack);
     }
 
     /**
@@ -109,7 +109,7 @@ public class InventoryUtil {
      */
     public static void fillEmpty(@NotNull Inventory inventory, @Nullable ItemStack itemStack){
         Condition.argNotNull("inventory", inventory);
-        for(var i = 0; i < inventory.getSize(); i++) {
+        for(int i = 0; i < inventory.getSize(); i++) {
             if(ItemUtil.isNull(inventory.getItem(i))) inventory.setItem(i, itemStack);
         }
     }
@@ -123,8 +123,8 @@ public class InventoryUtil {
     public static void merge(@NotNull Inventory a, @NotNull Inventory b){
         Condition.argNotNull("a", a);
         Condition.argNotNull("b", b);
-        var i = 0;
-        for(var j = 0; j < b.getSize() && i < a.getSize(); j++) {
+        int i = 0;
+        for(int j = 0; j < b.getSize() && i < a.getSize(); j++) {
             if(ItemUtil.isNull(b.getItem(j))) {
                 ItemStack item;
                 while(ItemUtil.isNull((item = a.getItem(i)))) i++;

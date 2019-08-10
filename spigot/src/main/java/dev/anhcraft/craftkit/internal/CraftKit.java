@@ -1,12 +1,9 @@
 package dev.anhcraft.craftkit.internal;
 
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.craftkit.cb_common.internal.CBServerService;
 import dev.anhcraft.craftkit.common.internal.CKConfig;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
-import dev.anhcraft.craftkit.common.internal.assistants.CKAssistant;
 import dev.anhcraft.craftkit.helpers.ConfigHelper;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.integrations.PluginProvider;
@@ -14,38 +11,31 @@ import dev.anhcraft.craftkit.internal.integrations.VaultIntegration;
 import dev.anhcraft.craftkit.internal.listeners.EntityListener;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.internal.listeners.ServerListener;
-import dev.anhcraft.craftkit.internal.listeners.WorldListener;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.craftkit.internal.tasks.ArmorHandleTask;
 import dev.anhcraft.craftkit.kits.chat.ActionBar;
 import dev.anhcraft.craftkit.kits.chat.Chat;
 import dev.anhcraft.craftkit.utils.BungeeUtil;
 import dev.anhcraft.jvmkit.utils.FileUtil;
-import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.IOException;
-import java.util.Map;
 
 public final class CraftKit extends JavaPlugin implements CKPlugin {
-    private static final JavaPluginLoader JAVA_PLUGIN_LOADER = CBProvider.getService(CBServerService.class).orElseThrow().getPluginLoader(JavaPluginLoader.class);
     public static final Chat DEFAULT_CHAT = new Chat("&6#craftkit:&f ");
     public static final Chat INFO_CHAT = new Chat("&6#craftkit:&b ");
     public static final Chat WARN_CHAT = new Chat("&6#craftkit:&c ");
-    public static CraftKit instance;
 
     @Override
     public void onEnable() {
         try{
             Class.forName("org.spigotmc.SpigotConfig");
         } catch(ClassNotFoundException e) {
-            getLogger().info(() -> "CraftKit can only work on Spigot-based servers (Spigot, PaperSpigot, etc)"); // do not use string (fix maven compiler error)
+            getLogger().info(() -> "CraftKit can only work on Spigot-based servers (Spigot, PaperSpigot, etc)");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-        instance = this;
 
         // put things to the internal provider
         CKProvider.CHAT_NO_PREFIX = Chat.noPrefix();
@@ -87,28 +77,21 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         INFO_CHAT.messageConsole("Registering internal listeners...");
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new ServerListener(), this);
-        getServer().getPluginManager().registerEvents(new WorldListener(), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
 
         // register messaging channels
         INFO_CHAT.messageConsole("Registering messaging channels...");
         getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE);
-        getServer().getMessenger().registerIncomingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE, new BungeeUtilMessenger());
+        getServer().getMessenger().registerIncomingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE, new BungeeUtilMessenger(this));
         getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL_NAMESPACE);
-        getServer().getMessenger().registerIncomingPluginChannel(this, CHANNEL_NAMESPACE, new BungeeUtilMessenger());
+        getServer().getMessenger().registerIncomingPluginChannel(this, CHANNEL_NAMESPACE, new BungeeUtilMessenger(this));
 
         // plugin integrations
-        INFO_CHAT.messageConsole("Discovering soft-dependencies...");
-        if(PluginProvider.getProvider(VaultIntegration.class).init()) INFO_CHAT.messageConsole("Hooked to &fVault");
+        INFO_CHAT.messageConsole("Hooking soft-dependencies...");
+        if(PluginProvider.getProvider(VaultIntegration.class).init()) INFO_CHAT.messageConsole("&aVault&f support enabled");
 
         // start tasks
         INFO_CHAT.messageConsole("Starting tasks...");
-        CKProvider.TASK_HELPER.newDelayedAsyncTask(this::doIndex, 100);
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void doIndex(){
-        CKAssistant.doIndex(((Map<String, Class<?>>) ReflectionUtil.getDeclaredField(JavaPluginLoader.class, JAVA_PLUGIN_LOADER, "classes")).values());
     }
 }

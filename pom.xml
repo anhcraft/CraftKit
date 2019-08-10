@@ -6,27 +6,28 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>pom</packaging>
+
+    <name>CraftKit</name>
 
     <description>An effective utility kit for Spigot/Bungeecord plugins</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.jvmKit>1.0.7</version.jvmKit>
-        <version.bungeecordChat>1.9-SNAPSHOT</version.bungeecordChat>
+        <version.jvmKit>1.0.9</version.jvmKit>
+        <version.bungeecordChat>1.14-SNAPSHOT</version.bungeecordChat>
         <version.spigotApi>1.9.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.5.25</version.authlib>
-        <version.abif>1.0.6</version.abif>
     </properties>
 
     <developers>
         <developer>
             <id>anhcraft</id>
             <name>Duy Anh</name>
-            <email>admin@anhcraft.dev</email>
+            <url>https://anhcraft.dev/</url>
         </developer>
     </developers>
 
@@ -47,7 +48,7 @@
     <repositories>
         <repository>
             <id>anhcraft-repo</id>
-            <url>https://anhcraft.dev:7554/repository/mvn/</url>
+            <url>https://repo.anhcraft.dev/repository/mvn/</url>
         </repository>
         <repository>
             <id>codemc-repo</id>
@@ -70,33 +71,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.1</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Automatic-Module-Name>dev.anhcraft.craftkit</Automatic-Module-Name>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
-                    <source>11</source>
-                    <target>11</target>
-                    <compilerArgs>
-                        <arg>-Xlint:-requires-transitive-automatic</arg>
-                    </compilerArgs>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>7.1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -121,7 +104,7 @@
                 </executions>
                 <configuration>
                     <serverId>nexus</serverId>
-                    <nexusUrl>https://anhcraft.dev:7554/</nexusUrl>
+                    <nexusUrl>https://repo.anhcraft.dev/</nexusUrl>
                     <skipStaging>true</skipStaging>
                 </configuration>
             </plugin>
@@ -137,7 +120,7 @@
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <url>https://anhcraft.dev:7554/repository/mvn/</url>
+            <url>https://repo.anhcraft.dev/repository/mvn/</url>
         </repository>
     </distributionManagement>
 </project>

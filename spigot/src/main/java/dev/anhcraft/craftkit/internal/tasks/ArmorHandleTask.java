@@ -1,6 +1,5 @@
 package dev.anhcraft.craftkit.internal.tasks;
 
-import dev.anhcraft.craftkit.common.lang.annotation.RequiredCleaner;
 import dev.anhcraft.craftkit.events.ArmorChangeEvent;
 import dev.anhcraft.craftkit.events.ArmorEquipEvent;
 import dev.anhcraft.craftkit.events.ArmorUnequipEvent;
@@ -11,24 +10,22 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ArmorHandleTask implements Runnable {
-    @RequiredCleaner
-    private static final Map<Player, HashMap<EquipmentSlot, ItemStack>> data = new HashMap<>();
+    public static final Map<Player, HashMap<EquipmentSlot, ItemStack>> data = new HashMap<>();
 
     @Override
     public void run() {
         for(Player p : Bukkit.getOnlinePlayers()){
-            var h = ItemUtil.clone(p.getInventory().getHelmet());
-            var c = ItemUtil.clone(p.getInventory().getChestplate());
-            var l = ItemUtil.clone(p.getInventory().getLeggings());
-            var b = ItemUtil.clone(p.getInventory().getBoots());
-            HashMap<EquipmentSlot, ItemStack> x = new LinkedHashMap<>();
-            if(data.containsKey(p)){
-                x = data.get(p);
-                var oh = x.get(EquipmentSlot.HEAD);
+            ItemStack h = ItemUtil.clone(p.getInventory().getHelmet());
+            ItemStack c = ItemUtil.clone(p.getInventory().getChestplate());
+            ItemStack l = ItemUtil.clone(p.getInventory().getLeggings());
+            ItemStack b = ItemUtil.clone(p.getInventory().getBoots());
+            HashMap<EquipmentSlot, ItemStack> x = data.get(p);
+            if(x != null){
+                ItemStack oh = x.get(EquipmentSlot.HEAD);
                 if(oh == null){
                     if(h != null){
                         ArmorEquipEvent e = new ArmorEquipEvent(p, h, EquipmentSlot.HEAD);
@@ -47,7 +44,7 @@ public class ArmorHandleTask implements Runnable {
                     }
                 }
                 
-                var oc = x.get(EquipmentSlot.CHEST);
+                ItemStack oc = x.get(EquipmentSlot.CHEST);
                 if(oc == null){
                     if(c != null){
                         ArmorEquipEvent e = new ArmorEquipEvent(p, c, EquipmentSlot.CHEST);
@@ -66,7 +63,7 @@ public class ArmorHandleTask implements Runnable {
                     }
                 }
                 
-                var ol = x.get(EquipmentSlot.LEGS);
+                ItemStack ol = x.get(EquipmentSlot.LEGS);
                 if(ol == null){
                     if(l != null){
                         ArmorEquipEvent e = new ArmorEquipEvent(p, l, EquipmentSlot.LEGS);
@@ -85,7 +82,7 @@ public class ArmorHandleTask implements Runnable {
                     }
                 }
                 
-                var ob = x.get(EquipmentSlot.FEET);
+                ItemStack ob = x.get(EquipmentSlot.FEET);
                 if(ob == null){
                     if(b != null){
                         ArmorEquipEvent e = new ArmorEquipEvent(p, b, EquipmentSlot.FEET);
@@ -104,13 +101,15 @@ public class ArmorHandleTask implements Runnable {
                     }
                 }
             } else {
+                x = new HashMap<>();
                 x.put(EquipmentSlot.HEAD, h);
                 x.put(EquipmentSlot.CHEST, c);
                 x.put(EquipmentSlot.LEGS, l);
                 x.put(EquipmentSlot.FEET, b);
 
-                for(EquipmentSlot r : x.keySet()){
-                    var v = x.get(r);
+                Set<EquipmentSlot> set = x.keySet();
+                for(EquipmentSlot r : set){
+                    ItemStack v = x.get(r);
                     if(v != null) {
                         ArmorEquipEvent e = new ArmorEquipEvent(p, v, r);
                         Bukkit.getPluginManager().callEvent(e);

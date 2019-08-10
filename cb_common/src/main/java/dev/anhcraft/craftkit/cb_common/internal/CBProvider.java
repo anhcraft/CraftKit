@@ -13,7 +13,10 @@ public class CBProvider {
     private static final Map<Class<? extends CBService>, CBService> CACHED_SERVICE = new ConcurrentHashMap<>();
 
     public static <S extends T, T extends CBService> Optional<S> getService(Class<T> clazz, boolean cache){
-        if(cache && CACHED_SERVICE.containsKey(clazz)) return Optional.of((S) CACHED_SERVICE.get(clazz));
+        CBService s;
+        if(cache && (s = CACHED_SERVICE.get(clazz)) != null)
+            return Optional.of((S) s);
+
         try {
             Class<?> nmsClass = Class.forName(NMS_SERVICE_PACKAGE + clazz.getSimpleName().substring(2));
             S ins = (S) ReflectionUtil.invokeDeclaredConstructor(nmsClass);

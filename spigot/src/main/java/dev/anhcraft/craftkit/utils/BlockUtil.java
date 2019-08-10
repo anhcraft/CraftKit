@@ -2,12 +2,14 @@ package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.internal.CBBlockService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.MathUtil;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +19,7 @@ import java.util.List;
  * Utility methods for working with {@link Block}.
  */
 public class BlockUtil {
-    private static final CBBlockService SERVICE = CBProvider.getService(CBBlockService.class).orElseThrow();
+    private static final CBBlockService SERVICE = CBProvider.getService(CBBlockService.class).orElseThrow(UnsupportedOperationException::new);
     private static final BlockFace[] HORIZONTAL_FACE = new BlockFace[]{
             BlockFace.NORTH,
             BlockFace.EAST,
@@ -37,10 +39,10 @@ public class BlockUtil {
         Condition.argNotNull("loc", loc);
 
         List<Block> blocks = new ArrayList<>();
-        var w = loc.getWorld();
-        var cx = loc.getX();
-        var cy = loc.getY();
-        var cz = loc.getZ();
+        World w = loc.getWorld();
+        double cx = loc.getX();
+        double cy = loc.getY();
+        double cz = loc.getZ();
 
         for (int x = -rx; x <= rx; x++){
             for (int y = -ry; y <= ry; y++) {
@@ -61,7 +63,7 @@ public class BlockUtil {
     public static BlockFace rotateFace(@NotNull BlockFace face, double angle){
         Condition.argNotNull("face", face);
 
-        if(angle % 90 != 0) angle += 90 - angle % 90; // round the angle
+        angle = MathUtil.nextMultiple(angle, 90); // round the angle
         int delta = (int) (angle/90); // convert the angle (0-360) to (0-4)
         if(delta == 0) return face;
         else {

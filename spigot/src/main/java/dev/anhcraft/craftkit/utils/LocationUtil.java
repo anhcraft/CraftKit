@@ -4,6 +4,7 @@ import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,10 +56,10 @@ public class LocationUtil {
         Condition.argNotNull("loc", loc);
 
         List<Location> locations = new ArrayList<>();
-        var w = loc.getWorld();
-        var cx = loc.getX();
-        var cy = loc.getY();
-        var cz = loc.getZ();
+        World w = loc.getWorld();
+        double cx = loc.getX();
+        double cy = loc.getY();
+        double cz = loc.getZ();
 
         for (int x = -rx; x <= rx; x++){
             for (int y = -ry; y <= ry; y++) {

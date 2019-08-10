@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class ItemBuilder implements Builder<ItemStack> {
 
     /**
      * Sets a name for this stack.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param name the name
      * @return this object
      */
@@ -65,7 +66,7 @@ public class ItemBuilder implements Builder<ItemStack> {
 
     /**
      * Adds a lore line.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param line the lore line
      * @return this object
      */
@@ -76,7 +77,7 @@ public class ItemBuilder implements Builder<ItemStack> {
 
     /**
      * Adds a bunch of lore lines.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param lines lore lines
      * @return this object
      */
@@ -112,13 +113,13 @@ public class ItemBuilder implements Builder<ItemStack> {
      */
     @Override
     public ItemStack build() {
-        var item = new ItemStack(type, amount, durability);
-        var meta = item.getItemMeta();
+        ItemStack item = new ItemStack(type, amount, durability);
+        ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatUtil.formatColorCodes(name));
         meta.setLore(ChatUtil.formatColorCodes(lore));
         meta.addItemFlags(CollectionUtil.toArray(flags.stream().filter(Objects::nonNull)
                 .collect(Collectors.toList()), ItemFlag.class));
-        for (var e : enchants.entrySet()) meta.addEnchant(e.getKey(), e.getValue(), true);
+        for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) meta.addEnchant(e.getKey(), e.getValue(), true);
         item.setItemMeta(meta);
         return item;
     }

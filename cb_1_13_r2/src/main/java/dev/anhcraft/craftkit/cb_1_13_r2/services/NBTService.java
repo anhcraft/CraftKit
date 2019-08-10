@@ -30,12 +30,12 @@ public class NBTService extends CBModule implements CBNBTService {
             case TagType.BYTE_ARRAY_TAG: return new ByteArrayTag(((NBTTagByteArray) tag).c());
             case TagType.STRING_TAG: return new StringTag(tag.asString());
             case TagType.LIST_TAG:
-                var list = new ListTag();
-                var nbtList = (NBTTagList) tag;
+                ListTag list = new ListTag();
+                NBTTagList nbtList = (NBTTagList) tag;
                 for (NBTBase nbtBase : nbtList) list.getValue().add(fromNMS(nbtBase));
                 return list;
             case TagType.COMPOUND_TAG:
-                var compound = new CompoundTag();
+                CompoundTag compound = new CompoundTag();
                 fromNMS((NBTTagCompound) tag, compound);
                 return compound;
             case TagType.INT_ARRAY_TAG: return new IntArrayTag(((NBTTagIntArray) tag).d());
@@ -55,12 +55,12 @@ public class NBTService extends CBModule implements CBNBTService {
             case TagType.BYTE_ARRAY_TAG: return new NBTTagByteArray((byte[]) tag.getValue());
             case TagType.STRING_TAG: return new NBTTagString((String) tag.getValue());
             case TagType.LIST_TAG:
-                var list = new NBTTagList();
+                NBTTagList list = new NBTTagList();
                 ((List<NBTTag>) tag.getValue()).stream().map(NBTService::toNMS).forEach(list::add);
                 return list;
             case TagType.COMPOUND_TAG:
-                var compound = new NBTTagCompound();
-                var ctag = (CompoundTag) tag;
+                NBTTagCompound compound = new NBTTagCompound();
+                CompoundTag ctag = (CompoundTag) tag;
                 ctag.listNames().forEach(k -> compound.set(k, toNMS(ctag.get(k))));
                 return compound;
             case TagType.INT_ARRAY_TAG: return new NBTTagIntArray((int[]) tag.getValue());
@@ -76,7 +76,7 @@ public class NBTService extends CBModule implements CBNBTService {
 
     @Override
     public NBTTag get(String key) {
-        var t = root.get(key);
+        NBTBase t = root.get(key);
         return t == null ? null : fromNMS(t);
     }
 
@@ -107,7 +107,7 @@ public class NBTService extends CBModule implements CBNBTService {
 
     @Override
     public ItemStack save(ItemStack item) {
-        var i = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R2.ItemStack i = CraftItemStack.asNMSCopy(item);
         ReflectionUtil.invokeDeclaredMethod(net.minecraft.server.v1_13_R2.ItemStack.class, i, "load",
                 new Class<?>[]{NBTTagCompound.class},
                 new Object[]{root});

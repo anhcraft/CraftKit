@@ -39,9 +39,9 @@ public class VectorUtil {
      */
     public static Vector rotateAroundAxisX(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
-        var rad = Math.toRadians(angle);
-        var sin = Math.sin(rad);
-        var cos = Math.cos(rad);
+        double rad = Math.toRadians(angle);
+        double sin = Math.sin(rad);
+        double cos = Math.cos(rad);
         return new Vector(
                 vector.getX(),
                 vector.getY() * cos - vector.getZ() * sin,
@@ -56,9 +56,9 @@ public class VectorUtil {
      */
     public static Vector rotateAroundAxisY(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
-        var rad = Math.toRadians(angle);
-        var sin = Math.sin(rad);
-        var cos = Math.cos(rad);
+        double rad = Math.toRadians(angle);
+        double sin = Math.sin(rad);
+        double cos = Math.cos(rad);
         return new Vector(
                 vector.getX() * cos + vector.getZ() * sin,
                 vector.getY(),
@@ -73,9 +73,9 @@ public class VectorUtil {
      */
     public static Vector rotateAroundAxisZ(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
-        var rad = Math.toRadians(angle);
-        var sin = Math.sin(rad);
-        var cos = Math.cos(rad);
+        double rad = Math.toRadians(angle);
+        double sin = Math.sin(rad);
+        double cos = Math.cos(rad);
         return new Vector(
                 vector.getX() * cos - vector.getY() * sin,
                 vector.getX() * sin + vector.getY() * cos,
@@ -112,11 +112,11 @@ public class VectorUtil {
      * @return the vector represents that direction
      */
     public static Vector getDirection(float yaw, float pitch){
-        var yawRad = Math.toRadians(yaw);
-        var pitchRad = Math.toRadians(pitch);
-        var x = Math.cos(yawRad) * Math.sin(pitchRad);
-        var y = Math.sin(yawRad) * Math.sin(pitchRad);
-        var z = Math.cos(pitchRad);
+        double yawRad = Math.toRadians(yaw);
+        double pitchRad = Math.toRadians(pitch);
+        double x = Math.cos(yawRad) * Math.sin(pitchRad);
+        double y = Math.sin(yawRad) * Math.sin(pitchRad);
+        double z = Math.cos(pitchRad);
         return new Vector(x, y, z);
     }
 

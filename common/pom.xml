@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.anhcraft</groupId>
         <artifactId>craftkit.parent</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <craftkit.configVersion>1</craftkit.configVersion>
+        <craftkit.configVersion>2</craftkit.configVersion>
     </properties>
 
     <dependencies>

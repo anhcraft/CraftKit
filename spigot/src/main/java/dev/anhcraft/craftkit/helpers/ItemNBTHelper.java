@@ -60,7 +60,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return ItemNBTHelper
      */
     public static ItemNBTHelper of(@NotNull ItemStack itemStack){
-        var i = new ItemNBTHelper();
+        ItemNBTHelper i = new ItemNBTHelper();
         i.select(itemStack);
         return i;
     }
@@ -76,7 +76,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return the target
      */
     public ItemStack save(){
-        var nbt = CompoundTag.of(getTarget());
+        CompoundTag nbt = CompoundTag.of(getTarget());
         nbt.put("tag", tag);
         setTarget(nbt.save(getTarget()));
         return getTarget();
@@ -98,7 +98,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return {@code true} if it is or {@code false} otherwise
      */
     public boolean isUnbreakable(){
-        var t = tag.get("Unbreakable", ByteTag.class);
+        ByteTag t = tag.get("Unbreakable", ByteTag.class);
         return t != null && t.getValue() == 1;
     }
 
@@ -110,11 +110,11 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     public ItemNBTHelper setSkin(@NotNull Skin skin){
         Condition.argNotNull("skin", skin);
-        var skullOwner = tag.getOrCreateDefault("SkullOwner", CompoundTag.class);
+        CompoundTag skullOwner = tag.getOrCreateDefault("SkullOwner", CompoundTag.class);
         if(!skullOwner.has("Id")) skullOwner.put("Id", new StringTag(UUID.randomUUID().toString()));
-        var properties = tag.getOrCreateDefault("Properties", CompoundTag.class);
-        var textures = new ListTag(); // reset the textures tag
-        var texture = new CompoundTag();
+        CompoundTag properties = tag.getOrCreateDefault("Properties", CompoundTag.class);
+        ListTag textures = new ListTag(); // reset the textures tag
+        CompoundTag texture = new CompoundTag();
         texture.put("Value", new StringTag(skin.getValue()));
         if(skin.getSignature() != null) texture.put("Signature", new StringTag(skin.getSignature()));
         textures.getValue().add(texture);
@@ -130,17 +130,17 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public Skin setSkin(){
-        var skullOwner = tag.get("SkullOwner", CompoundTag.class);
+        @Nullable CompoundTag skullOwner = tag.get("SkullOwner", CompoundTag.class);
         if(skullOwner != null){
-            var properties = tag.get("Properties", CompoundTag.class);
+            @Nullable CompoundTag properties = tag.get("Properties", CompoundTag.class);
             if(properties != null){
-                var textures = tag.get("textures", ListTag.class);
+                @Nullable ListTag textures = tag.get("textures", ListTag.class);
                 if(textures != null && !textures.getValue().isEmpty()){
-                    var texture = textures.getValue().get(0);
+                    NBTTag texture = textures.getValue().get(0);
                     if(texture instanceof CompoundTag) {
-                        var tt = (CompoundTag) texture;
-                        var val = tt.get("Value", StringTag.class);
-                        var sgn = tt.get("Signature", StringTag.class);
+                        CompoundTag tt = (CompoundTag) texture;
+                        @Nullable StringTag val = tt.get("Value", StringTag.class);
+                        @Nullable StringTag sgn = tt.get("Signature", StringTag.class);
                         if(val != null && sgn != null) return new Skin(val.getValue(), sgn.getValue());
                     }
                 }
@@ -167,13 +167,13 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public BookGeneration getGeneration(){
-        var t = tag.get("generation", IntTag.class);
+        @Nullable IntTag t = tag.get("generation", IntTag.class);
         return t == null ? null : BookGeneration.getById(t.getValue());
     }
 
     /**
      * Sets the author.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.<br>
      * This method only works if the stack is written books.
      * @param author author's name
      * @return this object
@@ -190,13 +190,13 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public String getAuthor(){
-        var t = tag.get("author", StringTag.class);
+        @Nullable StringTag t = tag.get("author", StringTag.class);
         return t == null ? null : t.getValue();
     }
 
     /**
      * Sets the title.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.<br>
      * This method only works if the stack is written books.
      * @param title new title
      * @return this object
@@ -213,7 +213,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public String getTitle(){
-        var t = tag.get("title", StringTag.class);
+        @Nullable StringTag t = tag.get("title", StringTag.class);
         return t == null ? null : t.getValue();
     }
 
@@ -233,23 +233,23 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return {@code true} if they are
      */
     public boolean isResolved(){
-        var t = tag.get("resolved", ByteTag.class);
+        @Nullable ByteTag t = tag.get("resolved", ByteTag.class);
         return t != null && t.getValue() == 1;
     }
 
     /**
      * Overrides books content.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.<br>
      * This method only works if the stack is written books.
      * @param pages list of pages
      * @return this object
      */
     public ItemNBTHelper setPages(@Nullable List<String> pages){
-        var ltag = new ListTag();
+        ListTag ltag = new ListTag();
         pages = ChatUtil.formatColorCodes(pages);
         if(pages != null) {
-            for (var content : pages) {
-                var j = new JsonObject();
+            for (String content : pages) {
+                JsonObject j = new JsonObject();
                 j.addProperty("text", content);
                 ltag.getValue().add(new StringTag(CKPlugin.GSON.toJson(j)));
             }
@@ -264,7 +264,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @NotNull
     public List<String> getPages(){
-        var ltag = tag.get("pages", ListTag.class);
+        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
         return ltag == null ? new ArrayList<>() : ltag.getValue()
                 .stream().map(tag -> ((StringTag) tag).getValue()).collect(Collectors.toList());
     }
@@ -276,7 +276,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public String getPage(int index){
-        var ltag = tag.get("pages", ListTag.class);
+        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
             return ((StringTag) ltag.getValue().get(index)).getValue();
         }
@@ -285,15 +285,15 @@ public class ItemNBTHelper extends Selector<ItemStack> {
 
     /**
      * Appends a new page.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.<br>
      * This method only works if the stack is written books.
      * @param content the content of that page
      * @return this object
      */
     public ItemNBTHelper addPage(@NotNull String content){
         Condition.argNotNull("content", content);
-        var ltag = tag.getOrCreateDefault("pages", ListTag.class);
-        var j = new JsonObject();
+        ListTag ltag = tag.getOrCreateDefault("pages", ListTag.class);
+        JsonObject j = new JsonObject();
         j.addProperty("text", ChatUtil.formatColorCodes(content));
         ltag.getValue().add(new StringTag(CKPlugin.GSON.toJson(j)));
         tag.put("pages", ltag);
@@ -302,7 +302,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
 
     /**
      * Overrides the content of a page by its index.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.<br>
      * This method only works if the stack is written books.
      * @param index the index
      * @param content new content
@@ -310,9 +310,9 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     public ItemNBTHelper setPage(int index, @NotNull String content){
         Condition.argNotNull("content", content);
-        var ltag = tag.get("pages", ListTag.class);
+        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
-            var j = new JsonObject();
+            JsonObject j = new JsonObject();
             j.addProperty("text", ChatUtil.formatColorCodes(content));
             ltag.getValue().set(index, new StringTag(CKPlugin.GSON.toJson(j)));
             tag.put("pages", ltag);
@@ -327,7 +327,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @return this object
      */
     public ItemNBTHelper removePage(int index){
-        var ltag = tag.get("pages", ListTag.class);
+        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
             ltag.getValue().remove(index);
             tag.put("pages", ltag);
@@ -352,8 +352,8 @@ public class ItemNBTHelper extends Selector<ItemStack> {
     public ItemNBTHelper addModifier(@NotNull ItemModifier modifier){
         Condition.argNotNull("modifier", modifier);
 
-        var ltag = tag.getOrCreateDefault("AttributeModifiers", ListTag.class);
-        var attr = new CompoundTag();
+        ListTag ltag = tag.getOrCreateDefault("AttributeModifiers", ListTag.class);
+        CompoundTag attr = new CompoundTag();
         attr.put("AttributeName", new StringTag(modifier.getAttribute().getId()));
         attr.put("Name", new StringTag(modifier.getName()));
         attr.put("Amount", new DoubleTag(modifier.getAmount()));
@@ -374,11 +374,11 @@ public class ItemNBTHelper extends Selector<ItemStack> {
     public ItemNBTHelper removeModifiersBySlot(@NotNull EquipmentSlot slot){
         Condition.argNotNull("slot", slot);
 
-        var ltag = tag.get("AttributeModifiers", ListTag.class);
+        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
-            var nslot = getNmsEquipName(slot);
-            var nl = ltag.getValue().stream().filter(tag -> {
-                var s = ((CompoundTag) tag).get("Slot", StringTag.class);
+            @NotNull String nslot = getNmsEquipName(slot);
+            List<NBTTag> nl = ltag.getValue().stream().filter(tag -> {
+                @Nullable StringTag s = ((CompoundTag) tag).get("Slot", StringTag.class);
                 return s == null || !s.getValue().equals(nslot);
             }).collect(Collectors.toList());
             ltag.getValue().clear();
@@ -396,10 +396,10 @@ public class ItemNBTHelper extends Selector<ItemStack> {
     public ItemNBTHelper removeModifiersByAttribute(@NotNull Attribute attribute){
         Condition.argNotNull("attribute", attribute);
 
-        var ltag = tag.get("AttributeModifiers", ListTag.class);
+        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
-            var nl = ltag.getValue().stream().filter(tag -> {
-                var s = ((CompoundTag) tag).get("AttributeName", StringTag.class);
+            List<NBTTag> nl = ltag.getValue().stream().filter(tag -> {
+                @Nullable StringTag s = ((CompoundTag) tag).get("AttributeName", StringTag.class);
                 return s == null || !s.getValue().equals(attribute.getId());
             }).collect(Collectors.toList());
             ltag.getValue().clear();
@@ -424,16 +424,16 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @NotNull
     public List<ItemModifier> getModifiers(){
-        var ltag = tag.get("AttributeModifiers", ListTag.class);
+        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
             return ltag.getValue().stream().map(tag -> (CompoundTag) tag).map(tag -> {
-                var attr = Objects.requireNonNull(tag.get("AttributeName", StringTag.class)).getValue();
-                var um = Objects.requireNonNull(tag.get("UUIDMost", LongTag.class)).getValue();
-                var ul = Objects.requireNonNull(tag.get("UUIDLeast", LongTag.class)).getValue();
-                var name = Objects.requireNonNull(tag.get("Name", StringTag.class)).getValue();
-                var amt = Objects.requireNonNull(tag.get("Amount", DoubleTag.class)).getValue();
-                var op = Objects.requireNonNull(tag.get("Operation", IntTag.class)).getValue();
-                var slot = Objects.requireNonNull(tag.get("Slot", StringTag.class)).getValue();
+                String attr = Objects.requireNonNull(tag.get("AttributeName", StringTag.class)).getValue();
+                Long um = Objects.requireNonNull(tag.get("UUIDMost", LongTag.class)).getValue();
+                Long ul = Objects.requireNonNull(tag.get("UUIDLeast", LongTag.class)).getValue();
+                String name = Objects.requireNonNull(tag.get("Name", StringTag.class)).getValue();
+                Double amt = Objects.requireNonNull(tag.get("Amount", DoubleTag.class)).getValue();
+                int op = Objects.requireNonNull(tag.get("Operation", IntTag.class)).getValue();
+                String slot = Objects.requireNonNull(tag.get("Slot", StringTag.class)).getValue();
                 return new ItemModifier(
                         new UUID(um, ul), name, amt,
                         Objects.requireNonNull(Modifier.Operation.getById(op)),

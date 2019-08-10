@@ -7,12 +7,6 @@
 # Do you allow this library to check for new updates?
 allow_check_update: true
 
-# You can control all beta/experiment features here
-beta_features:
-  # Enables the packet handle?
-  # <UNAVAILABLE>
-  packet_handle_enabled: false
-
 # ==================================
 # Please do not change the following value
 config_version: ${craftkit.configVersion}

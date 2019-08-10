@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,10 +65,10 @@ public class CKCustomInventory extends CraftInventoryCustom implements CustomInv
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         if(!Objects.equals(event.getClickedInventory(), this) || !(event.getWhoClicked() instanceof Player)) return;
-        var c = slots.get(event.getRawSlot());
+        Collection<SlotCallback> c = slots.get(event.getRawSlot());
         if(c != null) {
-            var p = (Player) event.getWhoClicked();
-            for(var x : c) x.click(event, p, this);
+            Player p = (Player) event.getWhoClicked();
+            for(SlotCallback x : c) x.click(event, p, this);
         }
     }
 
@@ -75,14 +76,14 @@ public class CKCustomInventory extends CraftInventoryCustom implements CustomInv
     public void onOpen(InventoryOpenEvent event) {
         if(!Objects.equals(event.getInventory(), this)) return;
         if(!(event.getPlayer() instanceof Player)) return;
-        var p = (Player) event.getPlayer();
-        for(var x : inv) x.open(event, p, this);
+        Player p = (Player) event.getPlayer();
+        for(InventoryCallback x : inv) x.open(event, p, this);
     }
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         if(!Objects.equals(event.getInventory(), this) || !(event.getPlayer() instanceof Player)) return;
-        var p = (Player) event.getPlayer();
-        for(var x : inv) x.close(event, p, this);
+        Player p = (Player) event.getPlayer();
+        for(InventoryCallback x : inv) x.close(event, p, this);
     }
 }

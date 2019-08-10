@@ -40,6 +40,7 @@ public abstract class NBTTag<T> implements Serializable {
     /**
      * Creates a default NBT tag.
      * @param classType the tag's class type
+     * @param <E> type of the tag
      * @return the tag
      */
     @SuppressWarnings("unchecked")

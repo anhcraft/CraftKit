@@ -74,7 +74,7 @@ public enum Attribute {
     @Nullable
     public static Attribute getById(@NotNull String id){
         Condition.argNotNull("id", id);
-        for(var attr : values()){
+        for(Attribute attr : values()){
             if(id.equals(attr.getId())) return attr;
         }
         return null;

@@ -17,10 +17,10 @@ import java.util.List;
  * This class represents a fake entity player (NPC).
  */
 public class NPC extends CustomEntity {
-    private static final CBOutPacketService SERVICE_1 = CBProvider.getService(CBOutPacketService.class).orElseThrow();
-    private static final CBEntityNPCService SERVICE_2 = CBProvider.getService(CBEntityNPCService.class).orElseThrow();
-    private static final CBEntityService SERVICE_3 = CBProvider.getService(CBEntityService.class).orElseThrow();
-    private static final CBPlayerService SERVICE_4 = CBProvider.getService(CBPlayerService.class).orElseThrow();
+    private static final CBOutPacketService SERVICE_1 = CBProvider.getService(CBOutPacketService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityNPCService SERVICE_2 = CBProvider.getService(CBEntityNPCService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityService SERVICE_3 = CBProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBPlayerService SERVICE_4 = CBProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Spawns a new NPC with the given information.
@@ -46,7 +46,7 @@ public class NPC extends CustomEntity {
 
     @Override
     protected void addViewerCallback(List<Player> players) {
-        var viewers = SERVICE_4.toNmsEntityPlayers(players);
+        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(players);
         SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.ADD_PLAYER, viewers);
         SERVICE_1.namedEntitySpawn(npc, viewers);
         if(!isShowOnTablist()) CKProvider.TASK_HELPER.newDelayedAsyncTask(() -> SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.REMOVE_PLAYER, viewers), 40);
@@ -54,7 +54,7 @@ public class NPC extends CustomEntity {
 
     @Override
     protected void removeViewerCallback(List<Player> players) {
-        var viewers = SERVICE_4.toNmsEntityPlayers(players);
+        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(players);
         SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.REMOVE_PLAYER, viewers);
         SERVICE_1.entityDestroy(new int[]{id}, viewers);
     }
@@ -88,8 +88,8 @@ public class NPC extends CustomEntity {
         if(showOnTablist == this.showOnTablist) return;
         Condition.check(!isDead(), "Oops... This entity died!");
         this.showOnTablist = showOnTablist;
-        var viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
-        var en = showOnTablist ? PlayerInfoEnum.ADD_PLAYER : PlayerInfoEnum.REMOVE_PLAYER;
+        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
+        PlayerInfoEnum en = showOnTablist ? PlayerInfoEnum.ADD_PLAYER : PlayerInfoEnum.REMOVE_PLAYER;
         SERVICE_1.playerInfo(Collections.singletonList(npc), en, viewers);
     }
 
@@ -101,7 +101,7 @@ public class NPC extends CustomEntity {
         if(location == null || location.equals(this.location)) return;
         Condition.check(!isDead(), "Oops... This entity died!");
         this.location = location;
-        var viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
+        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
         SERVICE_3.teleport(npc, location, viewers);
     }
 
@@ -114,7 +114,7 @@ public class NPC extends CustomEntity {
         Condition.check(!isDead(), "Oops... This entity died!");
         location.setYaw(yaw);
         location.setPitch(pitch);
-        var viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
+        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
         SERVICE_3.rotate(npc, yaw, pitch, viewers);
     }
 }

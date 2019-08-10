@@ -1,5 +1,6 @@
 package dev.anhcraft.craftkit.utils;
 
+import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
@@ -36,10 +37,10 @@ public class PlayerUtil {
     @Nullable
     public static Skin getSkin(@NotNull ProxiedPlayer player){
         Condition.argNotNull("player", player);
-        var ih = (InitialHandler) player.getPendingConnection();
-        var lr = ih.getLoginProfile();
+        InitialHandler ih = (InitialHandler) player.getPendingConnection();
+        LoginResult lr = ih.getLoginProfile();
         if(lr != null) {
-            for (var p : lr.getProperties()) {
+            for (LoginResult.Property p : lr.getProperties()) {
                 if (p.getName().equals("textures")) return new Skin(p.getValue(), p.getSignature());
             }
         }
@@ -54,14 +55,14 @@ public class PlayerUtil {
     public static void changeSkin(@NotNull ProxiedPlayer player, @NotNull Skin skin){
         Condition.argNotNull("player", player);
         Condition.argNotNull("skin", skin);
-        var ih = (InitialHandler) player.getPendingConnection();
-        var lr = ih.getLoginProfile();
+        InitialHandler ih = (InitialHandler) player.getPendingConnection();
+        LoginResult lr = ih.getLoginProfile();
         if(lr == null) lr = new LoginResult(player.getUniqueId().toString().replace("-", ""),player.getName(), null);
         lr.setProperties(new LoginResult.Property[]{
                 new LoginResult.Property("textures", skin.getValue(), skin.getSignature())
-    });
+        });
         ReflectionUtil.setDeclaredField(InitialHandler.class, ih,"loginProfile", lr);
-        var out = ByteStreams.newDataOutput();
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("ChangeSkin");
         out.writeUTF(player.getName());
         out.writeUTF(skin.getValue());

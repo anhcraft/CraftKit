@@ -1,51 +1,48 @@
 package dev.anhcraft.craftkit.internal.listeners;
 
-import dev.anhcraft.craftkit.common.internal.CKProvider;
-import dev.anhcraft.craftkit.common.internal.assistants.CKCleaner;
-import dev.anhcraft.craftkit.common.lang.annotation.RequiredCleaner;
 import dev.anhcraft.craftkit.events.PlayerJumpEvent;
+import dev.anhcraft.craftkit.internal.tasks.ArmorHandleTask;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerListener implements Listener {
-    private static final double DELTA_JUMP_HEIGHT = 0.33319999363422426; // this is the common jump height of players (we can use this to verify a movement and make sure it is "jump", not "fall down" or "go down")
-    @RequiredCleaner
-    public static final Map<UUID, Location> freezedPlayers = new HashMap<>();
+    private static final double DELTA_JUMP_HEIGHT = 0.33319999363422426;
+    public static final Map<UUID, Location> freezedPlayers = new ConcurrentHashMap<>();
+
+    private void checkFreeze(Player p, Location to, Cancellable e){
+        Location last = freezedPlayers.get(p.getUniqueId());
+        if(last != null) {
+            double offX = to.getX() - last.getX();
+            double offY = to.getY() - last.getY();
+            double offZ = to.getZ() - last.getZ();
+            if (offX * offX + offY * offY + offZ * offZ >= 1) e.setCancelled(true);
+        }
+    }
 
     @EventHandler
-    public void quit(PlayerQuitEvent event){
-        CKProvider.TASK_HELPER.newAsyncTask(() -> CKCleaner.clean(o -> o.equals(event.getPlayer()) || o.equals(event.getPlayer().getUniqueId())));
+    public void quit(PlayerQuitEvent e){
+        ArmorHandleTask.data.remove(e.getPlayer());
     }
 
     @EventHandler
     public void teleport(PlayerTeleportEvent e){
-        Location last = freezedPlayers.get(e.getPlayer().getUniqueId());
-        if(last != null) {
-            double offX = e.getTo().getX() - last.getX();
-            double offY = e.getTo().getY() - last.getY();
-            double offZ = e.getTo().getZ() - last.getZ();
-            if (offX * offX + offY * offY + offZ * offZ >= 1) e.setCancelled(true);
-        }
+        checkFreeze(e.getPlayer(), e.getTo(), e);
     }
 
     @EventHandler
     public void move(PlayerMoveEvent e){
-        Location last = freezedPlayers.get(e.getPlayer().getUniqueId());
-        if(last != null) {
-            double offX = e.getTo().getX() - last.getX();
-            double offY = e.getTo().getY() - last.getY();
-            double offZ = e.getTo().getZ() - last.getZ();
-            if (offX * offX + offY * offY + offZ * offZ >= 1) e.setCancelled(true);
-        }
+        checkFreeze(e.getPlayer(), e.getTo(), e);
         double a = e.getTo().getY() - e.getFrom().getY();
         if(a == DELTA_JUMP_HEIGHT) {
             PlayerJumpEvent ev = new PlayerJumpEvent(e.getPlayer(),

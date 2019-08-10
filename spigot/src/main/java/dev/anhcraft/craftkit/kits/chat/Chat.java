@@ -14,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * This class is used for sending chat messages on the chat box.
  */
@@ -38,7 +41,7 @@ public class Chat extends AbstractChat {
 
     /**
      * Constructs an instance of {@code Chat} with the given chat prefix.
-     * @param prefix the chat prefix (formatting codes which are begun with ampersands ({@code &}) are supported)
+     * @param prefix the chat prefix (formatting codes that begun with ampersands ({@code &}) are supported)
      */
     public Chat(@Nullable String prefix) {
         super(prefix);
@@ -55,18 +58,18 @@ public class Chat extends AbstractChat {
     @Override
     public Chat broadcast(@NotNull String msg) {
         Condition.argNotNull("msg", msg);
-        var players = Bukkit.getOnlinePlayers();
-        var s = prefix + ChatUtil.formatColorCodes(msg);
-        for (var p : players) p.sendMessage(s);
+        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+        String s = prefix + ChatUtil.formatColorCodes(msg);
+        for (Player p : players) p.sendMessage(s);
         return this;
     }
 
     @Override
     public Chat broadcast(@NotNull BaseComponent... components) {
         Condition.argNotNull("components", components);
-        var players = Bukkit.getOnlinePlayers();
+        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         components = ArrayUtil.insert(components, prefixComponent, 0);
-        for (var p : players) p.spigot().sendMessage(chatMessageType, components);
+        for (Player p : players) p.spigot().sendMessage(chatMessageType, components);
         return this;
     }
 
@@ -81,14 +84,14 @@ public class Chat extends AbstractChat {
     public Chat messageConsole(@NotNull BaseComponent... components) {
         Condition.argNotNull("components", components);
         StringBuilder s = new StringBuilder(prefix);
-        for(var cpn : components) s.append(cpn.toLegacyText());
+        for(@NotNull BaseComponent cpn : components) s.append(cpn.toLegacyText());
         Bukkit.getConsoleSender().sendMessage(s.toString());
         return this;
     }
 
     /**
      * Broadcasts the given message to all players in a world.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param world a world
      * @param msg a message
      * @return this object
@@ -96,9 +99,9 @@ public class Chat extends AbstractChat {
     public Chat broadcast(@NotNull World world, @NotNull String msg) {
         Condition.argNotNull("world", world);
         Condition.argNotNull("msg", msg);
-        var players = world.getPlayers();
-        var s = prefix + ChatUtil.formatColorCodes(msg);
-        for (var p : players) p.sendMessage(s);
+        List<Player> players = world.getPlayers();
+        String s = prefix + ChatUtil.formatColorCodes(msg);
+        for (Player p : players) p.sendMessage(s);
         return this;
     }
 
@@ -112,15 +115,15 @@ public class Chat extends AbstractChat {
     public Chat broadcast(@NotNull World world, @NotNull BaseComponent... components) {
         Condition.argNotNull("world", world);
         Condition.argNotNull("components", components);
-        var players = world.getPlayers();
+        List<Player> players = world.getPlayers();
         components = ArrayUtil.insert(components, prefixComponent, 0);
-        for (var p : players) p.spigot().sendMessage(chatMessageType, components);
+        for (Player p : players) p.spigot().sendMessage(chatMessageType, components);
         return this;
     }
 
     /**
      * Sends the given message to the target.<br>
-     * Formatting codes which are begun with ampersands ({@code &}) are supported.
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
      * @param target the target (can be a player, a command sender or the console, etc)
      * @param msg a message
      * @return this object

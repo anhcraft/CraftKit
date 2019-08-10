@@ -987,7 +987,7 @@ public class MaterialUtil {
      */
     public static MaterialData fromString(@Nullable String str){
         if(str == null || str.equalsIgnoreCase("null")) return new MaterialData(Material.AIR);
-        var x = str.split(":");
+        String[] x = str.split(":");
         Material mt;
         if(NMSVersion.getNMSVersion().isOlder(NMSVersion.v1_13_R1) && StringUtils.isNumeric(x[0])) mt = Material.getMaterial(Integer.parseInt(x[0]));
         else mt = Material.valueOf(x[0].toUpperCase());
