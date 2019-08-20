@@ -55,17 +55,17 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cb_1_9_r2" options="-Xlint:-requires-transitive-automatic" />
       <module name="common" options="-Xlint:-requires-transitive-automatic" />
-      <module name="craftkit.bungee" options="" />
-      <module name="craftkit.cb_1_10_r1" options="" />
-      <module name="craftkit.cb_1_11_r1" options="" />
-      <module name="craftkit.cb_1_12_r1" options="" />
-      <module name="craftkit.cb_1_13_r1" options="" />
-      <module name="craftkit.cb_1_13_r2" options="" />
-      <module name="craftkit.cb_1_14_r1" options="" />
-      <module name="craftkit.cb_1_9_r2" options="" />
-      <module name="craftkit.cb_common" options="" />
-      <module name="craftkit.common" options="" />
-      <module name="craftkit.spigot" options="" />
+      <module name="craftkit.bungee" options="-parameters" />
+      <module name="craftkit.cb_1_10_r1" options="-parameters" />
+      <module name="craftkit.cb_1_11_r1" options="-parameters" />
+      <module name="craftkit.cb_1_12_r1" options="-parameters" />
+      <module name="craftkit.cb_1_13_r1" options="-parameters" />
+      <module name="craftkit.cb_1_13_r2" options="-parameters" />
+      <module name="craftkit.cb_1_14_r1" options="-parameters" />
+      <module name="craftkit.cb_1_9_r2" options="-parameters" />
+      <module name="craftkit.cb_common" options="-parameters" />
+      <module name="craftkit.common" options="-parameters" />
+      <module name="craftkit.spigot" options="-parameters" />
       <module name="spigot" options="-Xlint:-requires-transitive-automatic" />
     </option>
   </component>

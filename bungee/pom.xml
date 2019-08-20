@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.anhcraft</groupId>
         <artifactId>craftkit.parent</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -28,6 +28,12 @@
                 <configuration>
                     <finalName>CraftKit.Bungeecord</finalName>
                     <minimizeJar>false</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>co.aikar.commands</pattern>
+                            <shadedPattern>dev.anhcraft.craftkit.acf</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
                 <executions>
                     <execution>
