@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.events;
 
-import org.apache.commons.lang3.tuple.Pair;
+import dev.anhcraft.jvmkit.utils.Pair;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
@@ -18,8 +18,8 @@ public class BowArrowHitEvent extends Event {
 
     public BowArrowHitEvent(Arrow arrow, Pair<LivingEntity, ItemStack> x) {
         this.arrow = arrow;
-        this.shooter = x.getLeft();
-        this.bow = x.getRight();
+        this.shooter = x.getFirst();
+        this.bow = x.getSecond();
     }
 
     /**

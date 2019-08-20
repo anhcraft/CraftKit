@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.internal.listeners;
 
 import dev.anhcraft.craftkit.events.BowArrowHitEvent;
-import org.apache.commons.lang3.tuple.Pair;
+import dev.anhcraft.jvmkit.utils.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -26,7 +26,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void shoot(EntityShootBowEvent e){
-        bowArrows.put(e.getProjectile(), Pair.of(e.getEntity(), e.getBow()));
+        bowArrows.put(e.getProjectile(), new Pair<>(e.getEntity(), e.getBow()));
     }
 
     @EventHandler
