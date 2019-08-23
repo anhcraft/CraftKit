@@ -59,6 +59,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param itemStack the item stack
      * @return ItemNBTHelper
      */
+    @NotNull
     public static ItemNBTHelper of(@NotNull ItemStack itemStack){
         ItemNBTHelper i = new ItemNBTHelper();
         i.select(itemStack);
@@ -75,6 +76,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * Applies all changes to the stack and returns it.
      * @return the target
      */
+    @NotNull
     public ItemStack save(){
         CompoundTag nbt = CompoundTag.of(getTarget());
         nbt.put("tag", tag);
@@ -443,5 +445,14 @@ public class ItemNBTHelper extends Selector<ItemStack> {
             }).collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Returns the tag called "tag". It is the place where most NBT tags are put into.
+     * @return tag
+     */
+    @NotNull
+    public CompoundTag getTag() {
+        return tag;
     }
 }
