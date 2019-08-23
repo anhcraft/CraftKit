@@ -35,6 +35,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @param item the item stack
      * @return stack's compound
      */
+    @NotNull
     public static CompoundTag of(@NotNull ItemStack item){
         Condition.argNotNull("item", item);
         CompoundTag c = new CompoundTag();
@@ -47,6 +48,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @param entity the entity
      * @return entity's compound
      */
+    @NotNull
     public static CompoundTag of(@NotNull Entity entity){
         Condition.argNotNull("entity", entity);
         CompoundTag c = new CompoundTag();
@@ -296,6 +298,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * Lists the names of all NBT tags.
      * @return a set of names
      */
+    @NotNull
     public Set<String> listNames(){
         return service.keySet();
     }
@@ -304,6 +307,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * Lists all NBT tags.
      * @return a set of tags
      */
+    @NotNull
     public Set<NBTTag> listTags(){
         return listNames().stream().map(this::get).collect(Collectors.toSet());
     }
@@ -312,6 +316,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * Converts this compound into {@link String}.
      * @return the string which represents this compound
      */
+    @NotNull
     public String toString(){
         return service.toString();
     }
@@ -320,6 +325,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * Clones this compound.
      * @return a copy of this compound
      */
+    @NotNull
     public CompoundTag clone(){
         return service.clone();
     }
