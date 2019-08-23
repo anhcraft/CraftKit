@@ -47,6 +47,7 @@ public class PlayerUtil {
      * @param player the player
      * @return the offline id.
      */
+    @NotNull
     public static UUID getOfflineId(@NotNull String player){
         Condition.argNotNull("player", player);
         return UUID.nameUUIDFromBytes(("OfflinePlayer:" + player).getBytes(StandardCharsets.UTF_8));
@@ -57,6 +58,7 @@ public class PlayerUtil {
      * @param player player
      * @return game profile
      */
+    @NotNull
     public static GameProfile getProfile(@NotNull Player player){
         Condition.argNotNull("player", player);
         return SERVICE.getProfile(player);

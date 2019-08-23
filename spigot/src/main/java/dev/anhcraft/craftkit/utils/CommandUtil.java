@@ -22,6 +22,7 @@ public class CommandUtil {
      * Gets all known commands (include vanilla/bukkit commands).
      * @return an immutable map of known commands
      */
+    @NotNull
     public static Map<String, Command> getKnownCommands() {
         return Collections.unmodifiableMap(SERVICE.getKnownCommands());
     }

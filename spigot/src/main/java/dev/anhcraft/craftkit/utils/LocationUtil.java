@@ -20,6 +20,7 @@ public class LocationUtil {
      * @param loc the location
      * @return the location as a string
      */
+    @NotNull
     public static String toString(@Nullable Location loc) {
         return loc == null ? "null" : (loc.getWorld().getName() + ":" + loc.getX() + ":" +
                 loc.getY() + ":" + loc.getZ() +
@@ -31,6 +32,7 @@ public class LocationUtil {
      * @param str a location string
      * @return the location
      */
+    @NotNull
     public static Location fromString(@Nullable String str) {
         if(str == null || str.equalsIgnoreCase("null")) return Bukkit.getWorld("world").getSpawnLocation();
         String[] str2loc = str.split(":");
@@ -52,6 +54,7 @@ public class LocationUtil {
      * @param rz distance on the z axis
      * @return list of locations
      */
+    @NotNull
     public static List<Location> getNearbyLocations(@NotNull Location loc, int rx, int ry, int rz){
         Condition.argNotNull("loc", loc);
 

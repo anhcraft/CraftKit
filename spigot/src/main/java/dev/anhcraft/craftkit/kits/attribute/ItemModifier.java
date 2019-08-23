@@ -55,6 +55,7 @@ public class ItemModifier extends Modifier implements Serializable {
      * Returns the slot which this modifier will put on.
      * @return the slot
      */
+    @NotNull
     public EquipmentSlot getSlot() {
         return slot;
     }
@@ -63,6 +64,7 @@ public class ItemModifier extends Modifier implements Serializable {
      * Returns the attribute type.
      * @return attribute
      */
+    @NotNull
     public Attribute getAttribute() {
         return attr;
     }

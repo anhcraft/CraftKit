@@ -82,9 +82,10 @@ public abstract class CustomEntity {
     }
 
     /**
-     * Returns the list of viewers.
+     * Returns the immutable list of viewers.
      * @return viewers
      */
+    @NotNull
     public List<Player> getViewers(){
         return Collections.unmodifiableList(viewers);
     }

@@ -14,6 +14,7 @@ public class VectorUtil {
      * @param vector the vector
      * @return the vector as a string
      */
+    @NotNull
     public static String toString(@Nullable Vector vector) {
         return vector == null ? "null" : (vector.getX() + ":" +
                 vector.getY() + ":" + vector.getZ());
@@ -24,6 +25,7 @@ public class VectorUtil {
      * @param str a vector string
      * @return the vector
      */
+    @NotNull
     public static Vector fromString(@Nullable String str) {
         if(str == null || str.equalsIgnoreCase("null")) return new Vector();
         String[] str2vec = str.split(":");
@@ -37,6 +39,7 @@ public class VectorUtil {
      * @param angle angle from the x axis
      * @return rotated vector
      */
+    @NotNull
     public static Vector rotateAroundAxisX(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
         double rad = Math.toRadians(angle);
@@ -54,6 +57,7 @@ public class VectorUtil {
      * @param angle angle from the y axis
      * @return rotated vector
      */
+    @NotNull
     public static Vector rotateAroundAxisY(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
         double rad = Math.toRadians(angle);
@@ -71,6 +75,7 @@ public class VectorUtil {
      * @param angle angle from the z axis
      * @return rotated vector
      */
+    @NotNull
     public static Vector rotateAroundAxisZ(@NotNull Vector vector, double angle) {
         Condition.argNotNull("vector", vector);
         double rad = Math.toRadians(angle);
@@ -111,6 +116,7 @@ public class VectorUtil {
      * @param pitch the pitch (in degrees)
      * @return the vector represents that direction
      */
+    @NotNull
     public static Vector getDirection(float yaw, float pitch){
         double yawRad = Math.toRadians(yaw);
         double pitchRad = Math.toRadians(pitch);
@@ -127,6 +133,7 @@ public class VectorUtil {
      * @param pitch the pitch (in degrees)
      * @return rotated vector
      */
+    @NotNull
     public static Vector rotateVector(@NotNull Vector vector, float yaw, float pitch){
         Condition.argNotNull("vector", vector);
         return vector.clone().multiply(getDirection(yaw, pitch));

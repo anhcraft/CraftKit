@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +77,7 @@ public class NPC extends CustomEntity {
      * Returns the current location of this NPC.
      * @return NPC's location
      */
+    @NotNull
     public Location getLocation() {
         return location;
     }
@@ -97,7 +99,7 @@ public class NPC extends CustomEntity {
      * Teleports this NPC to the given location
      * @param location new NPC location
      */
-    public synchronized void teleport(Location location){
+    public synchronized void teleport(@Nullable Location location){
         if(location == null || location.equals(this.location)) return;
         Condition.check(!isDead(), "Oops... This entity died!");
         this.location = location;

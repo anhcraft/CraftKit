@@ -42,7 +42,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
         }
     }
 
-    private static EquipmentSlot getBuukitEquipName(String str){
+    private static EquipmentSlot getBukkitEquipName(String str){
         switch (str){
             case "mainhand": return EquipmentSlot.HAND;
             case "offhand": return EquipmentSlot.OFF_HAND;
@@ -440,7 +440,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
                         new UUID(um, ul), name, amt,
                         Objects.requireNonNull(Modifier.Operation.getById(op)),
                         Objects.requireNonNull(Attribute.getById(attr)),
-                        Objects.requireNonNull(getBuukitEquipName(slot))
+                        Objects.requireNonNull(getBukkitEquipName(slot))
                 );
             }).collect(Collectors.toList());
         }

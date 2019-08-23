@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit.utils;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ItemUtil {
      * @param item an item stack
      * @return {@code true} if it is "null". Otherwise is {@code false}.
      */
-    public static boolean isNull(ItemStack item){
+    public static boolean isNull(@Nullable ItemStack item){
         return item == null || item.getType() == Material.AIR || item.getType().toString().endsWith("_AIR");
     }
 
@@ -24,7 +25,7 @@ public class ItemUtil {
      * @param material material
      * @return {@code true} if it is "null". Otherwise is {@code false}.
      */
-    public static boolean isNull(Material material) {
+    public static boolean isNull(@Nullable Material material) {
         return material == null || material == Material.AIR || material.toString().endsWith("_AIR");
     }
 
@@ -81,6 +82,7 @@ public class ItemUtil {
      * @param item an items tack
      * @return the copy of given item
      */
+    @Contract("null -> null")
     public static ItemStack clone(@Nullable ItemStack item) {
         return item == null ? null : item.clone();
     }

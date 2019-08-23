@@ -35,6 +35,7 @@ public class BlockUtil {
      * @param rz the maximum distance on the z axis
      * @return list of blocks
      */
+    @NotNull
     public static List<Block> getNearbyBlocks(@NotNull Location loc, int rx, int ry, int rz){
         Condition.argNotNull("loc", loc);
 
@@ -60,6 +61,7 @@ public class BlockUtil {
      * @param angle the angle
      * @return rotated face
      */
+    @NotNull
     public static BlockFace rotateFace(@NotNull BlockFace face, double angle){
         Condition.argNotNull("face", face);
 

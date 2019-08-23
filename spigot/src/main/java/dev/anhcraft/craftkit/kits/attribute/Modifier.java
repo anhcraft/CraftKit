@@ -85,6 +85,7 @@ public class Modifier implements Serializable {
      * Returns the modifier's unique id.
      * @return the id
      */
+    @NotNull
     public UUID getUniqueId() {
         return this.uuid;
     }
@@ -93,6 +94,7 @@ public class Modifier implements Serializable {
      * Returns the modifier's name.
      * @return the name
      */
+    @NotNull
     public String getName(){
         return this.name;
     }
@@ -109,6 +111,7 @@ public class Modifier implements Serializable {
      * Returns the modifier's operation.
      * @return type of operation
      */
+    @NotNull
     public Operation getOperation() {
         return this.operation;
     }

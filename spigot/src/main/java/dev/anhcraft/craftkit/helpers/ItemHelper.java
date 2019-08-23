@@ -8,6 +8,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +28,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param itemStack the item stack
      * @return ItemHelper
      */
+    @NotNull
     public static ItemHelper of(@NotNull ItemStack itemStack){
         ItemHelper i = new ItemHelper();
         i.select(itemStack);
@@ -43,6 +45,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Applies all changes to the stack and returns it.
      * @return the target item stack
      */
+    @NotNull
     public ItemStack save(){
         getTarget().setItemMeta(meta);
         return getTarget();
@@ -63,7 +66,8 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param ifEmpty the alternative name
      * @return stack's name
      */
-    public String getName(String ifEmpty) {
+    @Contract("null -> null")
+    public String getName(@Nullable String ifEmpty) {
         return meta.hasDisplayName() ? meta.getDisplayName() : ifEmpty;
     }
 

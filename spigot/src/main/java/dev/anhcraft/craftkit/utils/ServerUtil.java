@@ -19,8 +19,9 @@ public class ServerUtil {
 
     /**
      * Gets all entities over the server.
-     * @return list of entities
+     * @return a list of entities
      */
+    @NotNull
     public static List<Entity> getAllEntities(){
         List<Entity> e = new ArrayList<>();
         for(World w : Bukkit.getWorlds()) e.addAll(w.getEntities());
@@ -33,6 +34,7 @@ public class ServerUtil {
      * @param <E> the entity type
      * @return list of entities
      */
+    @NotNull
     public static <E extends Entity> List<Entity> getAllEntitiesByClass(@NotNull Class<E> entityClass){
         Condition.argNotNull("entityClass", entityClass);
         List<Entity> e = new ArrayList<>();
@@ -44,6 +46,7 @@ public class ServerUtil {
      * Gets three recent TPS records (1 min, 10 min, 15 min ago).
      * @return an array that contains three recent TPS values
      */
+    @NotNull
     public static double[] getTPS(){
         return SERVICE.getTPS();
     }
