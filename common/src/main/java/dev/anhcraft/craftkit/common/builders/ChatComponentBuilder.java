@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,20 +28,27 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
     private boolean strikethrough = false;
 
     /**
-     * Constructs an instance of {@code ChatComponentBuilder} with the given text to create a new component.
+     * Constructs an instance of {@code ChatComponentBuilder} with the given text.
      * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      */
-    public ChatComponentBuilder(String text){
-        this.component = new TextComponent(TextComponent.fromLegacyText(text == null ? "" :
-                ChatUtil.formatColorCodes(text)));
+    public ChatComponentBuilder(@Nullable String text){
+        this.component = new TextComponent(TextComponent.fromLegacyText(text == null ? "" : ChatUtil.formatColorCodes(text)));
     }
 
     /**
-     * Constructs an instance of {@code ChatComponentBuilder} with the given text to create a new component.
+     * Constructs an instance of {@code ChatComponentBuilder} with the given text.
+     * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
+     */
+    public ChatComponentBuilder(@Nullable String text, boolean color){
+        this.component = new TextComponent(TextComponent.fromLegacyText(text == null ? "" : (color ? ChatUtil.formatColorCodes(text) : text)));
+    }
+
+    /**
+     * Constructs an instance of {@code ChatComponentBuilder} with the given text.
      * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @param clazz the class type of the component
      */
-    public ChatComponentBuilder(String text, @NotNull Class<? extends BaseComponent> clazz){
+    public ChatComponentBuilder(@Nullable String text, @NotNull Class<? extends BaseComponent> clazz){
         Condition.argNotNull("clazz", clazz);
 
         text = text == null ? "" : ChatUtil.formatColorCodes(text);
@@ -52,7 +60,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
     }
 
     /**
-     * Constructs an instance of {@code ChatComponentBuilder} to create an empty component.
+     * Constructs an instance of {@code ChatComponentBuilder}.
      * @param clazz the class type of the component
      */
     public ChatComponentBuilder(@NotNull Class<? extends BaseComponent> clazz){
@@ -184,8 +192,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @return this object
      */
-    public ChatComponentBuilder insertion(String text){
-        this.insertion = text;
+    public ChatComponentBuilder insertion(@Nullable String text){
+        this.insertion = text; // its better to color it in #build
         return this;
     }
 
