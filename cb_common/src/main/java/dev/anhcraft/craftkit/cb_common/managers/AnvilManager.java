@@ -44,7 +44,8 @@ public class AnvilManager implements Listener {
      * Constructs an instance of {@code AnvilManager} with the given plugin.
      * @param plugin the plugin who owns this manager
      */
-    public AnvilManager(Plugin plugin){
+    public AnvilManager(@NotNull Plugin plugin){
+        Condition.argNotNull("plugin", plugin);
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -85,7 +86,8 @@ public class AnvilManager implements Listener {
      * Opens a new anvil instance for the given player
      * @param player the player
      */
-    public void open(Player player){
+    public void open(@NotNull Player player){
+        Condition.argNotNull("player", player);
         Condition.check(!destroyed, "AnvilManager was destroyed");
         SERVICE.open(player, inventory -> {
             slotItem.forEach(inventory::setItem);
