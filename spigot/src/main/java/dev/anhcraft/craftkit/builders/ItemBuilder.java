@@ -39,7 +39,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param name the name
      * @return this object
      */
-    public ItemBuilder name(String name){
+    public ItemBuilder name(@Nullable String name){
         this.name = name;
         return this;
     }
@@ -81,7 +81,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param lines lore lines
      * @return this object
      */
-    public ItemBuilder lore(List<String> lines){
+    public ItemBuilder lore(@Nullable List<String> lines){
         if(lines != null) lore.addAll(lines);
         return this;
     }
@@ -92,7 +92,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param level the level
      * @return this object
      */
-    public ItemBuilder enchant(Enchantment enchant, int level){
+    public ItemBuilder enchant(@Nullable Enchantment enchant, int level){
         if(enchant != null && level > 0) this.enchants.put(enchant, level);
         return this;
     }
@@ -102,7 +102,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param flag the flag
      * @return this object
      */
-    public ItemBuilder flag(ItemFlag flag){
+    public ItemBuilder flag(@Nullable ItemFlag flag){
         flags.add(flag);
         return this;
     }
