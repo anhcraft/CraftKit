@@ -20,6 +20,7 @@ public abstract class Selector<T> {
      * Returns the target.
      * @return the target
      */
+    @NotNull
     public T getTarget(){
         Condition.check(isSelected(), "No object is selected");
         return object;
