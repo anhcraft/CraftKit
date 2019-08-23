@@ -3,10 +3,10 @@ package dev.anhcraft.craftkit.cb_common.kits.nbt;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
 import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
@@ -108,6 +108,108 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, byte value){
+        Condition.argNotNull("name", name);
+        service.set(name, new ByteTag(value));
+    }
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, byte[] value){
+        Condition.argNotNull("name", name);
+        service.set(name, new ByteArrayTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, double value){
+        Condition.argNotNull("name", name);
+        service.set(name, new DoubleTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, float value){
+        Condition.argNotNull("name", name);
+        service.set(name, new FloatTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, int value){
+        Condition.argNotNull("name", name);
+        service.set(name, new IntTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, @NotNull int[] value){
+        Condition.argNotNull("name", name);
+        Condition.argNotNull("value", value);
+        service.set(name, new IntArrayTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, long value){
+        Condition.argNotNull("name", name);
+        service.set(name, new LongTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, @NotNull long[] value){
+        Condition.argNotNull("name", name);
+        Condition.argNotNull("value", value);
+        service.set(name, new LongArrayTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, short value){
+        Condition.argNotNull("name", name);
+        service.set(name, new ShortTag(value));
+    }
+
+    /**
+     * Puts a NBT tag into this compound.
+     * @param name the name of the tag
+     * @param value the tag's value
+     */
+    public void put(@NotNull String name, @NotNull String value){
+        Condition.argNotNull("name", name);
+        Condition.argNotNull("value", value);
+        service.set(name, new StringTag(value));
+    }
+
+    /**
      * Removes the tag which has the given name.
      * @param name the tag's name
      */
@@ -159,6 +261,20 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
+     * Gets the value of a tag.
+     * @param name tag's name
+     * @return tag's value
+     */
+    @Nullable
+    @SuppressWarnings("unchecked")
+    public <V, T extends NBTTag<V>> V getValue(@NotNull String name, Class<T> classType){
+        Condition.argNotNull("name", name);
+        NBTTag s = service.get(name);
+        if(classType.isAssignableFrom(s.getClass())) return (V) s.getValue();
+        else return null;
+    }
+
+    /**
      * Returns the total number of tags in this compound.
      * @return this compound's size
      */
@@ -189,8 +305,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @return a set of tags
      */
     public Set<NBTTag> listTags(){
-        return listNames().stream().map(this::get)
-                .collect(Collectors.toSet());
+        return listNames().stream().map(this::get).collect(Collectors.toSet());
     }
 
     /**
@@ -218,6 +333,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
         another.service.keySet().forEach(s -> service.set(s, another.service.get(s)));
     }
 
+    @NotNull
     @Deprecated
     @Override
     public Map<String, NBTTag> getValue(){
