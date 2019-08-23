@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 
 /**
  * Advanced item manipulation by working with NBT tags.
- * <b>Warning: Due to some limitations, there is no object reference to the original. When you select the target, you are creating a copy of it. Therefore, you must call {@link #save()} to get the copy which was applied all changes.</b>
+ *
+ * <b>You must call {@link #save()} on finished to get the cloned item that was applied all changes.</b>
  */
 public class ItemNBTHelper extends Selector<ItemStack> {
     private CompoundTag tag;
@@ -343,6 +344,19 @@ public class ItemNBTHelper extends Selector<ItemStack> {
         return this;
     }
 
+    private CompoundTag toCompound(ItemModifier modifier){
+        CompoundTag c = new CompoundTag();
+        c.put("AttributeName", new StringTag(modifier.getAttribute().getId()));
+        c.put("Name", new StringTag(modifier.getName()));
+        c.put("Amount", new DoubleTag(modifier.getAmount()));
+        c.put("Operation", new IntTag(modifier.getOperation().getId()));
+        c.put("UUIDLeast", new LongTag(modifier.getUniqueId().getLeastSignificantBits()));
+        c.put("UUIDMost", new LongTag(modifier.getUniqueId().getMostSignificantBits()));
+        if(modifier.getSlot() != null)
+            c.put("Slot", new StringTag(getNmsEquipName(modifier.getSlot())));
+        return c;
+    }
+
     /**
      * Adds an attribute modifier.
      * @param modifier the modifier
@@ -352,15 +366,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
         Condition.argNotNull("modifier", modifier);
 
         ListTag ltag = tag.getOrCreateDefault("AttributeModifiers", ListTag.class);
-        CompoundTag attr = new CompoundTag();
-        attr.put("AttributeName", new StringTag(modifier.getAttribute().getId()));
-        attr.put("Name", new StringTag(modifier.getName()));
-        attr.put("Amount", new DoubleTag(modifier.getAmount()));
-        attr.put("Operation", new IntTag(modifier.getOperation().getId()));
-        attr.put("UUIDLeast", new LongTag(modifier.getUniqueId().getLeastSignificantBits()));
-        attr.put("UUIDMost", new LongTag(modifier.getUniqueId().getMostSignificantBits()));
-        attr.put("Slot", new StringTag(getNmsEquipName(modifier.getSlot())));
-        ltag.getValue().add(attr);
+        ltag.getValue().add(toCompound(modifier));
         tag.put("AttributeModifiers", ltag);
         return this;
     }
@@ -375,15 +381,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
 
         ListTag ltag = new ListTag();
         modifiers.forEach(modifier -> {
-            CompoundTag attr = new CompoundTag();
-            attr.put("AttributeName", new StringTag(modifier.getAttribute().getId()));
-            attr.put("Name", new StringTag(modifier.getName()));
-            attr.put("Amount", new DoubleTag(modifier.getAmount()));
-            attr.put("Operation", new IntTag(modifier.getOperation().getId()));
-            attr.put("UUIDLeast", new LongTag(modifier.getUniqueId().getLeastSignificantBits()));
-            attr.put("UUIDMost", new LongTag(modifier.getUniqueId().getMostSignificantBits()));
-            attr.put("Slot", new StringTag(getNmsEquipName(modifier.getSlot())));
-            ltag.getValue().add(attr);
+            ltag.getValue().add(toCompound(modifier));
         });
         tag.put("AttributeModifiers", ltag);
         return this;
@@ -456,12 +454,12 @@ public class ItemNBTHelper extends Selector<ItemStack> {
                 String name = Objects.requireNonNull(tag.get("Name", StringTag.class)).getValue();
                 Double amt = Objects.requireNonNull(tag.get("Amount", DoubleTag.class)).getValue();
                 int op = Objects.requireNonNull(tag.get("Operation", IntTag.class)).getValue();
-                String slot = Objects.requireNonNull(tag.get("Slot", StringTag.class)).getValue();
+                NBTTag slotTag = tag.get("Slot", StringTag.class);
                 return new ItemModifier(
                         new UUID(um, ul), name, amt,
                         Objects.requireNonNull(Modifier.Operation.getById(op)),
                         Objects.requireNonNull(Attribute.getById(attr)),
-                        Objects.requireNonNull(getBukkitEquipName(slot))
+                        slotTag == null ? null : getBukkitEquipName(((StringTag) slotTag).getValue())
                 );
             }).collect(Collectors.toList());
         }

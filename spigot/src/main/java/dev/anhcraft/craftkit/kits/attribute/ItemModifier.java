@@ -30,7 +30,6 @@ public class ItemModifier extends Modifier implements Serializable {
     public ItemModifier(@NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @Nullable EquipmentSlot slot){
         super(name, amount, operation);
         Condition.argNotNull("attr", attr);
-        Condition.argNotNull("slot", slot);
         this.attr = attr;
         this.slot = slot;
     }
@@ -47,7 +46,6 @@ public class ItemModifier extends Modifier implements Serializable {
     public ItemModifier(@NotNull UUID uuid, @NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @Nullable EquipmentSlot slot){
         super(uuid, name, amount, operation);
         Condition.argNotNull("attr", attr);
-        Condition.argNotNull("slot", slot);
         this.attr = attr;
         this.slot = slot;
     }
