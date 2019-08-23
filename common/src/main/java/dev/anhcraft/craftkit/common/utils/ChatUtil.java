@@ -1,6 +1,8 @@
 package dev.anhcraft.craftkit.common.utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +18,8 @@ public class ChatUtil {
      * @param str a string
      * @return formatted string
      */
-    public static String formatColorCodes(String str){
+    @Contract("null -> null")
+    public static String formatColorCodes(@Nullable String str){
         if(str == null) return null;
         return ChatColor.translateAlternateColorCodes('&', str);
     }
@@ -27,7 +30,8 @@ public class ChatUtil {
      * @param listStr a list of strings
      * @return the list whose strings were formatted
      */
-    public static List<String> formatColorCodes(List<String> listStr){
+    @Contract("null -> null")
+    public static List<String> formatColorCodes(@Nullable List<String> listStr){
         if(listStr == null) return null;
         return listStr.stream().filter(Objects::nonNull)
                 .map(ChatUtil::formatColorCodes).collect(Collectors.toList());
