@@ -19,6 +19,7 @@ public abstract class NBTTag<T> implements Serializable {
      * @param typeId the tag's type
      * @return the tag
      */
+    @NotNull
     public static NBTTag createDefaultTag(int typeId){
         switch (typeId){
             case TagType.BYTE_TAG: return new ByteTag((byte) 0);
@@ -34,7 +35,7 @@ public abstract class NBTTag<T> implements Serializable {
             case TagType.INT_ARRAY_TAG: return new IntArrayTag(new int[]{});
             case TagType.LONG_ARRAY_TAG: return new LongArrayTag(new long[]{});
         }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -43,6 +44,7 @@ public abstract class NBTTag<T> implements Serializable {
      * @param <E> type of the tag
      * @return the tag
      */
+    @NotNull
     @SuppressWarnings("unchecked")
     public static <E extends NBTTag> E createDefaultTag(@NotNull Class<E> classType){
         Condition.argNotNull("classType", classType);
@@ -71,7 +73,7 @@ public abstract class NBTTag<T> implements Serializable {
         } else if (LongArrayTag.class.isAssignableFrom(classType)) {
             return (E) new LongArrayTag(new long[]{});
         }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -93,7 +95,17 @@ public abstract class NBTTag<T> implements Serializable {
      * Returns the value of this tag.
      * @return tag's value
      */
+    @NotNull
     public T getValue(){
         return value;
+    }
+
+    /**
+     * Overrides the value of this tag.
+     * @param value new tag
+     */
+    public void setValue(@NotNull T value) {
+        Condition.argNotNull("value", value);
+        this.value = value;
     }
 }
