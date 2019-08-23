@@ -8,6 +8,8 @@ import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.FileUtil;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A utility class which gives you simpler ways to interact with the Spiget API.
@@ -32,6 +34,13 @@ public class SpigetApiUtil {
     public static boolean downloadResource(@NotNull String resourceId, @NotNull File file) {
         Condition.argNotNull("resourceId", resourceId);
         Condition.argNotNull("file", file);
-        return FileUtil.write(file, new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/download").connect().getInput());
+        InputStream in = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/download").connect().getInput();
+        boolean res = FileUtil.write(file, in);
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 }
