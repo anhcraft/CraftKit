@@ -4,6 +4,7 @@ import dev.anhcraft.craftkit.lang.enumeration.Attribute;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,9 +25,9 @@ public class ItemModifier extends Modifier implements Serializable {
      * @param amount the modifier's amount
      * @param operation type of operation
      * @param attr type of attribute
-     * @param slot the equipment slot which this modifier will put on
+     * @param slot the equipment slot which this modifier will put on (or null means 'all slots')
      */
-    public ItemModifier(@NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @NotNull EquipmentSlot slot){
+    public ItemModifier(@NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @Nullable EquipmentSlot slot){
         super(name, amount, operation);
         Condition.argNotNull("attr", attr);
         Condition.argNotNull("slot", slot);
@@ -41,9 +42,9 @@ public class ItemModifier extends Modifier implements Serializable {
      * @param amount the modifier's amount
      * @param operation type of operation
      * @param attr type of attribute
-     * @param slot the equipment slot which this modifier will put on
+     * @param slot the equipment slot which this modifier will put on (or null means 'all slots')
      */
-    public ItemModifier(@NotNull UUID uuid, @NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @NotNull EquipmentSlot slot){
+    public ItemModifier(@NotNull UUID uuid, @NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @Nullable EquipmentSlot slot){
         super(uuid, name, amount, operation);
         Condition.argNotNull("attr", attr);
         Condition.argNotNull("slot", slot);
@@ -55,7 +56,7 @@ public class ItemModifier extends Modifier implements Serializable {
      * Returns the slot which this modifier will put on.
      * @return the slot
      */
-    @NotNull
+    @Nullable
     public EquipmentSlot getSlot() {
         return slot;
     }
@@ -75,11 +76,12 @@ public class ItemModifier extends Modifier implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ItemModifier that = (ItemModifier) o;
-        return slot == that.slot && attr == that.attr;
+        return attr == that.attr &&
+                slot == that.slot;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), slot, attr);
+        return Objects.hash(super.hashCode(), attr, slot);
     }
 }
