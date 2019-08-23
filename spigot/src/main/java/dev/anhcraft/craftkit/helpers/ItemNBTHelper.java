@@ -16,10 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -364,6 +361,30 @@ public class ItemNBTHelper extends Selector<ItemStack> {
         attr.put("UUIDMost", new LongTag(modifier.getUniqueId().getMostSignificantBits()));
         attr.put("Slot", new StringTag(getNmsEquipName(modifier.getSlot())));
         ltag.getValue().add(attr);
+        tag.put("AttributeModifiers", ltag);
+        return this;
+    }
+
+    /**
+     * Sets this item's modifiers.
+     * @param modifiers the modifiers
+     * @return this object
+     */
+    public ItemNBTHelper setModifiers(@NotNull Collection<ItemModifier> modifiers){
+        Condition.argNotNull("modifiers", modifiers);
+
+        ListTag ltag = new ListTag();
+        modifiers.forEach(modifier -> {
+            CompoundTag attr = new CompoundTag();
+            attr.put("AttributeName", new StringTag(modifier.getAttribute().getId()));
+            attr.put("Name", new StringTag(modifier.getName()));
+            attr.put("Amount", new DoubleTag(modifier.getAmount()));
+            attr.put("Operation", new IntTag(modifier.getOperation().getId()));
+            attr.put("UUIDLeast", new LongTag(modifier.getUniqueId().getLeastSignificantBits()));
+            attr.put("UUIDMost", new LongTag(modifier.getUniqueId().getMostSignificantBits()));
+            attr.put("Slot", new StringTag(getNmsEquipName(modifier.getSlot())));
+            ltag.getValue().add(attr);
+        });
         tag.put("AttributeModifiers", ltag);
         return this;
     }
