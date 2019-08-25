@@ -1,4 +1,4 @@
-package dev.anhcraft.abif;
+package dev.anhcraft.craftkit.kits.abif;
 
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.craftkit.kits.attribute.ItemModifier;
@@ -132,11 +132,9 @@ public class PreparedItem implements Serializable {
      * @return {@link ItemStack}
      */
     public ItemStack build() {
-        ItemStack item = new ItemStack(material, amount);
+        ItemStack item = new ItemStack(material, amount, (short) damage);
         ItemMeta meta = item.getItemMeta();
         if(meta != null) {
-            if(meta instanceof Damageable)
-                ((Damageable) meta).setDamage(damage);
             if(name != null)
                 meta.setDisplayName(name);
             if(lore != null && !lore.isEmpty())

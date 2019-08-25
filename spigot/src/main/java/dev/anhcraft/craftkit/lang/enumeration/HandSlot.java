@@ -8,6 +8,7 @@ public enum HandSlot {
      * Main hand slot.
      */
     MAINHAND,
+
     /**
      * Off hand slot.
      */

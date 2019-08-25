@@ -1,4 +1,4 @@
-package dev.anhcraft.abif;
+package dev.anhcraft.craftkit.kits.abif;
 
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.craftkit.kits.attribute.ItemModifier;
@@ -157,8 +157,7 @@ public class ABIF {
                             Modifier.Operation.valueOf(opt.toUpperCase());
                     double amount = c.getDouble("amount");
                     String st = c.getString("slot");
-                    EquipmentSlot slot = (st == null || st.trim().equalsIgnoreCase("all") ? null :
-                            EquipmentSlot.valueOf(st.toUpperCase()));
+                    EquipmentSlot slot = (st == null || st.trim().equalsIgnoreCase("all") ? null : EquipmentSlot.valueOf(st.toUpperCase()));
                     UUID id = UUID.nameUUIDFromBytes(key.getBytes(StandardCharsets.UTF_8));
                     item.getItemModifiers().add(new ItemModifier(id, key, amount, operation, attr, slot));
                 }
