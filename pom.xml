@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.8</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
