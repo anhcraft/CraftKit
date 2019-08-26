@@ -12,7 +12,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.nio.charset.StandardCharsets;
@@ -186,12 +185,9 @@ public class ABIF {
         if(item != null){
             section.set(Key.MATERIAL, item.getType().name());
             section.set(Key.AMOUNT, item.getAmount());
+            section.set(Key.DAMAGE, item.getDurability());
             ItemMeta meta = item.getItemMeta();
             if(meta != null) {
-                if(meta instanceof Damageable) {
-                    int dmg = ((Damageable) meta).getDamage();
-                    if(dmg > 0) section.set(Key.DAMAGE, dmg);
-                }
                 if(meta.hasDisplayName()) section.set(Key.NAME, meta.getDisplayName());
 
                 section.set(Key.LORE, meta.getLore());
