@@ -12,13 +12,13 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerListener implements Listener {
     private static final double DELTA_JUMP_HEIGHT = 0.33319999363422426;
-    public static final Map<UUID, Location> freezedPlayers = new ConcurrentHashMap<>();
+    public static final Map<UUID, Location> freezedPlayers = new HashMap<>();
 
     private void checkFreeze(Player p, Location to, Cancellable e){
         Location last = freezedPlayers.get(p.getUniqueId());

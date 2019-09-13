@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
  */
 public class PlayerUtil {
     private static final CBPlayerService SERVICE = CBProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final Object FREEZE_LOCK = new Object();
 
     /**
      * Gets the current ping of given player.
@@ -131,7 +132,9 @@ public class PlayerUtil {
      */
     public static void freeze(@NotNull Player player){
         Condition.argNotNull("player", player);
-        PlayerListener.freezedPlayers.put(player.getUniqueId(), player.getLocation());
+        synchronized (FREEZE_LOCK) {
+            PlayerListener.freezedPlayers.put(player.getUniqueId(), player.getLocation());
+        }
     }
 
     /**
@@ -139,8 +142,13 @@ public class PlayerUtil {
      * @param player the player
      */
     public static void unfreeze(@Nullable Player player){
-        if(player != null) PlayerListener.freezedPlayers.remove(player.getUniqueId());
+        if(player != null) {
+            synchronized (FREEZE_LOCK) {
+                PlayerListener.freezedPlayers.remove(player.getUniqueId());
+            }
+        }
     }
+
     /**
      * Executes the command as an operator.
      * @param player the player
