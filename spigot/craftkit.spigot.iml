@@ -56,7 +56,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.14-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.0.9" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:17.0.0" level="project" />
     <orderEntry type="module" module-name="craftkit.cb_common" />
     <orderEntry type="module" module-name="craftkit.cb_1_9_r2" />

@@ -22,7 +22,7 @@ public interface CKPlugin {
         CKProvider.TASK_HELPER.newAsyncTask(() -> {
             int expectedVer = SpigotApiUtil.getResourceLatestVersion(r).chars().sum();
             int currentVer = CKInfo.getPluginVersion().chars().sum();
-            if(expectedVer < currentVer) CKProvider.CHAT_NO_PREFIX
+            if(expectedVer > currentVer) CKProvider.CHAT_NO_PREFIX
                     .messageConsole("&c&lCraftKit is outdated! Please update <3")
                     .messageConsole("&a&l>>> Link: https://spigotmc.org/resources/"+r);
         });
