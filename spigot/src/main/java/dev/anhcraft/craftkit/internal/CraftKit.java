@@ -71,7 +71,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         }
 
         // check updates
-        checkUpdate();
+        checkUpdate(CKPlugin.SPIGOT_RESOURCE_ID);
 
         // register listeners
         INFO_CHAT.messageConsole("Registering internal listeners...");
