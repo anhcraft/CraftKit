@@ -32,7 +32,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void quit(PlayerQuitEvent e){
-        ArmorHandleTask.data.remove(e.getPlayer());
+        ArmorHandleTask.data.remove(e.getPlayer().getUniqueId());
     }
 
     @EventHandler

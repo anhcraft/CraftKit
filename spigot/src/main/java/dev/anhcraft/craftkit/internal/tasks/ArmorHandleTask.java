@@ -12,9 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class ArmorHandleTask implements Runnable {
-    public static final Map<Player, HashMap<EquipmentSlot, ItemStack>> data = new HashMap<>();
+    public static final Map<UUID, Map<EquipmentSlot, ItemStack>> data = new HashMap<>();
 
     @Override
     public void run() {
@@ -23,7 +24,7 @@ public class ArmorHandleTask implements Runnable {
             ItemStack c = ItemUtil.clone(p.getInventory().getChestplate());
             ItemStack l = ItemUtil.clone(p.getInventory().getLeggings());
             ItemStack b = ItemUtil.clone(p.getInventory().getBoots());
-            HashMap<EquipmentSlot, ItemStack> x = data.get(p);
+            Map<EquipmentSlot, ItemStack> x = data.get(p.getUniqueId());
             if(x != null){
                 ItemStack oh = x.get(EquipmentSlot.HEAD);
                 if(oh == null){
@@ -116,7 +117,7 @@ public class ArmorHandleTask implements Runnable {
                     }
                 }
             }
-            data.put(p, x);
+            data.put(p.getUniqueId(), x);
         }
     }
 }
