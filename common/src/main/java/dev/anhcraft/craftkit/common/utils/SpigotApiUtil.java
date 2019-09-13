@@ -17,7 +17,6 @@ public class SpigotApiUtil {
         Condition.argNotNull("resourceId", resourceId);
         return new HTTPConnectionHelper("https://api.spigotmc.org/legacy/update.php?resource="+resourceId)
                 .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .doOutput()
                 .connect()
                 .readText();
     }
@@ -30,7 +29,6 @@ public class SpigotApiUtil {
     public static String getResourceLatestVersion(int resourceId) {
         return new HTTPConnectionHelper("https://api.spigotmc.org/legacy/update.php?resource="+resourceId)
                 .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .doOutput()
                 .connect()
                 .readText();
     }

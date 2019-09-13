@@ -22,7 +22,24 @@ public class SpigetApiUtil {
      */
     public static String getResourceLatestVersion(@NotNull String resourceId) {
         Condition.argNotNull("resourceId", resourceId);
-        return new Gson().fromJson(new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name").connect().readText(), JsonArray.class).get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString();
+        String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
+                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
+                .connect()
+                .readText();
+        return new Gson().fromJson(text, JsonArray.class).get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString();
+    }
+
+    /**
+     * Gets the latest version of a resource.
+     * @param resourceId the id of the resource
+     * @return version number
+     */
+    public static String getResourceLatestVersion(int resourceId) {
+        String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
+                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
+                .connect()
+                .readText();
+        return new Gson().fromJson(text, JsonArray.class).get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString();
     }
 
     /**
@@ -34,7 +51,7 @@ public class SpigetApiUtil {
     public static boolean downloadResource(@NotNull String resourceId, @NotNull File file) {
         Condition.argNotNull("resourceId", resourceId);
         Condition.argNotNull("file", file);
-        InputStream in = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/download").connect().getInput();
+        InputStream in = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/download").setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME).connect().getInput();
         boolean res = FileUtil.write(file, in);
         try {
             in.close();
