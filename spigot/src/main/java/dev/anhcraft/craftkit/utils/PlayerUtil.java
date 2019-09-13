@@ -20,10 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -85,8 +82,9 @@ public class PlayerUtil {
     public static Skin getSkin(@NotNull Player player){
         // we do not need the validator here since #getProfile() already does that
         GameProfile gp = getProfile(player);
-        if(gp.getProperties().containsKey("textures")){
-            Iterator<Property> v = gp.getProperties().get("textures").iterator();
+        Collection<Property> t = gp.getProperties().get("textures");
+        if(t != null){
+            Iterator<Property> v = t.iterator();
             if(v.hasNext()){
                 Property s = v.next();
                 return new Skin(s.getValue(), s.getSignature());
