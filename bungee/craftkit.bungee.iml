@@ -77,7 +77,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.sf.jopt-simple:jopt-simple:4.9" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: mysql:mysql-connector-java:5.1.47" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.0.9" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:17.0.0" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-bungee:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-core:0.5.0-SNAPSHOT" level="project" />
