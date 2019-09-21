@@ -31,7 +31,7 @@ public class ServerUtil {
 
     /**
      * Gets all entities over the server.
-     * @param entityConsumer the consumer to for getting entities
+     * @param entityConsumer the consumer for getting entities
      */
     public static void getAllEntities(@NotNull Consumer<Entity> entityConsumer){
         Condition.argNotNull("entityConsumer", entityConsumer);
@@ -56,6 +56,7 @@ public class ServerUtil {
     /**
      * Gets all entities which are same species over the server.
      * @param entityClass the class represents a type of entity
+     * @param entityConsumer the consumer for getting entities
      * @param <E> the entity type
      */
     public static <E extends Entity> void getAllEntitiesByClass(@NotNull Class<E> entityClass, @NotNull Consumer<E> entityConsumer){

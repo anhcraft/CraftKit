@@ -265,6 +265,9 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     /**
      * Gets the value of a tag.
      * @param name tag's name
+     * @param classType tag's class type
+     * @param <V> tag's value
+     * @param <T> NBT tag
      * @return tag's value
      */
     @Nullable

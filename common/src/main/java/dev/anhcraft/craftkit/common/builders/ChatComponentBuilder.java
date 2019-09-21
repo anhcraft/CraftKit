@@ -38,6 +38,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
     /**
      * Constructs an instance of {@code ChatComponentBuilder} with the given text.
      * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
+     * @param color should we color the text?
      */
     public ChatComponentBuilder(@Nullable String text, boolean color){
         this.component = new TextComponent(TextComponent.fromLegacyText(text == null ? "" : (color ? ChatUtil.formatColorCodes(text) : text)));
