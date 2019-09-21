@@ -3,7 +3,6 @@ package dev.anhcraft.craftkit.internal.tasks;
 import dev.anhcraft.craftkit.events.ArmorChangeEvent;
 import dev.anhcraft.craftkit.events.ArmorEquipEvent;
 import dev.anhcraft.craftkit.events.ArmorUnequipEvent;
-import dev.anhcraft.craftkit.utils.ItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
@@ -20,10 +19,10 @@ public class ArmorHandleTask implements Runnable {
     @Override
     public void run() {
         for(Player p : Bukkit.getOnlinePlayers()){
-            ItemStack h = ItemUtil.clone(p.getInventory().getHelmet());
-            ItemStack c = ItemUtil.clone(p.getInventory().getChestplate());
-            ItemStack l = ItemUtil.clone(p.getInventory().getLeggings());
-            ItemStack b = ItemUtil.clone(p.getInventory().getBoots());
+            ItemStack h = p.getInventory().getHelmet();
+            ItemStack c = p.getInventory().getChestplate();
+            ItemStack l = p.getInventory().getLeggings();
+            ItemStack b = p.getInventory().getBoots();
             Map<EquipmentSlot, ItemStack> x = data.get(p.getUniqueId());
             if(x != null){
                 ItemStack oh = x.get(EquipmentSlot.HEAD);
