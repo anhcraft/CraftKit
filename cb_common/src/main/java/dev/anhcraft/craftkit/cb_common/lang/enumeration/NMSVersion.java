@@ -28,7 +28,9 @@ public enum NMSVersion {
      * Checks if this version is newer than or the same with another version.
      * @param another another NMS version
      * @return {@code true} if it is or {@code false} if not
+     * @deprecated Use {@link #compare(NMSVersion)} instead
      */
+    @Deprecated
     public boolean isNewerOrSame(@NotNull NMSVersion another){
         Condition.argNotNull("another", another);
         return i >= another.i;
@@ -38,17 +40,39 @@ public enum NMSVersion {
      * Checks if this version is older than another version.
      * @param another another NMS version
      * @return {@code true} if it is or {@code false} if not
+     * @deprecated Use {@link #compare(NMSVersion)} instead
      */
+    @Deprecated
     public boolean isOlder(@NotNull NMSVersion another){
         Condition.argNotNull("another", another);
         return i < another.i;
     }
 
     /**
+     * Compares the current version with the given one.
+     * @param another another NMS version
+     * @return <b>0</b> if both versions are same; negative if this version is older; positive if this version is newer
+     */
+    public int compare(@NotNull NMSVersion another){
+        Condition.argNotNull("another", another);
+        return i - another.i;
+    }
+
+    /**
+     * Gets the current NMS version.
+     * @return NMSVersion
+     * @deprecated Use {@link #current()} instead
+     */
+    @Deprecated
+    public static NMSVersion getNMSVersion(){
+        return nms;
+    }
+
+    /**
      * Gets the current NMS version.
      * @return NMSVersion
      */
-    public static NMSVersion getNMSVersion(){
+    public static NMSVersion current(){
         return nms;
     }
 }

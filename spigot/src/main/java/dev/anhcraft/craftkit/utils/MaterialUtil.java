@@ -67,7 +67,7 @@ public class MaterialUtil {
     private static final List<Material> PICKAXE_TYPES = new ArrayList<>();
 
     static {
-        if(NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_13_R1)){
+        if(NMSVersion.current().compare(NMSVersion.v1_13_R1) >= 0){
             // SKULL
             SKULL_TYPES.add(Material.valueOf("CREEPER_HEAD"));
             SKULL_TYPES.add(Material.valueOf("DRAGON_HEAD"));
@@ -715,7 +715,7 @@ public class MaterialUtil {
             SAPLING_TYPES.add(Material.SAPLING);
 
             // SLAB
-            if(NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_9_R2)) {
+            if(NMSVersion.current().compare(NMSVersion.v1_9_R2) >= 0) {
                 SLAB_TYPES.add(Material.PURPUR_DOUBLE_SLAB);
                 SLAB_TYPES.add(Material.PURPUR_SLAB);
             }
@@ -750,7 +750,7 @@ public class MaterialUtil {
             // CARPET
             CARPET_TYPES.add(Material.CARPET);
 
-            if(NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_12_R1)) {
+            if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0) {
                 // CONCRETE
                 CONCRETE_TYPES.add(Material.valueOf("CONCRETE"));
 
@@ -863,7 +863,7 @@ public class MaterialUtil {
         STAIRS_TYPES.add(Material.RED_SANDSTONE_STAIRS);
         STAIRS_TYPES.add(Material.SANDSTONE_STAIRS);
 
-        if(NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_12_R1)) {
+        if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0) {
             // GLAZED_TERRACOTTA
             GLAZED_TERRACOTTA_TYPES.add(Material.valueOf("BLUE_GLAZED_TERRACOTTA"));
             GLAZED_TERRACOTTA_TYPES.add(Material.valueOf("BLACK_GLAZED_TERRACOTTA"));
@@ -882,7 +882,7 @@ public class MaterialUtil {
             GLAZED_TERRACOTTA_TYPES.add(Material.valueOf("YELLOW_GLAZED_TERRACOTTA"));
         }
 
-        if(NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_11_R1)) {
+        if(NMSVersion.current().compare(NMSVersion.v1_11_R1) >= 0) {
             // SHULKER_BOX
             SHULKER_BOX_TYPES.add(Material.valueOf("BLACK_SHULKER_BOX"));
             SHULKER_BOX_TYPES.add(Material.valueOf("BLUE_SHULKER_BOX"));
@@ -989,7 +989,7 @@ public class MaterialUtil {
         if(str == null || str.equalsIgnoreCase("null")) return new MaterialData(Material.AIR);
         String[] x = str.split(":");
         Material mt;
-        if(NMSVersion.getNMSVersion().isOlder(NMSVersion.v1_13_R1) && StringUtils.isNumeric(x[0])) mt = Material.getMaterial(Integer.parseInt(x[0]));
+        if(NMSVersion.current().compare(NMSVersion.v1_13_R1) < 0 && StringUtils.isNumeric(x[0])) mt = Material.getMaterial(Integer.parseInt(x[0]));
         else mt = Material.valueOf(x[0].toUpperCase());
         
         if(x.length == 2) return new MaterialData(mt, (byte) Integer.parseInt(x[1]));

@@ -19,7 +19,7 @@ public class LongArrayTag extends NBTTag<long[]> implements Serializable {
      */
     public LongArrayTag(@NotNull long[] value) {
         super(value);
-        Condition.check(NMSVersion.getNMSVersion().isOlder(NMSVersion.v1_12_R1),
+        Condition.check(NMSVersion.current().compare(NMSVersion.v1_12_R1) < 0,
                 "long[] NBT tag is not supported");
     }
 

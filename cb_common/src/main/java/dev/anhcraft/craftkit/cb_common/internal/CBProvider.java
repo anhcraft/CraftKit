@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
 public class CBProvider {
-    private static final String NMS_SERVICE_PACKAGE = "dev.anhcraft.craftkit.cb_"+ NMSVersion.getNMSVersion().toString().substring(1).toLowerCase()+".services.";
+    private static final String NMS_SERVICE_PACKAGE = "dev.anhcraft.craftkit.cb_"+ NMSVersion.current().toString().substring(1).toLowerCase()+".services.";
     private static final Map<Class<? extends CBService>, CBService> CACHED_SERVICE = new ConcurrentHashMap<>();
 
     public static <S extends T, T extends CBService> Optional<S> getService(Class<T> clazz, boolean cache){
