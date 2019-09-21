@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * This class contains extra methods which are related to the whole server.
@@ -29,17 +30,38 @@ public class ServerUtil {
     }
 
     /**
+     * Gets all entities over the server.
+     * @param entityConsumer the consumer to for getting entities
+     */
+    public static void getAllEntities(@NotNull Consumer<Entity> entityConsumer){
+        Condition.argNotNull("entityConsumer", entityConsumer);
+        for(World w : Bukkit.getWorlds())
+            w.getEntities().forEach(entityConsumer);
+    }
+
+    /**
      * Gets all entities which are same species over the server.
      * @param entityClass the class represents a type of entity
      * @param <E> the entity type
      * @return list of entities
      */
     @NotNull
-    public static <E extends Entity> List<Entity> getAllEntitiesByClass(@NotNull Class<E> entityClass){
+    public static <E extends Entity> List<E> getAllEntitiesByClass(@NotNull Class<E> entityClass){
         Condition.argNotNull("entityClass", entityClass);
-        List<Entity> e = new ArrayList<>();
+        List<E> e = new ArrayList<>();
         for(World w : Bukkit.getWorlds()) e.addAll(w.getEntitiesByClass(entityClass));
         return e;
+    }
+
+    /**
+     * Gets all entities which are same species over the server.
+     * @param entityClass the class represents a type of entity
+     * @param <E> the entity type
+     */
+    public static <E extends Entity> void getAllEntitiesByClass(@NotNull Class<E> entityClass, @NotNull Consumer<E> entityConsumer){
+        Condition.argNotNull("entityClass", entityClass);
+        Condition.argNotNull("entityConsumer", entityConsumer);
+        for(World w : Bukkit.getWorlds()) w.getEntitiesByClass(entityClass).forEach(entityConsumer);
     }
 
     /**
