@@ -1,7 +1,6 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.callbacks.bungee.*;
-import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
 import dev.anhcraft.craftkit.common.kits.skin.Skin;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
@@ -20,21 +19,9 @@ public class BungeeUtil {
     /**
      * The namespace of the BungeeCord channel.
      */
-    public static final String BC_CHANNEL_NAMESPACE = NMSVersion.getNMSVersion().isNewerOrSame(NMSVersion.v1_13_R1) ? "bungeecord:main" : "BungeeCord";
-    
-    private static BungeeUtilMessenger messenger;
+    public static final String BC_CHANNEL_NAMESPACE = "BungeeCord";
 
-    /**
-     * Sets the messenger.<br>
-     * For internal uses only!!!
-     *
-     * @param messenger the messenger
-     */
-    @Deprecated
-    public static void setMessenger(BungeeUtilMessenger messenger) {
-        if(BungeeUtil.messenger != null) throw new UnsupportedOperationException();
-        BungeeUtil.messenger = messenger;
-    }
+    private static BungeeUtilMessenger messenger;
 
     /**
      * Requests the proxy to connect the given player to the specified server.

@@ -12,6 +12,7 @@ import dev.anhcraft.craftkit.utils.BungeeUtil;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import dev.anhcraft.jvmkit.utils.ArrayUtil;
 import dev.anhcraft.jvmkit.utils.Pair;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -59,6 +60,8 @@ public class BungeeUtilMessenger extends CKComponent implements PluginMessageLis
                 });
             }
         }, 0, 20);
+
+        ReflectionUtil.setDeclaredStaticField(BungeeUtil.class, "messenger", this);
     }
 
 
