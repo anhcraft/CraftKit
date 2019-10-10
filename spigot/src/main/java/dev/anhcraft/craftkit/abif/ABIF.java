@@ -25,15 +25,16 @@ import java.util.stream.Collectors;
  * This is the clone of ABIF (https://github.com/anhcraft/ABIF/) which brings multi-version support.
  */
 public class ABIF {
-    private static class Key{
-        static String MATERIAL = "material";
-        static String AMOUNT = "amount";
-        static String DAMAGE = "damage";
-        static String NAME = "name";
-        static String LORE = "lore";
-        static String ENCHANT = "enchant";
-        static String FLAG = "flag";
-        static String UNBREAKABLE = "unbreakable";
+    static class Key{
+        final static String MATERIAL = "material";
+        final static String AMOUNT = "amount";
+        final static String DAMAGE = "damage";
+        final static String NAME = "name";
+        final static String LORE = "lore";
+        final static String ENCHANT = "enchant";
+        final static String FLAG = "flag";
+        final static String UNBREAKABLE = "unbreakable";
+        final static String MODIFIERS = "modifiers";
         static String ATTRIBUTE = "attr";
     }
 
@@ -142,11 +143,15 @@ public class ABIF {
 
         ConfigurationSection encsec = section.getConfigurationSection(Key.ENCHANT);
         if (encsec != null) {
+            Map<Enchantment, Integer> enchants = item.enchants();
             Set<String> keys = encsec.getKeys(false);
-            for (String key : keys) item.enchants().put(ENCHANT_MAP.get(key.toLowerCase()), encsec.getInt(key));
+            for (String key : keys) {
+                enchants.put(ENCHANT_MAP.get(key.toLowerCase()), encsec.getInt(key));
+            }
         }
 
-        section.getStringList(Key.FLAG).forEach(s -> item.flags().add(ItemFlag.valueOf(s.toUpperCase())));
+        List<ItemFlag> flags = item.flags();
+        section.getStringList(Key.FLAG).forEach(s -> flags.add(ItemFlag.valueOf(s.toUpperCase())));
 
         item.unbreakable(section.getBoolean(Key.UNBREAKABLE));
 
