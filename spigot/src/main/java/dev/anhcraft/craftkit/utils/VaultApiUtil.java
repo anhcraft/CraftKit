@@ -1,14 +1,13 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.internal.integrations.VaultIntegration;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
-
-import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Extra methods for working with the Vault API.
@@ -16,26 +15,29 @@ import java.util.Optional;
 public class VaultApiUtil extends VaultIntegration {
     /**
      * Returns the {@link Economy} API.
-     * @return the container of {@link Economy} instance (the instance may be null if the API is not ready yet)
+     * @return {@link Economy}
      */
-    public static Optional<Economy> getEconomyApi(){
-        return Optional.ofNullable(eco);
+    @Nullable
+    public static Economy getEconomyApi(){
+        return eco;
     }
 
     /**
      * Returns the {@link Permission} API.
-     * @return the container of {@link Permission} instance (the instance may be null if the API is not ready yet)
+     * @return {@link Permission}
      */
-    public static Optional<Permission> getPermissionApi(){
-        return Optional.ofNullable(perm);
+    @Nullable
+    public static Permission getPermissionApi(){
+        return perm;
     }
 
     /**
      * Returns the {@link Chat} API.
-     * @return the container of {@link Chat} instance (the instance may be null if the API is not ready yet)
+     * @return {@link Chat}
      */
-    public static Optional<Chat> getChatApi(){
-        return Optional.ofNullable(chat);
+    @Nullable
+    public static Chat getChatApi(){
+        return chat;
     }
 
     /**
@@ -46,6 +48,7 @@ public class VaultApiUtil extends VaultIntegration {
      */
     public static boolean hasEnoughBalance(@NotNull OfflinePlayer player, double balance){
         Condition.argNotNull("player", player);
+        if(eco == null) return false;
         return eco.getBalance(player) >= balance;
     }
 
