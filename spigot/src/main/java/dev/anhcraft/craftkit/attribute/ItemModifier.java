@@ -67,6 +67,16 @@ public class ItemModifier extends Modifier implements Serializable {
         return attr;
     }
 
+    /**
+     * Makes a new clone of this object.
+     * @return {@link ItemModifier}
+     */
+    @Override
+    @NotNull
+    public ItemModifier duplicate(){
+        return new ItemModifier(uuid, name, amount, operation, attr, slot);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

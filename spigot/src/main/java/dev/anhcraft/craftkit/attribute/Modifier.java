@@ -44,10 +44,10 @@ public class Modifier implements Serializable {
         }
     }
 
-    private String name;
-    private double amount;
-    private Operation operation;
-    private UUID uuid;
+    protected String name;
+    protected double amount;
+    protected Operation operation;
+    protected UUID uuid;
 
     /**
      * Constructs an instance of {@code Modifier} with the given information.
@@ -114,6 +114,15 @@ public class Modifier implements Serializable {
     @NotNull
     public Operation getOperation() {
         return this.operation;
+    }
+
+    /**
+     * Makes a new clone of this object.
+     * @return {@link Modifier}
+     */
+    @NotNull
+    public Modifier duplicate(){
+        return new Modifier(uuid, name, amount, operation);
     }
 
     @Override
