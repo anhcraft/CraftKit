@@ -62,6 +62,7 @@ public enum Attribute {
      * Returns the id of this attribute.
      * @return attribute's id
      */
+    @NotNull
     public String getId(){
         return this.id;
     }

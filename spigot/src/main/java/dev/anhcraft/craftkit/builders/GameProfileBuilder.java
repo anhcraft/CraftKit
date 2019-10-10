@@ -6,6 +6,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import dev.anhcraft.jvmkit.builders.Builder;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
@@ -54,6 +55,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @param id the id
      * @return this object
      */
+    @Contract("_ -> this")
     public GameProfileBuilder setUniqueId(@NotNull UUID id) {
         Condition.argNotNull("id", id);
         ReflectionUtil.setDeclaredField(GameProfile.class, gp, "id", id);
@@ -65,6 +67,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @param properties properties map
      * @return this object
      */
+    @Contract("_ -> this")
     public GameProfileBuilder setProperties(@NotNull PropertyMap properties) {
         Condition.argNotNull("properties", properties);
         ReflectionUtil.setDeclaredField(GameProfile.class, gp, "properties", properties);
@@ -76,6 +79,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @param legacy the legacy status
      * @return this object
      */
+    @Contract("_ -> this")
     public GameProfileBuilder setLegacy(boolean legacy) {
         ReflectionUtil.setDeclaredField(GameProfile.class, gp, "legacy", legacy);
         return this;
@@ -86,6 +90,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @param name the name
      * @return this object
      */
+    @Contract("_ -> this")
     public GameProfileBuilder setName(@NotNull String name) {
         Condition.argNotNull("name", name);
         ReflectionUtil.setDeclaredField(GameProfile.class, gp, "name", name);
@@ -97,6 +102,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @param skin the skin
      * @return this object
      */
+    @Contract("_ -> this")
     public GameProfileBuilder setSkin(@NotNull Skin skin){
         Condition.argNotNull("skin", skin);
         gp.getProperties().removeAll("textures");
@@ -109,6 +115,7 @@ public class GameProfileBuilder implements Builder<GameProfile> {
      * @return the profile
      */
     @Override
+    @NotNull
     public GameProfile build(){
         return gp;
     }

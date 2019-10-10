@@ -20,6 +20,7 @@ public class SpigetApiUtil {
      * @param resourceId the id of the resource
      * @return version number
      */
+    @NotNull
     public static String getResourceLatestVersion(@NotNull String resourceId) {
         Condition.argNotNull("resourceId", resourceId);
         String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
@@ -34,6 +35,7 @@ public class SpigetApiUtil {
      * @param resourceId the id of the resource
      * @return version number
      */
+    @NotNull
     public static String getResourceLatestVersion(int resourceId) {
         String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
                 .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)

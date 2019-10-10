@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit.common.builders;
 
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.jvmkit.builders.Builder;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatColor;
@@ -88,6 +89,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param events events to trigger when interact with the extra component
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ChatComponentBuilder text(@NotNull String text, @NotNull Object... events){
         Condition.argNotNull("text", text);
         Condition.argNotNull("events", events);
@@ -101,6 +103,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param events events to trigger when interact with the extra component
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ChatComponentBuilder component(@NotNull BaseComponent component, @NotNull Object... events){
         Condition.argNotNull("component", component);
         Condition.argNotNull("events", events);
@@ -113,7 +116,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param color the chat color
      * @return this object
      */
-    public ChatComponentBuilder color(ChatColor color){
+    @Contract("_ -> this")
+    public ChatComponentBuilder color(@Nullable ChatColor color){
         this.color = color;
         return this;
     }
@@ -123,7 +127,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param clickEvent the click event
      * @return this object
      */
-    public ChatComponentBuilder event(ClickEvent clickEvent){
+    @Contract("_ -> this")
+    public ChatComponentBuilder event(@Nullable ClickEvent clickEvent){
         this.clickEvent = clickEvent;
         return this;
     }
@@ -133,7 +138,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param hoverEvent the hover event
      * @return this object
      */
-    public ChatComponentBuilder event(HoverEvent hoverEvent){
+    @Contract("_ -> this")
+    public ChatComponentBuilder event(@Nullable HoverEvent hoverEvent){
         this.hoverEvent = hoverEvent;
         return this;
     }
@@ -143,6 +149,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param b {@code true} or {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder bold(boolean b){
         this.bold = b;
         return this;
@@ -153,6 +160,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param b {@code true} or {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder italic(boolean b){
         this.italic = b;
         return this;
@@ -163,6 +171,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param b {@code true} or {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder underline(boolean b){
         this.underline = b;
         return this;
@@ -173,6 +182,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param b {@code true} or {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder strikethrough(boolean b){
         this.strikethrough = b;
         return this;
@@ -183,6 +193,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param b {@code true} or {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder obfuscate(boolean b){
         this.obfuscate = b;
         return this;
@@ -193,6 +204,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @param text the text (formatting codes that begun with ampersands ({@code &}) are supported)
      * @return this object
      */
+    @Contract("_ -> this")
     public ChatComponentBuilder insertion(@Nullable String text){
         this.insertion = text; // its better to color it in #build
         return this;
@@ -203,6 +215,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
      * @return the chat component
      */
     @Override
+    @NotNull
     public BaseComponent build(){
         component.setBold(bold);
         component.setObfuscated(obfuscate);

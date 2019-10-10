@@ -3,6 +3,7 @@ package dev.anhcraft.craftkit.common;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -64,7 +65,7 @@ public class Skin implements Serializable {
      * @param value the value of the skin
      * @param signature the signature of the skin (you only need this for player skins, skull skins do not require)
      */
-    public Skin(@NotNull String value, String signature){
+    public Skin(@NotNull String value, @Nullable String signature){
         Condition.argNotNull("value", value);
         this.value = value;
         this.signature = signature;
@@ -74,6 +75,7 @@ public class Skin implements Serializable {
      * Returns the value of this skin.
      * @return skin's value
      */
+    @NotNull
     public String getValue() {
         return value;
     }
@@ -82,6 +84,7 @@ public class Skin implements Serializable {
      * Returns the signature of this skin.
      * @return skin's signature
      */
+    @Nullable
     public String getSignature() {
         return signature;
     }

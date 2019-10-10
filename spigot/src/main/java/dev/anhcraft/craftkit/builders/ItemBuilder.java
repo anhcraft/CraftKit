@@ -8,6 +8,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -39,6 +41,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param name the name
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemBuilder name(@Nullable String name){
         this.name = name;
         return this;
@@ -49,6 +52,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param amount the amount
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemBuilder amount(int amount){
         this.amount = amount;
         return this;
@@ -59,6 +63,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param durability the durability
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemBuilder durability(short durability){
         this.durability = durability;
         return this;
@@ -70,8 +75,9 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param line the lore line
      * @return this object
      */
-    public ItemBuilder lore(String line){
-        lore.add(line);
+    @Contract("_ -> this")
+    public ItemBuilder lore(@Nullable String line){
+        if(line != null) lore.add(line);
         return this;
     }
 
@@ -81,6 +87,19 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param lines lore lines
      * @return this object
      */
+    @Contract("_ -> this")
+    public ItemBuilder lore(@Nullable String... lines){
+        if(lines != null) lore.addAll(Arrays.asList(lines));
+        return this;
+    }
+
+    /**
+     * Adds a bunch of lore lines.<br>
+     * Formatting codes that begun with ampersands ({@code &}) are supported.
+     * @param lines lore lines
+     * @return this object
+     */
+    @Contract("_ -> this")
     public ItemBuilder lore(@Nullable List<String> lines){
         if(lines != null) lore.addAll(lines);
         return this;
@@ -92,6 +111,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param level the level
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ItemBuilder enchant(@Nullable Enchantment enchant, int level){
         if(enchant != null && level > 0) this.enchants.put(enchant, level);
         return this;
@@ -102,6 +122,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @param flag the flag
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemBuilder flag(@Nullable ItemFlag flag){
         flags.add(flag);
         return this;
@@ -112,6 +133,7 @@ public class ItemBuilder implements Builder<ItemStack> {
      * @return the item stack
      */
     @Override
+    @NotNull
     public ItemStack build() {
         ItemStack item = new ItemStack(type, amount, durability);
         ItemMeta meta = item.getItemMeta();

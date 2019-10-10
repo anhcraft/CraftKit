@@ -23,6 +23,7 @@ public class AbstractPluginHelper {
      * Returns the plugin which this helper is working for.
      * @return the plugin
      */
+    @NotNull
     public Plugin getPlugin() {
         return plugin;
     }

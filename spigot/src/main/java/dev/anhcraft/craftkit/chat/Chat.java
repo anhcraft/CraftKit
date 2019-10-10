@@ -28,6 +28,7 @@ public class Chat extends AbstractChat {
      * Returns {@code Chat} whose prefix is empty.
      * @return chat
      */
+    @NotNull
     public static Chat noPrefix(){
         return NO_PREFIX_CHAT;
     }

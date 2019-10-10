@@ -20,6 +20,7 @@ public class ActionBar extends Chat {
      * Returns {@code ActionBar} whose prefix is empty.
      * @return ActionBar object
      */
+    @NotNull
     public static ActionBar noPrefix(){
         return NO_PREFIX_ACTIONBAR;
     }

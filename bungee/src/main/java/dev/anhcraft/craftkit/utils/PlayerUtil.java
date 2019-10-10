@@ -24,6 +24,7 @@ public class PlayerUtil {
      * @param player the player
      * @return the offline id.
      */
+    @NotNull
     public static UUID getOfflineId(@NotNull String player){
         Condition.argNotNull("player", player);
         return UUID.nameUUIDFromBytes(("OfflinePlayer:" + player).getBytes(StandardCharsets.UTF_8));
