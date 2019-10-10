@@ -45,6 +45,19 @@ public class ItemModifier extends Modifier implements Serializable {
      * @param amount the modifier's amount
      * @param operation type of operation
      * @param attr type of attribute
+     */
+    public ItemModifier(@NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr){
+        super(name, amount, operation);
+        Condition.argNotNull("attr", attr);
+        this.attr = attr;
+    }
+
+    /**
+     * Constructs an instance of {@code ItemModifier} with the given information.
+     * @param name the modifier's name
+     * @param amount the modifier's amount
+     * @param operation type of operation
+     * @param attr type of attribute
      * @param slot the equipment slot which this modifier will put on (or null means 'all slots')
      */
     public ItemModifier(@NotNull String name, double amount, @NotNull Operation operation, @NotNull Attribute attr, @Nullable EquipmentSlot slot){
