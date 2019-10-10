@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.utils;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

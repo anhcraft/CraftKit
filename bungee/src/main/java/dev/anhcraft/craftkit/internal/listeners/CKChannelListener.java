@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.internal.listeners;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;

@@ -6,7 +6,7 @@ import dev.anhcraft.craftkit.cb_common.callbacks.inventory.AnvilCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.AnvilSlotCallback;
 import dev.anhcraft.craftkit.cb_common.internal.CBAnvilService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.craftkit.cb_common.lang.enumeration.AnvilSlot;
+import dev.anhcraft.craftkit.cb_common.inventory.AnvilSlot;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;

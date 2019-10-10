@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_common.callbacks.inventory;
 
 import dev.anhcraft.craftkit.cb_common.managers.AnvilManager;
-import dev.anhcraft.craftkit.cb_common.lang.enumeration.AnvilSlot;
+import dev.anhcraft.craftkit.cb_common.inventory.AnvilSlot;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import org.bukkit.entity.Player;

@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_1_10_r1.services;
 
 import dev.anhcraft.craftkit.cb_1_10_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
-import dev.anhcraft.craftkit.cb_common.kits.nbt.*;
+import dev.anhcraft.craftkit.cb_common.nbt.*;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;

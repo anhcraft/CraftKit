@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.cb_common.internal;
 
-import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
+import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 
 import java.util.Map;

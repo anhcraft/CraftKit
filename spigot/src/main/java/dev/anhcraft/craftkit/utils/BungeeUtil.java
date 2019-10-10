@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.callbacks.bungee.*;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.jvmkit.utils.Condition;

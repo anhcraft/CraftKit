@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.anhcraft.craftkit.cb_1_13_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

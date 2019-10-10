@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.cb_common.internal;
 
 import dev.anhcraft.craftkit.cb_common.internal.annotation.IsNMS;
-import dev.anhcraft.craftkit.cb_common.kits.nbt.CompoundTag;
-import dev.anhcraft.craftkit.cb_common.kits.nbt.NBTTag;
+import dev.anhcraft.craftkit.cb_common.nbt.CompoundTag;
+import dev.anhcraft.craftkit.cb_common.nbt.NBTTag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Set;

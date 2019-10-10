@@ -4,7 +4,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.InventoryCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.SlotCallback;
-import dev.anhcraft.craftkit.cb_common.kits.inventory.CustomInventory;
+import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftInventoryCustom;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;

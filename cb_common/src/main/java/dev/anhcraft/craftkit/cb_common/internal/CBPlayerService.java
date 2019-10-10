@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_common.internal;
 
 import com.mojang.authlib.GameProfile;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import org.bukkit.entity.Player;
 
 import java.util.List;

@@ -7,8 +7,8 @@ import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.craftkit.helpers.ConfigHelper;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.listeners.CKChannelListener;
-import dev.anhcraft.craftkit.kits.chat.ActionBar;
-import dev.anhcraft.craftkit.kits.chat.Chat;
+import dev.anhcraft.craftkit.chat.ActionBar;
+import dev.anhcraft.craftkit.chat.Chat;
 import dev.anhcraft.jvmkit.utils.FileUtil;
 import net.md_5.bungee.api.plugin.Plugin;
 

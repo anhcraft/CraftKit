@@ -1,15 +1,15 @@
 package dev.anhcraft.craftkit.helpers;
 
 import com.google.gson.JsonObject;
-import dev.anhcraft.craftkit.cb_common.kits.nbt.*;
+import dev.anhcraft.craftkit.cb_common.nbt.*;
 import dev.anhcraft.craftkit.common.helpers.Selector;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
-import dev.anhcraft.craftkit.kits.attribute.ItemModifier;
-import dev.anhcraft.craftkit.kits.attribute.Modifier;
-import dev.anhcraft.craftkit.lang.enumeration.Attribute;
-import dev.anhcraft.craftkit.lang.enumeration.BookGeneration;
+import dev.anhcraft.craftkit.attribute.ItemModifier;
+import dev.anhcraft.craftkit.attribute.Modifier;
+import dev.anhcraft.craftkit.attribute.Attribute;
+import dev.anhcraft.craftkit.BookGeneration;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;

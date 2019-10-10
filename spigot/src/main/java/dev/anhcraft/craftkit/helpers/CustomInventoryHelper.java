@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.helpers;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.SlotCallback;
 import dev.anhcraft.craftkit.cb_common.internal.CBCustomInventoryService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.craftkit.cb_common.kits.inventory.CustomInventory;
+import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
 import dev.anhcraft.jvmkit.utils.MathUtil;
 import org.bukkit.Bukkit;

@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.cb_common.lang.enumeration.NMSVersion;
+import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;

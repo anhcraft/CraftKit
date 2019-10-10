@@ -4,7 +4,7 @@ import dev.anhcraft.craftkit.callbacks.bungee.*;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.events.BungeeForwardEvent;
 import dev.anhcraft.craftkit.internal.CKComponent;
 import dev.anhcraft.craftkit.internal.CraftKit;

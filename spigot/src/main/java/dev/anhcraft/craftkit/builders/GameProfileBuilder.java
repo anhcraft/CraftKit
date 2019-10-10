@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.builders;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import dev.anhcraft.craftkit.common.kits.skin.Skin;
+import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import dev.anhcraft.jvmkit.builders.Builder;
 import org.jetbrains.annotations.NotNull;

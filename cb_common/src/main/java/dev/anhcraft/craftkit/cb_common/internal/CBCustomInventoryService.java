@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.cb_common.internal;
 
-import dev.anhcraft.craftkit.cb_common.kits.inventory.CustomInventory;
+import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import org.bukkit.inventory.InventoryHolder;
 
 public interface CBCustomInventoryService extends CBService {

@@ -1,6 +1,6 @@
 package dev.anhcraft.craftkit.cb_common.callbacks.inventory;
 
-import dev.anhcraft.craftkit.cb_common.kits.inventory.CustomInventory;
+import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.entity.Player;
