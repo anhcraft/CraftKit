@@ -1,12 +1,12 @@
 package dev.anhcraft.craftkit.events;
 
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.server.ServerEvent;
 
 /**
  * This event triggers when the server is going to reload itself.
  */
-public class ServerReloadEvent extends Event {
+public class ServerReloadEvent extends ServerEvent {
     private static final HandlerList handlers = new HandlerList();
 
     @Override

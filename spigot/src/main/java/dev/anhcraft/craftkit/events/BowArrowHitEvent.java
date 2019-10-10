@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This event triggers when an arrow (which was shot by a living entity with its bow) hit something.
@@ -16,7 +17,7 @@ public class BowArrowHitEvent extends Event {
     private LivingEntity shooter;
     private ItemStack bow;
 
-    public BowArrowHitEvent(Arrow arrow, Pair<LivingEntity, ItemStack> x) {
+    public BowArrowHitEvent(@NotNull Arrow arrow, @NotNull Pair<LivingEntity, ItemStack> x) {
         this.arrow = arrow;
         this.shooter = x.getFirst();
         this.bow = x.getSecond();
@@ -26,6 +27,7 @@ public class BowArrowHitEvent extends Event {
      * Returns the arrow which was shot.
      * @return arrow
      */
+    @NotNull
     public Arrow getArrow() {
         return arrow;
     }
@@ -34,6 +36,7 @@ public class BowArrowHitEvent extends Event {
      * Returns the entity who shot the arrow.
      * @return shooter
      */
+    @NotNull
     public LivingEntity getShooter() {
         return shooter;
     }
@@ -42,6 +45,7 @@ public class BowArrowHitEvent extends Event {
      * Returns the bow which was used to shoot.
      * @return bow
      */
+    @NotNull
     public ItemStack getBow() {
         return bow;
     }

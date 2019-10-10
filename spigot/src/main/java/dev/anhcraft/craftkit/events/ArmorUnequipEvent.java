@@ -1,22 +1,22 @@
 package dev.anhcraft.craftkit.events;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This event triggers when a player unequips an armor.
  */
-public class ArmorUnequipEvent extends Event {
+public class ArmorUnequipEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
     private ItemStack armor;
     private EquipmentSlot slot;
-    private Player player;
 
-    public ArmorUnequipEvent(Player player, ItemStack armor, EquipmentSlot slot){
-        this.player = player;
+    public ArmorUnequipEvent(@NotNull Player player, @NotNull ItemStack armor, @NotNull EquipmentSlot slot){
+        super(player);
         this.armor = armor;
         this.slot = slot;
     }
@@ -25,22 +25,16 @@ public class ArmorUnequipEvent extends Event {
      * Returns the slot which contained the armor.
      * @return slot
      */
+    @NotNull
     public EquipmentSlot getSlot(){
         return this.slot;
-    }
-
-    /**
-     * Returns the player who unequipped the armor.
-     * @return player
-     */
-    public Player getPlayer(){
-        return this.player;
     }
 
     /**
      * Returns the armor.
      * @return armor
      */
+    @NotNull
     public ItemStack getArmor(){
         return this.armor;
     }

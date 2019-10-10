@@ -1,28 +1,20 @@
 package dev.anhcraft.craftkit.events;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerEvent;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This event triggers when a player jumps.
  */
-public class PlayerJumpEvent extends Event {
+public class PlayerJumpEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-    private Player player;
     private boolean onSpot;
 
-    public PlayerJumpEvent(Player player, boolean onSpot){
-        this.player = player;
+    public PlayerJumpEvent(@NotNull Player player, boolean onSpot){
+        super(player);
         this.onSpot = onSpot;
-    }
-
-    /**
-     * Returns the player who jumped.
-     * @return the player
-     */
-    public Player getPlayer(){
-        return this.player;
     }
 
     /**
