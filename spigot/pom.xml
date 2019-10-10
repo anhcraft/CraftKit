@@ -33,6 +33,10 @@
                             <pattern>co.aikar.commands</pattern>
                             <shadedPattern>dev.anhcraft.craftkit.acf</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>dev.anhcraft.confighelper</pattern>
+                            <shadedPattern>dev.anhcraft.craftkit.helpers.config</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -141,6 +145,12 @@
             <groupId>co.aikar</groupId>
             <artifactId>acf-paper</artifactId>
             <version>0.5.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>confighelper</artifactId>
+            <version>1.0.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

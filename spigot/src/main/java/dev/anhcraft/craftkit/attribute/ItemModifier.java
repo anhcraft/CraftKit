@@ -1,5 +1,8 @@
 package dev.anhcraft.craftkit.attribute;
 
+import dev.anhcraft.confighelper.ConfigSchema;
+import dev.anhcraft.confighelper.annotation.*;
+import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
@@ -12,11 +15,29 @@ import java.util.UUID;
 /**
  * Represents an attribute modifier for items.
  */
+@Schema
 public class ItemModifier extends Modifier implements Serializable {
+    public static final ConfigSchema<ItemModifier> SCHEMA = ConfigSchema.of(ItemModifier.class);
     private static final long serialVersionUID = 3443790587999457033L;
 
+    @Key("attr")
+    @Explanation("The attribute type of this modifier")
+    @Validation(notNull = true)
+    @PrettyEnum
     private Attribute attr;
+
+    @Key("slot")
+    @Explanation("The slot where this modifier will take effect")
+    @PrettyEnum
     private EquipmentSlot slot;
+
+    /**
+     * @deprecated INTERNAL USES ONLY!
+     */
+    @Deprecated
+    public ItemModifier(){
+        Supervisor.checkAccess();
+    }
 
     /**
      * Constructs an instance of {@code ItemModifier} with the given information.
@@ -83,8 +104,7 @@ public class ItemModifier extends Modifier implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ItemModifier that = (ItemModifier) o;
-        return attr == that.attr &&
-                slot == that.slot;
+        return attr == that.attr && Objects.equals(slot, that.slot);
     }
 
     @Override

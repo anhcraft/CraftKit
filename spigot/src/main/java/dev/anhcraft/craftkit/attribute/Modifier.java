@@ -1,5 +1,8 @@
 package dev.anhcraft.craftkit.attribute;
 
+import dev.anhcraft.confighelper.ConfigSchema;
+import dev.anhcraft.confighelper.annotation.*;
+import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +13,9 @@ import java.util.UUID;
 /**
  * Represents an attribute modifier.
  */
+@Schema
 public class Modifier implements Serializable {
+    public static final ConfigSchema<Modifier> SCHEMA = ConfigSchema.of(Modifier.class);
     private static final long serialVersionUID = -4638305656316584438L;
 
     /**
@@ -44,10 +49,29 @@ public class Modifier implements Serializable {
         }
     }
 
+    @Key("name")
+    @Explanation("The name of this modifier")
+    @Validation(notNull = true)
     protected String name;
+
+    @Key("amount")
     protected double amount;
+
+    @Key("operation")
+    @Validation(notNull = true)
+    @Explanation("The operation this modifier will apply")
+    @PrettyEnum
     protected Operation operation;
-    protected UUID uuid;
+
+    protected UUID uuid = UUID.randomUUID();
+
+    /**
+     * @deprecated INTERNAL USES ONLY!
+     */
+    @Deprecated
+    public Modifier(){
+        Supervisor.checkAccess();
+    }
 
     /**
      * Constructs an instance of {@code Modifier} with the given information.
@@ -61,7 +85,6 @@ public class Modifier implements Serializable {
         this.name = name;
         this.amount = amount;
         this.operation = operation;
-        this.uuid = UUID.randomUUID();
     }
 
     /**
