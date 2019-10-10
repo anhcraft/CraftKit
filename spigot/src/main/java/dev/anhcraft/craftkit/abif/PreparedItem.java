@@ -207,12 +207,14 @@ public class PreparedItem implements Serializable {
         pi.amount = amount;
         pi.unbreakable = unbreakable;
         pi.material = material;
-        pi.enchants.putAll(enchants);
-        pi.flags.addAll(flags);
-        for(ItemModifier m : itemModifiers){
-            pi.itemModifiers.add(m.duplicate());
+        if(pi.enchants != null && enchants != null) pi.enchants.putAll(enchants);
+        if(pi.flags != null && flags != null) pi.flags.addAll(flags);
+        if(pi.itemModifiers != null && itemModifiers != null) {
+            for (ItemModifier m : itemModifiers) {
+                pi.itemModifiers.add(m.duplicate());
+            }
         }
-        pi.lore.addAll(lore);
+        if(pi.lore != null && lore != null) pi.lore.addAll(lore);
         return pi;
     }
 }
