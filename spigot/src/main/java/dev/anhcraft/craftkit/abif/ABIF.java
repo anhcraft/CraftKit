@@ -1,9 +1,10 @@
 package dev.anhcraft.craftkit.abif;
 
-import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
+import dev.anhcraft.craftkit.attribute.Attribute;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.attribute.Modifier;
-import dev.anhcraft.craftkit.attribute.Attribute;
+import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
+import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,6 +14,8 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -94,7 +97,9 @@ public class ABIF {
      * @param encName the name of the enchantment (can contain spaces between words)
      * @param enchantment an instance of {@link Enchantment}
      */
-    public static void registerEnchant(String encName, Enchantment enchantment){
+    public static void registerEnchant(@NotNull String encName, @NotNull Enchantment enchantment){
+        Condition.argNotNull("encName", encName);
+        Condition.argNotNull("enchantment", enchantment);
         ENCHANT_MAP.put(encName.toLowerCase(), enchantment);
         ENCHANT_MAP.put(encName.replace(" ", "").toLowerCase(), enchantment);
         REVERSED_ENCHANT_MAP.put(enchantment, encName);
@@ -105,7 +110,8 @@ public class ABIF {
      * @param section the configuration section
      * @return {@link PreparedItem}
      */
-    public static PreparedItem read(ConfigurationSection section){
+    @NotNull
+    public static PreparedItem read(@NotNull ConfigurationSection section){
         return read(section, new PreparedItem());
     }
 
@@ -115,7 +121,10 @@ public class ABIF {
      * @param item a {@link PreparedItem} which is used to store items data
      * @return the {@link PreparedItem} that was given
      */
-    public static PreparedItem read(ConfigurationSection section, PreparedItem item){
+    @NotNull
+    public static PreparedItem read(@NotNull ConfigurationSection section, @NotNull PreparedItem item){
+        Condition.argNotNull("section", section);
+        Condition.argNotNull("item", item);
         item.amount(section.getInt(Key.AMOUNT, 1));
 
         String material = section.getString(Key.MATERIAL);
@@ -170,7 +179,8 @@ public class ABIF {
      * @param item the item
      * @return the config
      */
-    public static YamlConfiguration write(ItemStack item){
+    @NotNull
+    public static YamlConfiguration write(@Nullable ItemStack item){
         return write(item, new YamlConfiguration());
     }
 
@@ -181,7 +191,9 @@ public class ABIF {
      * @param <T> the sections data type
      * @return the section that was given
      */
-    public static <T extends ConfigurationSection> T write(ItemStack item, T section){
+    @NotNull
+    public static <T extends ConfigurationSection> T write(@Nullable ItemStack item, @NotNull T section){
+        Condition.argNotNull("section", section);
         if(item != null){
             section.set(Key.MATERIAL, item.getType().name());
             section.set(Key.AMOUNT, item.getAmount());

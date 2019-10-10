@@ -2,12 +2,15 @@ package dev.anhcraft.craftkit.abif;
 
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
+import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -37,37 +40,42 @@ public class PreparedItem implements Serializable {
      * @param itemStack the item stack
      * @return {@link PreparedItem}
      */
-    public static PreparedItem of(ItemStack itemStack){
+    @NotNull
+    public static PreparedItem of(@Nullable ItemStack itemStack){
         PreparedItem pi = new PreparedItem();
-        pi.material = itemStack.getType();
-        pi.amount = itemStack.getAmount();
-        ItemMeta meta = itemStack.getItemMeta();
-        if(meta != null){
-            if(meta instanceof Damageable) pi.damage = ((Damageable) meta).getDamage();
-            pi.name = meta.getDisplayName();
-            pi.lore = meta.getLore();
-            pi.flags = meta.getItemFlags();
-            pi.enchants = meta.getEnchants();
+        if(itemStack != null) {
+            pi.material = itemStack.getType();
+            pi.amount = itemStack.getAmount();
+            ItemMeta meta = itemStack.getItemMeta();
+            if (meta != null) {
+                if (meta instanceof Damageable) pi.damage = ((Damageable) meta).getDamage();
+                pi.name = meta.getDisplayName();
+                pi.lore = meta.getLore();
+                pi.flags = meta.getItemFlags();
+                pi.enchants = meta.getEnchants();
+            }
+            ItemNBTHelper helper = ItemNBTHelper.of(itemStack);
+            pi.unbreakable = helper.isUnbreakable();
+            pi.itemModifiers.addAll(helper.getModifiers());
         }
-        ItemNBTHelper helper = ItemNBTHelper.of(itemStack);
-        pi.unbreakable = helper.isUnbreakable();
-        pi.itemModifiers.addAll(helper.getModifiers());
         return pi;
     }
 
+    @NotNull
     public Material material() {
         return material;
     }
 
-    public void material(Material type) {
-        this.material = type;
+    public void material(@Nullable Material type) {
+        this.material = type == null ? Material.AIR : type;
     }
 
+    @Nullable
     public String name() {
         return name;
     }
 
-    public void name(String name) {
+    public void name(@Nullable String name) {
         this.name = name;
     }
 
@@ -95,35 +103,39 @@ public class PreparedItem implements Serializable {
         this.unbreakable = unbreakable;
     }
 
+    @Nullable
     public List<String> lore() {
         return lore;
     }
 
-    public void lore(List<String> lore) {
+    public void lore(@Nullable List<String> lore) {
         this.lore = lore;
     }
 
+    @Nullable
     public Set<ItemFlag> flags() {
         return flags;
     }
 
-    public void flags(Set<ItemFlag> flags) {
+    public void flags(@Nullable Set<ItemFlag> flags) {
         this.flags = flags;
     }
 
+    @Nullable
     public Map<Enchantment, Integer> enchants() {
         return enchants;
     }
 
-    public void enchants(Map<Enchantment, Integer> enchants) {
+    public void enchants(@Nullable Map<Enchantment, Integer> enchants) {
         this.enchants = enchants;
     }
 
+    @Nullable
     public List<ItemModifier> getItemModifiers() {
         return itemModifiers;
     }
 
-    public void setItemModifiers(List<ItemModifier> itemModifiers) {
+    public void setItemModifiers(@Nullable List<ItemModifier> itemModifiers) {
         this.itemModifiers = itemModifiers;
     }
 
@@ -131,6 +143,7 @@ public class PreparedItem implements Serializable {
      * Builds a new item stack.
      * @return {@link ItemStack}
      */
+    @NotNull
     public ItemStack build() {
         ItemStack item = new ItemStack(material, amount, (short) damage);
         ItemMeta meta = item.getItemMeta();
@@ -176,6 +189,7 @@ public class PreparedItem implements Serializable {
      * Clones this object.
      * @return a new instance of {@link PreparedItem}
      */
+    @NotNull
     public PreparedItem duplicate(){
         return merge(new PreparedItem());
     }
@@ -185,7 +199,9 @@ public class PreparedItem implements Serializable {
      * @param pi another object
      * @return {@link PreparedItem}
      */
-    public PreparedItem merge(PreparedItem pi){
+    @NotNull
+    public PreparedItem merge(@NotNull PreparedItem pi){
+        Condition.argNotNull("pi", pi);
         pi.name = name;
         pi.damage = damage;
         pi.amount = amount;
@@ -193,7 +209,9 @@ public class PreparedItem implements Serializable {
         pi.material = material;
         pi.enchants.putAll(enchants);
         pi.flags.addAll(flags);
-        pi.itemModifiers.addAll(itemModifiers);
+        for(ItemModifier m : itemModifiers){
+            pi.itemModifiers.add(m.duplicate());
+        }
         pi.lore.addAll(lore);
         return pi;
     }
