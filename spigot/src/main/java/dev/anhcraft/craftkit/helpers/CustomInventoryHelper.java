@@ -45,6 +45,7 @@ public class CustomInventoryHelper extends AbstractPluginHelper {
      * @param title the inventory title
      * @return the inventory
      */
+    @NotNull
     public CustomInventory create(@Nullable InventoryHolder holder, int size, @Nullable String title){
         size = (int) MathUtil.nextMultiple(size, 9);
         title = (title == null ? null : ChatUtil.formatColorCodes(title));
@@ -60,6 +61,7 @@ public class CustomInventoryHelper extends AbstractPluginHelper {
      * @param title the inventory title
      * @return the inventory
      */
+    @NotNull
     public CustomInventory createUnmodifiable(int size, @Nullable String title){
         CustomInventory ci = create(null, size, title);
         ci.addContentCallback(SlotCallback.PREVENT_MODIFY);

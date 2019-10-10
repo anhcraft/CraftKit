@@ -77,6 +77,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param name the new name
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper setName(@Nullable String name) {
         meta.setDisplayName(name == null ? null : ChatUtil.formatColorCodes(name)); // it is better to set null directly instead of calling another method
         return this;
@@ -88,6 +89,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param level the level of the enchantment
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ItemHelper addEnchant(@NotNull Enchantment enchant, int level) {
         Condition.argNotNull("enchant", enchant);
         Condition.check(level > 0, "`level` must be higher than zero");
@@ -100,6 +102,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param enchant the enchantment which you want to remove
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper removeEnchant(@NotNull Enchantment enchant) {
         Condition.argNotNull("enchant", enchant);
         meta.removeEnchant(enchant);
@@ -110,6 +113,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * Returns all existing enchantments on the stack.
      * @return an immutable map of enchantments with enchantment as keys and their level as values
      */
+    @NotNull
     public Map<Enchantment, Integer> getEnchants() {
         return meta.getEnchants();
     }
@@ -140,6 +144,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param line the lore line
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper addLoreLine(@NotNull String line) {
         Condition.argNotNull("line", line);
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
@@ -154,6 +159,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param lines an array of lore lines
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper addLoreLines(@NotNull String... lines) {
         Condition.argNotNull("lines", lines);
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
@@ -168,6 +174,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param lines a list of lore lines
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper addLoreLines(@NotNull List<String> lines) {
         Condition.argNotNull("lines", lines);
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
@@ -183,6 +190,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param content the new content
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ItemHelper setLoreLine(int index, @NotNull String content) {
         Condition.argNotNull("content", content);
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
@@ -201,6 +209,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param lore the new lore (if this is null, the lore will be empty)
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper setLore(@Nullable List<String> lore) {
         meta.setLore(lore == null ? null : ChatUtil.formatColorCodes(lore));
         return this;
@@ -211,6 +220,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param index the index of the line (from zero)
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper removeLoreLine(int index) {
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
         if(meta.hasLore()) {
@@ -243,6 +253,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param flags flags to be added
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper addFlag(@NotNull ItemFlag... flags) {
         Condition.argNotNull("flags", flags);
         meta.addItemFlags(flags);
@@ -254,6 +265,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param flags flags to be removed
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper removeFlags(@NotNull ItemFlag... flags) {
         Condition.argNotNull("flags", flags);
         meta.removeItemFlags(flags);
@@ -284,6 +296,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param durability new durability
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper setDurability(short durability) {
         getTarget().setDurability(durability);
         return this;
@@ -302,6 +315,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param type new type
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper setType(@Nullable Material type) {
         getTarget().setType(type == null ? Material.AIR : type);
         return this;
@@ -321,6 +335,7 @@ public class ItemHelper extends Selector<ItemStack> {
      * @param amount new amount
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemHelper setAmount(int amount) {
         getTarget().setAmount(amount);
         return this;

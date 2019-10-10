@@ -13,6 +13,7 @@ import dev.anhcraft.craftkit.BookGeneration;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,6 +88,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param unbreakable {@code true} to make it unbreakable, otherwise is {@code false}
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setUnbreakable(boolean unbreakable){
         if(unbreakable) tag.put("Unbreakable", new ByteTag(1));
         else tag.remove("Unbreakable");
@@ -108,6 +110,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param skin the skin (its signature can be null)
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setSkin(@NotNull Skin skin){
         Condition.argNotNull("skin", skin);
         CompoundTag skullOwner = tag.getOrCreateDefault("SkullOwner", CompoundTag.class);
@@ -130,17 +133,17 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public Skin setSkin(){
-        @Nullable CompoundTag skullOwner = tag.get("SkullOwner", CompoundTag.class);
+        CompoundTag skullOwner = tag.get("SkullOwner", CompoundTag.class);
         if(skullOwner != null){
-            @Nullable CompoundTag properties = tag.get("Properties", CompoundTag.class);
+            CompoundTag properties = tag.get("Properties", CompoundTag.class);
             if(properties != null){
-                @Nullable ListTag textures = tag.get("textures", ListTag.class);
+                ListTag textures = tag.get("textures", ListTag.class);
                 if(textures != null && !textures.getValue().isEmpty()){
                     NBTTag texture = textures.getValue().get(0);
                     if(texture instanceof CompoundTag) {
                         CompoundTag tt = (CompoundTag) texture;
-                        @Nullable StringTag val = tt.get("Value", StringTag.class);
-                        @Nullable StringTag sgn = tt.get("Signature", StringTag.class);
+                        StringTag val = tt.get("Value", StringTag.class);
+                        StringTag sgn = tt.get("Signature", StringTag.class);
                         if(val != null && sgn != null) return new Skin(val.getValue(), sgn.getValue());
                     }
                 }
@@ -155,6 +158,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param generation the copy tier
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setGeneration(@NotNull BookGeneration generation){
         Condition.argNotNull("generation", generation);
         tag.put("generation", new IntTag(generation.getId()));
@@ -167,7 +171,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public BookGeneration getGeneration(){
-        @Nullable IntTag t = tag.get("generation", IntTag.class);
+        IntTag t = tag.get("generation", IntTag.class);
         return t == null ? null : BookGeneration.getById(t.getValue());
     }
 
@@ -178,6 +182,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param author author's name
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setAuthor(@NotNull String author){
         Condition.argNotNull("author", author);
         tag.put("author", new StringTag(ChatUtil.formatColorCodes(author)));
@@ -190,7 +195,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public String getAuthor(){
-        @Nullable StringTag t = tag.get("author", StringTag.class);
+        StringTag t = tag.get("author", StringTag.class);
         return t == null ? null : t.getValue();
     }
 
@@ -201,6 +206,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param title new title
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setTitle(@NotNull String title){
         Condition.argNotNull("title", title);
         tag.put("title", new StringTag(ChatUtil.formatColorCodes(title)));
@@ -223,6 +229,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param resolve {@code true} to resolve books or {@code false} to "unresolve"
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setResolve(boolean resolve){
         tag.put("resolved", new ByteTag(resolve ? 1 : 0));
         return this;
@@ -244,6 +251,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param pages list of pages
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setPages(@Nullable List<String> pages){
         ListTag ltag = new ListTag();
         pages = ChatUtil.formatColorCodes(pages);
@@ -264,7 +272,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @NotNull
     public List<String> getPages(){
-        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
+       ListTag ltag = tag.get("pages", ListTag.class);
         return ltag == null ? new ArrayList<>() : ltag.getValue()
                 .stream().map(tag -> ((StringTag) tag).getValue()).collect(Collectors.toList());
     }
@@ -276,7 +284,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @Nullable
     public String getPage(int index){
-        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
+        ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
             return ((StringTag) ltag.getValue().get(index)).getValue();
         }
@@ -290,6 +298,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param content the content of that page
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper addPage(@NotNull String content){
         Condition.argNotNull("content", content);
         ListTag ltag = tag.getOrCreateDefault("pages", ListTag.class);
@@ -308,9 +317,10 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param content new content
      * @return this object
      */
+    @Contract("_, _ -> this")
     public ItemNBTHelper setPage(int index, @NotNull String content){
         Condition.argNotNull("content", content);
-        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
+        ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
             JsonObject j = new JsonObject();
             j.addProperty("text", ChatUtil.formatColorCodes(content));
@@ -326,8 +336,9 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param index the index of the page
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper removePage(int index){
-        @Nullable ListTag ltag = tag.get("pages", ListTag.class);
+        ListTag ltag = tag.get("pages", ListTag.class);
         if(ltag != null && index < ltag.getValue().size()){
             ltag.getValue().remove(index);
             tag.put("pages", ltag);
@@ -339,6 +350,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * Clear books content.
      * @return this object
      */
+    @Contract(" -> this")
     public ItemNBTHelper clearPages(){
         tag.remove("pages");
         return this;
@@ -362,6 +374,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param modifier the modifier
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper addModifier(@NotNull ItemModifier modifier){
         Condition.argNotNull("modifier", modifier);
 
@@ -376,6 +389,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param modifiers the modifiers
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper setModifiers(@NotNull Collection<ItemModifier> modifiers){
         Condition.argNotNull("modifiers", modifiers);
 
@@ -392,14 +406,15 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param slot the slot
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper removeModifiersBySlot(@NotNull EquipmentSlot slot){
         Condition.argNotNull("slot", slot);
 
-        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
+        ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
-            @NotNull String nslot = getNmsEquipName(slot);
+            String nslot = getNmsEquipName(slot);
             List<NBTTag> nl = ltag.getValue().stream().filter(tag -> {
-                @Nullable StringTag s = ((CompoundTag) tag).get("Slot", StringTag.class);
+                StringTag s = ((CompoundTag) tag).get("Slot", StringTag.class);
                 return s == null || !s.getValue().equals(nslot);
             }).collect(Collectors.toList());
             ltag.getValue().clear();
@@ -414,13 +429,14 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * @param attribute the attribute
      * @return this object
      */
+    @Contract("_ -> this")
     public ItemNBTHelper removeModifiersByAttribute(@NotNull Attribute attribute){
         Condition.argNotNull("attribute", attribute);
 
-        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
+        ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
             List<NBTTag> nl = ltag.getValue().stream().filter(tag -> {
-                @Nullable StringTag s = ((CompoundTag) tag).get("AttributeName", StringTag.class);
+                StringTag s = ((CompoundTag) tag).get("AttributeName", StringTag.class);
                 return s == null || !s.getValue().equals(attribute.getId());
             }).collect(Collectors.toList());
             ltag.getValue().clear();
@@ -434,6 +450,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      * Clears all modifiers.
      * @return this object
      */
+    @Contract(" -> this")
     public ItemNBTHelper clearModifiers(){
         tag.remove("AttributeModifiers");
         return this;
@@ -445,7 +462,7 @@ public class ItemNBTHelper extends Selector<ItemStack> {
      */
     @NotNull
     public List<ItemModifier> getModifiers(){
-        @Nullable ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
+        ListTag ltag = tag.get("AttributeModifiers", ListTag.class);
         if(ltag != null) {
             return ltag.getValue().stream().map(tag -> (CompoundTag) tag).map(tag -> {
                 String attr = Objects.requireNonNull(tag.get("AttributeName", StringTag.class)).getValue();
