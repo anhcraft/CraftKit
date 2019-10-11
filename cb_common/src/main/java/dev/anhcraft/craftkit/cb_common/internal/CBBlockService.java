@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public interface CBBlockService extends CBService {
+    void fakeBreak(int id, Block block, int stage, Player viewer);
     void fakeBreak(int id, Block block, int stage, List<Player> viewers);
 
     default BoundingBox getBoundingBox(Block block) {

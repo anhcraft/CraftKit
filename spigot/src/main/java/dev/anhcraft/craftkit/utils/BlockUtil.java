@@ -79,6 +79,19 @@ public class BlockUtil {
     }
 
     /**
+     * Creates a block-breaking animation which can only be viewed by the given viewer.
+     * @param id the id which is used to identify the animation in the clients
+     * @param block the block which will have the animation
+     * @param stage the stage of the animation (0-9)
+     * @param viewer the player who can view
+     */
+    public static void createBreakAnimation(int id, @NotNull Block block, int stage, @NotNull Player viewer){
+        Condition.argNotNull("id", id);
+        Condition.argNotNull("stage", stage);
+        SERVICE.fakeBreak(id, block, MathUtil.clampInt(stage, 0, 9), viewer);
+    }
+
+    /**
      * Creates a block-breaking animation which can only be viewed by {@code viewers}.
      * @param id the id which is used to identify the animation in the clients
      * @param block the block which will have the animation
@@ -88,7 +101,7 @@ public class BlockUtil {
     public static void createBreakAnimation(int id, @NotNull Block block, int stage, @NotNull List<Player> viewers){
         Condition.argNotNull("id", id);
         Condition.argNotNull("stage", stage);
-        SERVICE.fakeBreak(id, block, stage, viewers);
+        SERVICE.fakeBreak(id, block, MathUtil.clampInt(stage, 0, 9), viewers);
     }
 
     /**

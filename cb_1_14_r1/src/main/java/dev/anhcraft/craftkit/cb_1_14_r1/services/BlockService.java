@@ -12,8 +12,16 @@ import java.util.List;
 
 public class BlockService extends CBModule implements CBBlockService {
     @Override
+    public void fakeBreak(int id, Block block, int stage, Player viewer) {
+        BlockPosition pos = new BlockPosition(
+                block.getLocation().getBlockX(),
+                block.getLocation().getBlockY(),
+                block.getLocation().getBlockZ());
+        sendPacket(new PacketPlayOutBlockBreakAnimation(id, pos, stage), toEntityPlayer(viewer));
+    }
+
+    @Override
     public void fakeBreak(int id, Block block, int stage, List<Player> viewers) {
-        stage = Math.min(Math.max(0, stage), 9);
         BlockPosition pos = new BlockPosition(
                 block.getLocation().getBlockX(),
                 block.getLocation().getBlockY(),
