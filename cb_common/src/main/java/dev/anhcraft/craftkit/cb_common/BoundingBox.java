@@ -6,6 +6,8 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class BoundingBox {
     @NotNull
     public static BoundingBox of(@NotNull Vector v){
@@ -315,5 +317,23 @@ public class BoundingBox {
     @NotNull
     public BoundingBox duplicate(){
         return new BoundingBox(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoundingBox that = (BoundingBox) o;
+        return Double.compare(that.minX, minX) == 0 &&
+                Double.compare(that.minY, minY) == 0 &&
+                Double.compare(that.minZ, minZ) == 0 &&
+                Double.compare(that.maxX, maxX) == 0 &&
+                Double.compare(that.maxY, maxY) == 0 &&
+                Double.compare(that.maxZ, maxZ) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minX, minY, minZ, maxX, maxY, maxZ);
     }
 }
