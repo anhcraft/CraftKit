@@ -39,6 +39,7 @@ public class BoundingBox {
     public static BoundingBox of(@NotNull Location min, @NotNull Location max){
         Condition.argNotNull("min", min);
         Condition.argNotNull("max", max);
+        Condition.check(Objects.equals(min.getWorld(), max.getWorld()), "Both locations must belong to the same world");
         return new BoundingBox(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
     }
 
@@ -58,15 +59,6 @@ public class BoundingBox {
     private double maxY;
     private double maxZ;
 
-    private void setPoints(double minX, double minY, double minZ, double maxX, double maxY, double maxZ){
-        this.minX = Math.min(minX, maxX);
-        this.minY = Math.min(minY, maxY);
-        this.minZ = Math.min(minZ, maxZ);
-        this.maxX = Math.max(maxX, minX);
-        this.maxY = Math.max(maxY, minY);
-        this.maxZ = Math.max(maxZ, minZ);
-    }
-    
     public BoundingBox() {
     }
 
@@ -80,7 +72,7 @@ public class BoundingBox {
     }
 
     public BoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-        setPoints(minX, minY, minZ, maxX, maxY, maxZ);
+        allocate(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     public BoundingBox(@NotNull BoundingBox box) {
@@ -91,6 +83,43 @@ public class BoundingBox {
         this.maxX = box.maxX;
         this.maxY = box.maxY;
         this.maxZ = box.maxZ;
+    }
+
+    @Contract("_, _ -> this")
+    public BoundingBox allocate(@NotNull Location min, @NotNull Location max){
+        Condition.argNotNull("min", min);
+        Condition.argNotNull("max", max);
+        Condition.check(Objects.equals(min.getWorld(), max.getWorld()), "Both locations must belong to the same world");
+        return allocate(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
+    }
+
+    @Contract("_, _ -> this")
+    public BoundingBox allocate(Vector min, Vector max){
+        Condition.argNotNull("min", min);
+        Condition.argNotNull("max", max);
+        return allocate(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
+    }
+
+    @Contract("_, _, _ -> this")
+    public BoundingBox allocate(double x, double y, double z){
+        this.minX = x;
+        this.minY = y;
+        this.minZ = z;
+        this.maxX = x;
+        this.maxY = y;
+        this.maxZ = z;
+        return this;
+    }
+
+    @Contract("_, _, _, _, _, _ -> this")
+    public BoundingBox allocate(double minX, double minY, double minZ, double maxX, double maxY, double maxZ){
+        this.minX = Math.min(minX, maxX);
+        this.minY = Math.min(minY, maxY);
+        this.minZ = Math.min(minZ, maxZ);
+        this.maxX = Math.max(maxX, minX);
+        this.maxY = Math.max(maxY, minY);
+        this.maxZ = Math.max(maxZ, minZ);
+        return this;
     }
 
     public double getMinX() {
@@ -312,6 +341,41 @@ public class BoundingBox {
         return ((minX <= box.maxX) && (maxX >= box.minX)) ||
                 ((minY <= box.maxY) && (maxY >= box.minY)) ||
                 ((minZ <= box.maxZ) && (maxZ >= box.minZ));
+    }
+
+    @Contract("_, _, _ -> this")
+    public BoundingBox moveTo(double x, double y, double z) {
+        minX = x + minX;
+        minY = y + minY;
+        minZ = z + minZ;
+        maxX = x + maxX;
+        maxY = y + maxY;
+        maxZ = z + maxZ;
+        return this;
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox moveTo(@NotNull Vector v) {
+        Condition.argNotNull("v", v);
+        minX = v.getX() + minX;
+        minY = v.getY() + minY;
+        minZ = v.getZ() + minZ;
+        maxX = v.getX() + maxX;
+        maxY = v.getY() + maxY;
+        maxZ = v.getZ() + maxZ;
+        return this;
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox moveTo(@NotNull Location loc) {
+        Condition.argNotNull("loc", loc);
+        minX = loc.getX() + minX;
+        minY = loc.getY() + minY;
+        minZ = loc.getZ() + minZ;
+        maxX = loc.getX() + maxX;
+        maxY = loc.getY() + maxY;
+        maxZ = loc.getZ() + maxZ;
+        return this;
     }
 
     @NotNull
