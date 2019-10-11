@@ -5,9 +5,12 @@ import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
 import dev.anhcraft.craftkit.cb_common.nbt.*;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import net.minecraft.server.v1_14_R1.*;
+import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.*;
 import java.util.List;
 import java.util.Set;
 
@@ -102,6 +105,31 @@ public class NBTService extends CBModule implements CBNBTService {
     }
 
     @Override
+    public void load(Block block) {
+        CraftWorld craftWorld = (CraftWorld) block.getWorld();
+        TileEntity tileEntity = craftWorld.getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        if(tileEntity != null) tileEntity.save(root);
+    }
+
+    @Override
+    public void load(DataInput dataInput) {
+        try {
+            root = NBTCompressedStreamTools.a(dataInput, NBTReadLimiter.a);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void load(InputStream inputStream) {
+        try {
+            root = NBTCompressedStreamTools.a(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void save(CompoundTag root) {
         fromNMS(this.root, root);
     }
@@ -118,6 +146,31 @@ public class NBTService extends CBModule implements CBNBTService {
     @Override
     public void save(Object entity) {
         ((Entity) entity).f(root);
+    }
+
+    @Override
+    public void save(Block block) {
+        CraftWorld craftWorld = (CraftWorld) block.getWorld();
+        TileEntity tileEntity = craftWorld.getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        if(tileEntity != null) tileEntity.load(root);
+    }
+
+    @Override
+    public void save(DataOutput dataOutput) {
+        try {
+            NBTCompressedStreamTools.a(root, dataOutput);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void save(OutputStream outputStream) {
+        try {
+            NBTCompressedStreamTools.a(root, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -141,7 +194,7 @@ public class NBTService extends CBModule implements CBNBTService {
     }
 
     @Override
-    public CompoundTag clone() {
+    public CompoundTag duplicate() {
         return (CompoundTag) fromNMS(root.clone());
     }
 }

@@ -4,12 +4,13 @@ import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
 import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -56,13 +57,26 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
         return c;
     }
 
+    /**
+     * Returns the compound tag of the given block.
+     * @param block the block
+     * @return block's compound
+     */
+    @NotNull
+    public static CompoundTag of(@NotNull Block block){
+        Condition.argNotNull("block", block);
+        CompoundTag c = new CompoundTag();
+        c.load(block);
+        return c;
+    }
+
     @Override
     public int getTypeId() {
         return TagType.COMPOUND_TAG;
     }
 
     /**
-     * Loads all NBT tags of the given item stack and puts them into this compound.
+     * Loads all NBT tags from the given item stack and puts them into this compound.
      * @param item the item stack
      */
     public void load(@NotNull ItemStack item){
@@ -71,12 +85,54 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
-     * Loads all NBT tags of the given entity and puts them into this compound.
+     * Loads all NBT tags from the given entity and puts them into this compound.
      * @param entity the entity
      */
     public void load(@NotNull Entity entity){
         Condition.argNotNull("entity", entity);
         service.load(E_SERVICE.toNms(entity));
+    }
+
+    /**
+     * Loads all NBT tags from the given block and puts them into this compound.
+     * @param block the block
+     */
+    public void load(@NotNull Block block){
+        Condition.argNotNull("block", block);
+        service.load(block);
+    }
+
+    /**
+     * Loads all NBT tags from the given {@link DataInput} and puts them into this compound.
+     * @param dataInput the data input
+     */
+    public void load(@NotNull DataInput dataInput){
+        Condition.argNotNull("dataInput", dataInput);
+        service.load(dataInput);
+    }
+
+    /**
+     * Loads all NBT tags from the given {@link InputStream} and puts them into this compound.
+     * @param inputStream the input stream
+     */
+    public void load(@NotNull InputStream inputStream){
+        Condition.argNotNull("inputStream", inputStream);
+        service.load(inputStream);
+    }
+
+    /**
+     * Loads all NBT tags from the given file and puts them into this compound.
+     * @param file the file
+     */
+    public void load(@NotNull File file){
+        Condition.argNotNull("file", file);
+        try {
+            FileInputStream in = new FileInputStream(file);
+            load(in);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -96,6 +152,48 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     public void save(@NotNull Entity entity){
         Condition.argNotNull("entity", entity);
         service.save(E_SERVICE.toNms(entity));
+    }
+
+    /**
+     * Saves this compound to the given block.
+     * @param block the block
+     */
+    public void save(@NotNull Block block){
+        Condition.argNotNull("block", block);
+        service.save(block);
+    }
+
+    /**
+     * Saves this compound to the given {@link DataOutput}.
+     * @param dataOutput the data output
+     */
+    public void save(@NotNull DataOutput dataOutput){
+        Condition.argNotNull("dataOutput", dataOutput);
+        service.save(dataOutput);
+    }
+
+    /**
+     * Saves this compound to the given {@link OutputStream}.
+     * @param outputStream the output stream
+     */
+    public void save(@NotNull OutputStream outputStream){
+        Condition.argNotNull("outputStream", outputStream);
+        service.save(outputStream);
+    }
+
+    /**
+     * Saves this compound to the given file.
+     * @param file the file
+     */
+    public void save(@NotNull File file){
+        Condition.argNotNull("file", file);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            save(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -329,8 +427,17 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      * @return a copy of this compound
      */
     @NotNull
+    public CompoundTag duplicate(){
+        return service.duplicate();
+    }
+
+    /**
+     * @deprecated Uses {@link #duplicate()} instead.
+     */
+    @NotNull
+    @Deprecated
     public CompoundTag clone(){
-        return service.clone();
+        return service.duplicate();
     }
 
     /**
