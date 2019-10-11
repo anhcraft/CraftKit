@@ -1,5 +1,6 @@
 package dev.anhcraft.craftkit.utils;
 
+import dev.anhcraft.craftkit.cb_common.BoundingBox;
 import dev.anhcraft.craftkit.cb_common.internal.CBBlockService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -88,5 +89,15 @@ public class BlockUtil {
         Condition.argNotNull("id", id);
         Condition.argNotNull("stage", stage);
         SERVICE.fakeBreak(id, block, stage, viewers);
+    }
+
+    /**
+     * Gets the bounding box of the given block.
+     * @param block the block
+     * @return {@link BoundingBox}
+     */
+    @NotNull
+    public static BoundingBox getBoundingBox(@NotNull Block block){
+        return SERVICE.getBoundingBox(block);
     }
 }

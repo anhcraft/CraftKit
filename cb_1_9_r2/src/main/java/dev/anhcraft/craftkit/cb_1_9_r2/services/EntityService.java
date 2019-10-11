@@ -1,7 +1,9 @@
 package dev.anhcraft.craftkit.cb_1_9_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_9_r2.CBModule;
+import dev.anhcraft.craftkit.cb_common.BoundingBox;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
+import net.minecraft.server.v1_9_R2.AxisAlignedBB;
 import net.minecraft.server.v1_9_R2.Entity;
 import net.minecraft.server.v1_9_R2.PacketPlayOutEntity;
 import net.minecraft.server.v1_9_R2.PacketPlayOutEntityTeleport;
@@ -40,5 +42,18 @@ public class EntityService extends CBModule implements CBEntityService {
 
         PacketPlayOutEntityTeleport packet = new PacketPlayOutEntityTeleport(ent);
         sendPacket(packet, castEntityPlayers(viewers));
+    }
+
+    @Override
+    public BoundingBox getBoundingBox(org.bukkit.entity.Entity entity) {
+        CraftEntity craftEntity = (CraftEntity) entity;
+        AxisAlignedBB aabb = craftEntity.getHandle().getBoundingBox();
+        return new BoundingBox(aabb.a, aabb.b, aabb.c, aabb.d, aabb.e, aabb.f);
+    }
+
+    @Override
+    public void setBoundingBox(org.bukkit.entity.Entity entity, BoundingBox box) {
+        CraftEntity craftEntity = (CraftEntity) entity;
+        craftEntity.getHandle().a(new AxisAlignedBB(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ()));
     }
 }
