@@ -387,41 +387,6 @@ public class BoundingBox {
                 ((minZ <= box.maxZ) && (maxZ >= box.minZ));
     }
 
-    @Contract("_, _, _ -> this")
-    public BoundingBox moveTo(double x, double y, double z) {
-        minX = x + minX;
-        minY = y + minY;
-        minZ = z + minZ;
-        maxX = x + maxX;
-        maxY = y + maxY;
-        maxZ = z + maxZ;
-        return this;
-    }
-
-    @Contract("_ -> this")
-    public BoundingBox moveTo(@NotNull Vector v) {
-        Condition.argNotNull("v", v);
-        minX = v.getX() + minX;
-        minY = v.getY() + minY;
-        minZ = v.getZ() + minZ;
-        maxX = v.getX() + maxX;
-        maxY = v.getY() + maxY;
-        maxZ = v.getZ() + maxZ;
-        return this;
-    }
-
-    @Contract("_ -> this")
-    public BoundingBox moveTo(@NotNull Location loc) {
-        Condition.argNotNull("loc", loc);
-        minX = loc.getX() + minX;
-        minY = loc.getY() + minY;
-        minZ = loc.getZ() + minZ;
-        maxX = loc.getX() + maxX;
-        maxY = loc.getY() + maxY;
-        maxZ = loc.getZ() + maxZ;
-        return this;
-    }
-
     @NotNull
     public BoundingBox duplicate(){
         return new BoundingBox(this);
@@ -430,12 +395,14 @@ public class BoundingBox {
     @NotNull
     public Vector[] getVectorCorners(){
         return new Vector[]{
-                new Vector(minX, minY, minZ),
-                new Vector(maxX, minY, minZ),
-                new Vector(minX, maxY, minZ),
-                new Vector(minX, minY, maxZ),
-                new Vector(maxX, maxY, minZ),
-                new Vector(maxX, maxY, maxZ)
+                new Vector(minX, minY, minZ), // 123
+                new Vector(minX, maxY, maxZ), // 156
+                new Vector(maxX, minY, minZ), // 423
+                new Vector(minX, maxY, minZ), // 153
+                new Vector(minX, minY, maxZ), // 126
+                new Vector(maxX, minY, maxZ), // 426
+                new Vector(maxX, maxY, minZ), // 453
+                new Vector(maxX, maxY, maxZ)  // 456
         };
     }
 
@@ -443,9 +410,11 @@ public class BoundingBox {
     public Location[] getLocationCorners(@Nullable World world){
         return new Location[]{
                 new Location(world, minX, minY, minZ),
+                new Location(world, minX, maxY, maxZ),
                 new Location(world, maxX, minY, minZ),
                 new Location(world, minX, maxY, minZ),
                 new Location(world, minX, minY, maxZ),
+                new Location(world, maxX, minY, maxZ),
                 new Location(world, maxX, maxY, minZ),
                 new Location(world, maxX, maxY, maxZ)
         };
