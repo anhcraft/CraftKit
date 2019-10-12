@@ -3,12 +3,12 @@ package dev.anhcraft.craftkit.cb_1_13_r2.services;
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
-import net.minecraft.server.v1_13_R2.AxisAlignedBB;
-import net.minecraft.server.v1_13_R2.Entity;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntity;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityTeleport;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
+import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftLivingEntity;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.List;
 
@@ -55,5 +55,12 @@ public class EntityService extends CBModule implements CBEntityService {
     public void setBoundingBox(org.bukkit.entity.Entity entity, BoundingBox box) {
         CraftEntity craftEntity = (CraftEntity) entity;
         craftEntity.getHandle().a(new AxisAlignedBB(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ()));
+    }
+
+    @Override
+    public void jump(LivingEntity entity) {
+        CraftLivingEntity craftLivingEntity = (CraftLivingEntity) entity;
+        EntityLiving entityLiving = craftLivingEntity.getHandle();
+        ReflectionUtil.invokeDeclaredMethod(EntityLiving.class, entityLiving, "cH");
     }
 }
