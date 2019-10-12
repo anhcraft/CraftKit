@@ -5,7 +5,6 @@ import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -34,14 +33,5 @@ public class EntityUtil {
         Condition.argNotNull("entity", entity);
         Condition.argNotNull("box", box);
         SERVICE.setBoundingBox(entity, box);
-    }
-
-    /**
-     * Forces the given entity jump.
-     * @param entity the entity
-     */
-    public static void jump(@NotNull LivingEntity entity){
-        Condition.argNotNull("entity", entity);
-        SERVICE.jump(entity);
     }
 }

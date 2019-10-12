@@ -4,7 +4,6 @@ import dev.anhcraft.craftkit.cb_common.BoundingBox;
 import dev.anhcraft.craftkit.cb_common.internal.annotation.IsNMS;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 
 import java.util.List;
 
@@ -15,5 +14,4 @@ public interface CBEntityService extends CBService {
     void teleport(@IsNMS Object entity, Location location, @IsNMS List<Object> viewers);
     BoundingBox getBoundingBox(Entity entity);
     void setBoundingBox(Entity entity, BoundingBox box);
-    void jump(LivingEntity entity);
 }
