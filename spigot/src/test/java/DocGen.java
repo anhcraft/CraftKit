@@ -7,7 +7,7 @@ import java.io.File;
 
 public class DocGen {
     public static void main(String[] args){
-        new ConfigDoc().addJavadoc("dev.anhcraft.craftkit.*", "https://anhcraft.dev/jd/craftkit/")
+        new ConfigDoc().addJavadoc("dev.anhcraft.craftkit.*", "https://anhcraft.dev/jd/craftkit/spigot")
                 .withSchema(Modifier.SCHEMA)
                 .withSchema(ItemModifier.SCHEMA)
                 .withSchema(PreparedItem.SCHEMA)
