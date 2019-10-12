@@ -26,6 +26,17 @@ public class EntityUtil {
     }
 
     /**
+     * Overrides the current bounding box of the given entity.
+     * @param entity entity
+     * @param box the bounding box
+     */
+    public static void setBoundingBox(@NotNull Entity entity, @NotNull BoundingBox box){
+        Condition.argNotNull("entity", entity);
+        Condition.argNotNull("box", box);
+        SERVICE.setBoundingBox(entity, box);
+    }
+
+    /**
      * Forces the given entity jump.
      * @param entity the entity
      */
