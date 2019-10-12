@@ -2,11 +2,13 @@ package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.internal.CBCommandService;
 import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +19,14 @@ import java.util.Map;
  */
 public class CommandUtil {
     private static final CBCommandService SERVICE = CBProvider.getService(CBCommandService.class).orElseThrow(UnsupportedOperationException::new);
+
+    @NotNull
+    public static PluginCommand createPluginCommand(@NotNull String cmd, @NotNull Plugin plugin){
+        return (PluginCommand) ReflectionUtil.invokeDeclaredConstructor(PluginCommand.class,
+                new Class[]{String.class, Plugin.class},
+                new Object[]{cmd, plugin}
+        );
+    }
 
     /**
      * Gets all known commands (include vanilla/bukkit commands).
