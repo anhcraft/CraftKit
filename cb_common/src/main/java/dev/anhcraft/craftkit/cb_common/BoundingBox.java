@@ -2,9 +2,11 @@ package dev.anhcraft.craftkit.cb_common;
 
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -313,6 +315,48 @@ public class BoundingBox {
         return this;
     }
 
+    @Contract("_, _, _ -> this")
+    public BoundingBox multiply(double multiplierX, double multiplierY, double multiplierZ){
+        minX *= multiplierX;
+        minY *= multiplierY;
+        minZ *= multiplierZ;
+        maxX *= multiplierX;
+        maxY *= multiplierY;
+        maxZ *= multiplierZ;
+        return this;
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox multiply(double multiplier){
+        return multiply(multiplier, multiplier, multiplier);
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox multiply(Vector multi){
+        return multiply(multi.getX(), multi.getY(), multi.getZ());
+    }
+
+    @Contract("_, _, _ -> this")
+    public BoundingBox divide(double divisorX, double divisorY, double divisorZ){
+        minX /= divisorX;
+        minY /= divisorY;
+        minZ /= divisorZ;
+        maxX /= divisorX;
+        maxY /= divisorY;
+        maxZ /= divisorZ;
+        return this;
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox divide(double divisor){
+        return divide(divisor, divisor, divisor);
+    }
+
+    @Contract("_ -> this")
+    public BoundingBox divide(Vector divisor){
+        return divide(divisor.getX(), divisor.getY(), divisor.getZ());
+    }
+
     public boolean contains(double x, double y, double z) {
         return (x >= this.minX && x <= this.maxX) &&
                 (y >= this.minY && y <= this.maxY) &&
@@ -381,6 +425,30 @@ public class BoundingBox {
     @NotNull
     public BoundingBox duplicate(){
         return new BoundingBox(this);
+    }
+
+    @NotNull
+    public Vector[] getVectorCorners(){
+        return new Vector[]{
+                new Vector(minX, minY, minZ),
+                new Vector(maxX, minY, minZ),
+                new Vector(minX, maxY, minZ),
+                new Vector(minX, minY, maxZ),
+                new Vector(maxX, maxY, minZ),
+                new Vector(maxX, maxY, maxZ)
+        };
+    }
+
+    @NotNull
+    public Location[] getLocationCorners(@Nullable World world){
+        return new Location[]{
+                new Location(world, minX, minY, minZ),
+                new Location(world, maxX, minY, minZ),
+                new Location(world, minX, maxY, minZ),
+                new Location(world, minX, minY, maxZ),
+                new Location(world, maxX, maxY, minZ),
+                new Location(world, maxX, maxY, maxZ)
+        };
     }
 
     @Override
