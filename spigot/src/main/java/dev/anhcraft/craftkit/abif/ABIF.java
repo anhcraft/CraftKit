@@ -106,6 +106,12 @@ public class ABIF {
         REVERSED_ENCHANT_MAP.put(enchantment, encName);
     }
 
+    @Nullable
+    public static Enchantment getEnchant(@NotNull String encName){
+        Condition.argNotNull("encName", encName);
+        return ENCHANT_MAP.get(encName.toLowerCase());
+    }
+
     /**
      * Reads the item stack which is presented by the given configuration section.
      * @param section the configuration section

@@ -38,19 +38,23 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
 
     @Key(MODIFIERS)
     @Explanation("List of attribute modifiers")
+    @IgnoreValue(ifNull = true)
     private List<ItemModifier> itemModifiers = new ArrayList<>();
 
     @Key(LORE)
     @Explanation("Item's lore")
+    @IgnoreValue(ifNull = true)
     private List<String> lore = new ArrayList<>();
 
     @Key(FLAG)
     @PrettyEnum
     @Explanation("Items's flags that used to hide something")
+    @IgnoreValue(ifNull = true)
     private List<ItemFlag> flags = new ArrayList<>();
 
     @Key(ENCHANT)
     @Explanation("Item's enchantments")
+    @IgnoreValue(ifNull = true)
     private Map<Enchantment, Integer> enchants = new HashMap<>();
 
     @Key(MATERIAL)
@@ -264,32 +268,50 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
 
     @Override
     public @Nullable Object conf2schema(ConfigSchema.Entry entry, @Nullable Object value) {
-        if(value != null && entry.getKey().equals(MODIFIERS)){
-            ConfigurationSection cs = (ConfigurationSection) value;
-            List<ItemModifier> bullets = new ArrayList<>();
-            for(String s : cs.getKeys(false)){
-                try {
-                    bullets.add(ConfigHelper.readConfig(cs.getConfigurationSection(s), ItemModifier.SCHEMA));
-                } catch (InvalidValueException e) {
-                    e.printStackTrace();
+        if(value != null){
+            if(entry.getKey().equals(MODIFIERS)) {
+                ConfigurationSection cs = (ConfigurationSection) value;
+                List<ItemModifier> bullets = new ArrayList<>();
+                for (String s : cs.getKeys(false)) {
+                    try {
+                        bullets.add(ConfigHelper.readConfig(cs.getConfigurationSection(s), ItemModifier.SCHEMA));
+                    } catch (InvalidValueException e) {
+                        e.printStackTrace();
+                    }
                 }
+                return bullets;
+            } else if(entry.getKey().equals(ENCHANT)){
+                ConfigurationSection cs = (ConfigurationSection) value;
+                Map<Enchantment, Integer> map = new HashMap<>();
+                for(String s : cs.getKeys(false)){
+                    map.put(ABIF.getEnchant(s), cs.getInt(s));
+                }
+                return map;
             }
-            return bullets;
         }
         return value;
     }
 
     @Override
     public @Nullable Object schema2conf(ConfigSchema.Entry entry, @Nullable Object value) {
-        if(value != null && entry.getKey().equals(MODIFIERS)){
-            ConfigurationSection parent = new YamlConfiguration();
-            int i = 0;
-            for(ItemModifier modifier : (List<ItemModifier>) value){
-                YamlConfiguration c = new YamlConfiguration();
-                ConfigHelper.writeConfig(c, ItemModifier.SCHEMA, modifier);
-                parent.set(String.valueOf(i++), c);
+        if(value != null){
+            if(entry.getKey().equals(MODIFIERS)) {
+                ConfigurationSection parent = new YamlConfiguration();
+                int i = 0;
+                for(ItemModifier modifier : (List<ItemModifier>) value){
+                    YamlConfiguration c = new YamlConfiguration();
+                    ConfigHelper.writeConfig(c, ItemModifier.SCHEMA, modifier);
+                    parent.set(String.valueOf(i++), c);
+                }
+                return parent;
+            } else if(entry.getKey().equals(ENCHANT)){
+                ConfigurationSection parent = new YamlConfiguration();
+                Map<Enchantment, Integer> map = (Map<Enchantment, Integer>) value;
+                for(Map.Entry<Enchantment, Integer> x : map.entrySet()){
+                    parent.set(x.getKey().getName().toLowerCase(), x.getValue());
+                }
+                return parent;
             }
-            return parent;
         }
         return value;
     }

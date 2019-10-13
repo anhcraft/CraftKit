@@ -17,7 +17,11 @@ public class ABIFTest {
         pi.amount(3);
         pi.name("Test item");
         pi.material(Material.DIAMOND_AXE);
+        pi.lore().add("This is the first line");
+        pi.lore().add("This is the second line");
+        pi.lore().add("This is the third line");
         pi.flags().add(ItemFlag.HIDE_UNBREAKABLE);
+   //     pi.enchants().put(Enchantment.DURABILITY, 1);
         pi.getItemModifiers().add(new ItemModifier("name", 3, Modifier.Operation.ADD_NUMBER, Attribute.GENERIC_ARMOR, null));
         pi.getItemModifiers().add(new ItemModifier("name", 3, Modifier.Operation.ADD_NUMBER, Attribute.GENERIC_ARMOR, EquipmentSlot.CHEST));
         YamlConfiguration configuration = new YamlConfiguration();
