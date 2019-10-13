@@ -317,12 +317,33 @@ public class BoundingBox {
 
     @Contract("_, _, _ -> this")
     public BoundingBox multiply(double multiplierX, double multiplierY, double multiplierZ){
-        minX *= multiplierX;
-        minY *= multiplierY;
-        minZ *= multiplierZ;
-        maxX *= multiplierX;
-        maxY *= multiplierY;
-        maxZ *= multiplierZ;
+        if(multiplierX == 0) minX = maxX = 0;
+        else {
+            minX *= multiplierX;
+            maxX *= multiplierX;
+            if(multiplierX < 0) {
+                minX = Math.min(minX, maxX);
+                maxX = Math.max(minX, maxX);
+            }
+        }
+        if(multiplierY == 0) minY = maxY = 0;
+        else {
+            minY *= multiplierY;
+            maxY *= multiplierY;
+            if(multiplierY < 0) {
+                minY = Math.min(minY, maxY);
+                maxY = Math.max(minY, maxY);
+            }
+        }
+        if(multiplierZ == 0) minZ = maxZ = 0;
+        else {
+            minZ *= multiplierZ;
+            maxZ *= multiplierZ;
+            if(multiplierZ < 0) {
+                minZ = Math.min(minZ, maxZ);
+                maxZ = Math.max(minZ, maxZ);
+            }
+        }
         return this;
     }
 
@@ -338,12 +359,33 @@ public class BoundingBox {
 
     @Contract("_, _, _ -> this")
     public BoundingBox divide(double divisorX, double divisorY, double divisorZ){
-        minX /= divisorX;
-        minY /= divisorY;
-        minZ /= divisorZ;
-        maxX /= divisorX;
-        maxY /= divisorY;
-        maxZ /= divisorZ;
+        if(divisorX == 0) minX = maxX = 0;
+        else {
+            minX /= divisorX;
+            maxX /= divisorX;
+            if(divisorX < 0) {
+                minX = Math.min(minX, maxX);
+                maxX = Math.max(minX, maxX);
+            }
+        }
+        if(divisorY == 0) minY = maxY = 0;
+        else {
+            minY /= divisorY;
+            maxY /= divisorY;
+            if(divisorY < 0) {
+                minY = Math.min(minY, maxY);
+                maxY = Math.max(minY, maxY);
+            }
+        }
+        if(divisorZ == 0) minZ = maxZ = 0;
+        else {
+            minZ /= divisorZ;
+            maxZ /= divisorZ;
+            if(divisorZ < 0) {
+                minZ = Math.min(minZ, maxZ);
+                maxZ = Math.max(minZ, maxZ);
+            }
+        }
         return this;
     }
 
