@@ -6,7 +6,6 @@ import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.MathUtil;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -41,7 +40,6 @@ public class BlockUtil {
         Condition.argNotNull("loc", loc);
 
         List<Block> blocks = new ArrayList<>();
-        World w = loc.getWorld();
         double cx = loc.getX();
         double cy = loc.getY();
         double cz = loc.getZ();
@@ -49,7 +47,10 @@ public class BlockUtil {
         for (int x = -rx; x <= rx; x++){
             for (int y = -ry; y <= ry; y++) {
                 for (int z = -rz; z <= rz; z++) {
-                    blocks.add(new Location(w, cx + x, cy + y, cz + z).getBlock());
+                    loc.setX(cx + x);
+                    loc.setY(cy + y);
+                    loc.setZ(cz + z);
+                    blocks.add(loc.getBlock());
                 }
             }
         }
