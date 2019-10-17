@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents {@code CustomEntity} implementation.
  */
 @Beta
 public abstract class CustomEntity {
-    private List<Player> viewers = Collections.synchronizedList(new ArrayList<>());
+    protected List<Player> viewers = new CopyOnWriteArrayList<>();
     private boolean isDead;
     int id = -1;
     Location location;
@@ -35,7 +36,7 @@ public abstract class CustomEntity {
 
     /**
      * Checks if this entity was spawned.<br>
-     * This entity may be determined as "spawned" even if it died after.
+     * This entity may be determined as "spawned" even if it died.
      * @return {@code true} if it was or {@code false} if not
      */
     public boolean isSpawned(){
@@ -43,7 +44,7 @@ public abstract class CustomEntity {
     }
 
     /**
-     * Allows the given player to see this entity.
+     * Let the given player see this entity.
      * @param player the player
      */
     public void addViewer(@NotNull Player player){
@@ -103,8 +104,8 @@ public abstract class CustomEntity {
      */
     public void kill(){
         if(isDead()) return;
-        isDead = true;
         killCallback();
+        isDead = true;
         viewers.clear();
     }
 

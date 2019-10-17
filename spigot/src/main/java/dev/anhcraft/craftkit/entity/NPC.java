@@ -51,7 +51,7 @@ public class NPC extends CustomEntity {
         List<Object> viewers = SERVICE_4.toNmsEntityPlayers(players);
         SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.ADD_PLAYER, viewers);
         SERVICE_1.namedEntitySpawn(npc, viewers);
-        if(!isShowOnTablist()) CKProvider.TASK_HELPER.newDelayedAsyncTask(() -> SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.REMOVE_PLAYER, viewers), 40);
+        if(!isShowOnTablist()) CKProvider.TASK_HELPER.newDelayedTask(() -> SERVICE_1.playerInfo(Collections.singletonList(npc), PlayerInfoEnum.REMOVE_PLAYER, viewers), 40);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class NPC extends CustomEntity {
 
     @Override
     protected void killCallback() {
-        removeViewerCallback(getViewers());
+        removeViewerCallback(viewers);
     }
 
     /**
@@ -87,25 +87,25 @@ public class NPC extends CustomEntity {
      * Shows or hides this NPC on viewers tablist.
      * @param showOnTablist {@code true} to show or {@code false} to hide
      */
-    public synchronized void setShowOnTablist(boolean showOnTablist) {
+    public void setShowOnTablist(boolean showOnTablist) {
         if(showOnTablist == this.showOnTablist) return;
         Condition.check(!isDead(), "Oops... This entity died!");
         this.showOnTablist = showOnTablist;
-        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
+        List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
         PlayerInfoEnum en = showOnTablist ? PlayerInfoEnum.ADD_PLAYER : PlayerInfoEnum.REMOVE_PLAYER;
-        SERVICE_1.playerInfo(Collections.singletonList(npc), en, viewers);
+        SERVICE_1.playerInfo(Collections.singletonList(npc), en, vs);
     }
 
     /**
      * Teleports this NPC to the given location
      * @param location new NPC location
      */
-    public synchronized void teleport(@Nullable Location location){
+    public void teleport(@Nullable Location location){
         if(location == null || location.equals(this.location)) return;
         Condition.check(!isDead(), "Oops... This entity died!");
         this.location = location;
-        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
-        SERVICE_3.teleport(npc, location, viewers);
+        List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
+        SERVICE_3.teleport(npc, location, vs);
     }
 
     /**
@@ -113,11 +113,11 @@ public class NPC extends CustomEntity {
      * @param yaw the new yaw (in degrees)
      * @param pitch the new pitch (in degrees)
      */
-    public synchronized void rotate(float yaw, float pitch){
+    public void rotate(float yaw, float pitch){
         Condition.check(!isDead(), "Oops... This entity died!");
         location.setYaw(yaw);
         location.setPitch(pitch);
-        List<Object> viewers = SERVICE_4.toNmsEntityPlayers(getViewers());
-        SERVICE_3.rotate(npc, yaw, pitch, viewers);
+        List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
+        SERVICE_3.rotate(npc, yaw, pitch, vs);
     }
 }
