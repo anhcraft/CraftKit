@@ -4,7 +4,6 @@ import dev.anhcraft.confighelper.ConfigHelper;
 import dev.anhcraft.confighelper.ConfigSchema;
 import dev.anhcraft.confighelper.annotation.*;
 import dev.anhcraft.confighelper.exception.InvalidValueException;
-import dev.anhcraft.confighelper.impl.TwoWayMiddleware;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -32,7 +31,7 @@ import static dev.anhcraft.craftkit.abif.ABIF.Key.*;
  * This is the clone of ABIF (https://github.com/anhcraft/ABIF/) which brings multi-version support.
  */
 @Schema
-public class PreparedItem implements Serializable, TwoWayMiddleware {
+public class PreparedItem implements Serializable {
     public static final ConfigSchema<PreparedItem> SCHEMA = ConfigSchema.of(PreparedItem.class);
     private static final long serialVersionUID = 7808305902298157946L;
 
@@ -93,8 +92,8 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
             ItemMeta meta = itemStack.getItemMeta();
             if (meta != null) {
                 if (meta instanceof Damageable) pi.damage = ((Damageable) meta).getDamage();
-                pi.name = meta.getDisplayName();
-                pi.lore = meta.getLore();
+                if(meta.hasDisplayName()) pi.name = meta.getDisplayName();
+                if(meta.hasLore()) pi.lore = meta.getLore();
                 pi.flags = new ArrayList<>(meta.getItemFlags());
                 pi.enchants = meta.getEnchants();
             }
@@ -196,15 +195,19 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
         ItemStack item = new ItemStack(material, amount, (short) damage);
         ItemMeta meta = item.getItemMeta();
         if(meta != null) {
-            if(name != null)
+            if(name != null) {
                 meta.setDisplayName(name);
-            if(!lore.isEmpty())
+            }
+            if(!lore.isEmpty()) {
                 meta.setLore(lore);
-            if(!flags.isEmpty())
+            }
+            if(!flags.isEmpty()) {
                 flags.stream().filter(Objects::nonNull).forEach(meta::addItemFlags);
-            if(!enchants.isEmpty())
+            }
+            if(!enchants.isEmpty()) {
                 for (Map.Entry<Enchantment, Integer> e : enchants.entrySet())
                     meta.addEnchant(e.getKey(), e.getValue(), true);
+            }
             item.setItemMeta(meta);
         }
         ItemNBTHelper helper = ItemNBTHelper.of(item);
@@ -221,11 +224,11 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
         return damage == that.damage &&
                 amount == that.amount &&
                 unbreakable == that.unbreakable &&
-                Objects.equals(lore, that.lore) &&
-                Objects.equals(flags, that.flags) &&
-                Objects.equals(enchants, that.enchants) &&
+                lore.equals(that.lore) &&
+                flags.equals(that.flags) &&
+                enchants.equals(that.enchants) &&
                 material == that.material &&
-                Objects.equals(name, that.name);
+                name.equals(that.name);
     }
 
     @Override
@@ -239,35 +242,42 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
      */
     @NotNull
     public PreparedItem duplicate(){
-        return merge(new PreparedItem());
+        return copyTo(new PreparedItem());
     }
 
     /**
-     * Merges this object into the given one.
-     * @param pi another object
-     * @return {@link PreparedItem}
+     * @deprecated Use {@link #copyTo(PreparedItem)} instead.
      */
+    @Deprecated
     @NotNull
     public PreparedItem merge(@NotNull PreparedItem pi){
+        return copyTo(pi);
+    }
+
+    /**
+     * Copies all properties of this {@link PreparedItem} to the given one.
+     * @param pi another object
+     * @return the given {@link PreparedItem}
+     */
+    @NotNull
+    public PreparedItem copyTo(@NotNull PreparedItem pi){
         Condition.argNotNull("pi", pi);
         pi.name = name;
         pi.damage = damage;
         pi.amount = amount;
         pi.unbreakable = unbreakable;
         pi.material = material;
-        if(pi.enchants != null && enchants != null) pi.enchants.putAll(enchants);
-        if(pi.flags != null && flags != null) pi.flags.addAll(flags);
-        if(pi.itemModifiers != null && itemModifiers != null) {
-            for (ItemModifier m : itemModifiers) {
-                pi.itemModifiers.add(m.duplicate());
-            }
+        pi.enchants.putAll(enchants);
+        pi.flags.addAll(flags);
+        for (ItemModifier m : itemModifiers) {
+            pi.itemModifiers.add(m.duplicate());
         }
-        if(pi.lore != null && lore != null) pi.lore.addAll(lore);
+        pi.lore.addAll(lore);
         return pi;
     }
 
-    @Override
-    public @Nullable Object conf2schema(ConfigSchema.Entry entry, @Nullable Object value) {
+    @Middleware(Middleware.Direction.CONFIG_TO_SCHEMA)
+    private @Nullable Object conf2schema(ConfigSchema.Entry entry, @Nullable Object value) {
         if(value != null){
             if(entry.getKey().equals(MODIFIERS)) {
                 ConfigurationSection cs = (ConfigurationSection) value;
@@ -292,8 +302,8 @@ public class PreparedItem implements Serializable, TwoWayMiddleware {
         return value;
     }
 
-    @Override
-    public @Nullable Object schema2conf(ConfigSchema.Entry entry, @Nullable Object value) {
+    @Middleware(Middleware.Direction.SCHEMA_TO_CONFIG)
+    private @Nullable Object schema2conf(ConfigSchema.Entry entry, @Nullable Object value) {
         if(value != null){
             if(entry.getKey().equals(MODIFIERS)) {
                 ConfigurationSection parent = new YamlConfiguration();

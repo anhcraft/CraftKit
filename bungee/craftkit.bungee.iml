@@ -78,12 +78,13 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: mysql:mysql-connector-java:5.1.47" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
     <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains:annotations:17.0.0" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-bungee:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-core:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:Table:1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:DelegatingMap:1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:locales:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.jodah:expiringmap:0.5.8" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.bungee:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:17.0.0" level="project" />
   </component>
 </module>

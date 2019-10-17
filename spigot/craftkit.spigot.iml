@@ -83,7 +83,8 @@
     <orderEntry type="library" name="Maven: co.aikar:locales:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.jodah:expiringmap:0.5.8" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:minecraft-timings:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.bukkit:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.common:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:17.0.0" level="project" />
   </component>
 </module>
