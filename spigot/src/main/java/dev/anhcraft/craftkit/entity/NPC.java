@@ -33,7 +33,7 @@ public class NPC extends CustomEntity {
     public static NPC spawn(@NotNull GameProfile profile, @NotNull Location location){
         Condition.argNotNull("profile", profile);
         Condition.argNotNull("location", location);
-        return new NPC(SERVICE_2.create(profile, location.getWorld()), location);
+        return new NPC(SERVICE_2.create(profile, location.getWorld()), location.clone());
     }
 
     private Object npc;
