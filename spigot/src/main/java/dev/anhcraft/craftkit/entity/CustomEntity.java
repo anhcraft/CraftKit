@@ -44,6 +44,29 @@ public abstract class CustomEntity {
     }
 
     /**
+     * Gets the location of this entity with the provided {@link Location}.
+     * @param location the provided {@link Location}
+     * @return the given location
+     */
+    @NotNull
+    public Location getLocation(Location location){
+        location.setWorld(this.location.getWorld());
+        location.setX(this.location.getX());
+        location.setY(this.location.getY());
+        location.setZ(this.location.getZ());
+        return location;
+    }
+
+    /**
+     * Gets the location of this entity.
+     * @return a clone of current {@link Location}
+     */
+    @NotNull
+    public Location getLocation(){
+        return location.clone();
+    }
+
+    /**
      * Let the given player see this entity.
      * @param player the player
      */
