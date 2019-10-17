@@ -3,12 +3,13 @@ package dev.anhcraft.craftkit.cb_1_13_r1.services;
 import dev.anhcraft.craftkit.cb_1_13_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
-import net.minecraft.server.v1_13_R1.AxisAlignedBB;
-import net.minecraft.server.v1_13_R1.Entity;
-import net.minecraft.server.v1_13_R1.PacketPlayOutEntity;
-import net.minecraft.server.v1_13_R1.PacketPlayOutEntityTeleport;
+import net.minecraft.server.v1_13_R1.*;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_13_R1.CraftEquipmentSlot;
 import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -42,6 +43,28 @@ public class EntityService extends CBModule implements CBEntityService {
 
         PacketPlayOutEntityTeleport packet = new PacketPlayOutEntityTeleport(ent);
         sendPacket(packet, castEntityPlayers(viewers));
+    }
+
+    @Override
+    public void setItem(Object entity, EquipmentSlot slot, ItemStack itemStack) {
+        EntityLiving ent = (EntityLiving) entity;
+        EnumItemSlot nmsSlot = CraftEquipmentSlot.getNMS(slot);
+        net.minecraft.server.v1_13_R1.ItemStack item = CraftItemStack.asNMSCopy(itemStack);
+        ent.setSlot(nmsSlot, item);
+    }
+
+    @Override
+    public void displayItem(int entity, EquipmentSlot slot, ItemStack itemStack, List<Object> viewers) {
+        PacketPlayOutEntityEquipment packet = new PacketPlayOutEntityEquipment(entity, CraftEquipmentSlot.getNMS(slot), CraftItemStack.asNMSCopy(itemStack));
+        for(EntityPlayer player : castEntityPlayers(viewers)){
+            player.playerConnection.networkManager.sendPacket(packet);
+        }
+    }
+
+    @Override
+    public ItemStack getItem(Object entity, EquipmentSlot slot) {
+        EntityLiving ent = (EntityLiving) entity;
+        return CraftItemStack.asBukkitCopy(ent.getEquipment(CraftEquipmentSlot.getNMS(slot)));
     }
 
     @Override
