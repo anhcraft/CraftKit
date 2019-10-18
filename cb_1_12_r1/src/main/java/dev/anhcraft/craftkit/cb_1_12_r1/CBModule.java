@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class CBModule {
         receiver.playerConnection.sendPacket(packet);
     }
 
-    protected void sendPacket(Packet packet, List<EntityPlayer> receivers) {
+    protected void sendPacket(Packet packet, Collection<EntityPlayer> receivers) {
         receivers.forEach((a) -> sendPacket(packet, a));
     }
 
