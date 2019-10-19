@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit;
 
-import dev.anhcraft.craftkit.cb_common.internal.CBCustomInventoryService;
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBCustomInventoryService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import dev.anhcraft.craftkit.common.ICraftExtension;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
@@ -69,7 +69,7 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     @NotNull
     public CustomInventory createInventory(@Nullable InventoryHolder holder, int size, @Nullable String title){
         size = (int) MathUtil.nextMultiple(size, 9);
-        return CBProvider.getService(CBCustomInventoryService.class,
+        return ServiceProvider.getService(CBCustomInventoryService.class,
                 new Class<?>[]{InventoryHolder.class, int.class, String.class},
                 new Object[]{holder, size, title},
                 false).orElseThrow(UnsupportedOperationException::new);

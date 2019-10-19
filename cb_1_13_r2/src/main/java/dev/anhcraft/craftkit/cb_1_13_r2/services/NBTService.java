@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_13_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBNBTService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBNBTService;
 import dev.anhcraft.craftkit.cb_common.nbt.*;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import net.minecraft.server.v1_13_R2.*;

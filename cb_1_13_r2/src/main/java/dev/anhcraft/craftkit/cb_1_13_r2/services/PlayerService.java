@@ -3,7 +3,7 @@ package dev.anhcraft.craftkit.cb_1_13_r2.services;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBPlayerService;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import io.netty.buffer.ByteBuf;

@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_9_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_9_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBRecipeService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBRecipeService;
 import net.minecraft.server.v1_9_R2.CraftingManager;
 import org.bukkit.inventory.Recipe;
 

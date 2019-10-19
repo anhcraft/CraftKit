@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.entity;
 
-import dev.anhcraft.craftkit.cb_common.internal.CBEntityArmorStandService;
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityArmorStandService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -18,7 +18,7 @@ import java.util.List;
  * A fake armor stand!
  */
 public class ArmorStand extends CustomEntity {
-    private final CBEntityArmorStandService service = CBProvider.getService(CBEntityArmorStandService.class, false).orElseThrow(UnsupportedOperationException::new);
+    private final CBEntityArmorStandService service = ServiceProvider.getService(CBEntityArmorStandService.class, false).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Spawns a new armor stand at the given location.

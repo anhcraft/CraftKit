@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
-import dev.anhcraft.craftkit.cb_common.internal.CBRecipeService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBRecipeService;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.*;
@@ -21,7 +21,7 @@ import java.util.List;
  TODO Support comparison for other recipes that are newly added in 1.14
  */
 public class RecipeUtil {
-    private static final CBRecipeService SERVICE = CBProvider.getService(CBRecipeService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBRecipeService SERVICE = ServiceProvider.getService(CBRecipeService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Registers the given recipe.

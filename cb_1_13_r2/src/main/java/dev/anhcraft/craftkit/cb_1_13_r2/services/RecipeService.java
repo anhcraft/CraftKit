@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_13_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBRecipeService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBRecipeService;
 import org.bukkit.inventory.Recipe;
 
 import java.util.function.Predicate;

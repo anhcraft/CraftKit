@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.internal.objects;
+package dev.anhcraft.craftkit.cb_common.internal;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;

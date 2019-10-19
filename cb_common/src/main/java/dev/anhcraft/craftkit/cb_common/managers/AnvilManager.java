@@ -4,8 +4,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.AnvilCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.AnvilSlotCallback;
-import dev.anhcraft.craftkit.cb_common.internal.CBAnvilService;
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBAnvilService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.cb_common.inventory.AnvilSlot;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * This class manages anvils which are created by CraftKit.
  */
 public class AnvilManager implements Listener {
-    private static final CBAnvilService SERVICE = CBProvider.getService(CBAnvilService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBAnvilService SERVICE = ServiceProvider.getService(CBAnvilService.class).orElseThrow(UnsupportedOperationException::new);
     private final Map<Integer, ItemStack> slotItem = new HashMap<>();
     private final Multimap<AnvilSlot, AnvilSlotCallback> slotCallback = HashMultimap.create();
     private final List<Inventory> activeAnvils = new CopyOnWriteArrayList<>();

@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_1_14_r1.services;
 
 import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBEntityNPCService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityNPCService;
 import net.minecraft.server.v1_14_R1.EntityPlayer;
 import net.minecraft.server.v1_14_R1.PlayerInteractManager;
 import net.minecraft.server.v1_14_R1.WorldServer;

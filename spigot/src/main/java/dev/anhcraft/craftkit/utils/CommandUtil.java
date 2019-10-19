@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.cb_common.internal.CBCommandService;
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBCommandService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.command.Command;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Extra methods for working with commands.
  */
 public class CommandUtil {
-    private static final CBCommandService SERVICE = CBProvider.getService(CBCommandService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBCommandService SERVICE = ServiceProvider.getService(CBCommandService.class).orElseThrow(UnsupportedOperationException::new);
 
     @NotNull
     public static PluginCommand createPluginCommand(@NotNull String cmd, @NotNull Plugin plugin){

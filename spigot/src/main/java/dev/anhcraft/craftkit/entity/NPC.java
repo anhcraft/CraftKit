@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.entity;
 
 import com.mojang.authlib.GameProfile;
-import dev.anhcraft.craftkit.cb_common.internal.*;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
+import dev.anhcraft.craftkit.cb_common.internal.services.*;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -18,10 +18,10 @@ import java.util.List;
  * This class represents a fake entity player (NPC).
  */
 public class NPC extends CustomEntity {
-    private static final CBOutPacketService SERVICE_1 = CBProvider.getService(CBOutPacketService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBEntityNPCService SERVICE_2 = CBProvider.getService(CBEntityNPCService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBEntityService SERVICE_3 = CBProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBPlayerService SERVICE_4 = CBProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBOutPacketService SERVICE_1 = ServiceProvider.getService(CBOutPacketService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityNPCService SERVICE_2 = ServiceProvider.getService(CBEntityNPCService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityService SERVICE_3 = ServiceProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBPlayerService SERVICE_4 = ServiceProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Spawns a new NPC with the given information.

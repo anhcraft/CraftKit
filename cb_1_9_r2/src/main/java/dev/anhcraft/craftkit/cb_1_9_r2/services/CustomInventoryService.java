@@ -2,8 +2,8 @@ package dev.anhcraft.craftkit.cb_1_9_r2.services;
 
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.InventoryCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.inventory.SlotCallback;
-import dev.anhcraft.craftkit.cb_common.internal.CBCustomInventoryService;
-import dev.anhcraft.craftkit.cb_common.internal.objects.InventoryMiddleware;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBCustomInventoryService;
+import dev.anhcraft.craftkit.cb_common.internal.InventoryMiddleware;
 import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftInventoryCustom;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;

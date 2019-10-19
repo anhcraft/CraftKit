@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.internal;
+package dev.anhcraft.craftkit.cb_common.internal.services;
 
 import dev.anhcraft.craftkit.cb_common.internal.annotation.IsNMS;
 import dev.anhcraft.craftkit.cb_common.nbt.CompoundTag;

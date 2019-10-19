@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_1_13_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
-import dev.anhcraft.craftkit.cb_common.internal.CBBlockService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBBlockService;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_13_R2.block.CraftBlock;

@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_13_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBServerService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBServerService;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.SimplePluginManager;

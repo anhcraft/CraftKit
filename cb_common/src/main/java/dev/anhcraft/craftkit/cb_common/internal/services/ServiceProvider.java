@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.internal;
+package dev.anhcraft.craftkit.cb_common.internal.services;
 
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
-public class CBProvider {
+public class ServiceProvider {
     private static final String NMS_SERVICE_PACKAGE = "dev.anhcraft.craftkit.cb_"+ NMSVersion.current().toString().substring(1).toLowerCase()+".services.";
     private static final Map<Class<? extends CBService>, Class<?>> CACHED_CLASS = new ConcurrentHashMap<>();
     private static final Map<Class<? extends CBService>, CBService> CACHED_SERVICE = new ConcurrentHashMap<>();

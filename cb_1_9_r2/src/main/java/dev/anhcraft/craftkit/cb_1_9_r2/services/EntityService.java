@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_1_9_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_9_r2.CBModule;
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
-import dev.anhcraft.craftkit.cb_common.internal.CBEntityService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityService;
 import net.minecraft.server.v1_9_R2.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_9_R2.CraftEquipmentSlot;

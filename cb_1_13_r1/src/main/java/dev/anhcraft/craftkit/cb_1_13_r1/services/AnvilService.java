@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_1_13_r1.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r1.CBModule;
 import dev.anhcraft.craftkit.cb_1_13_r1.objects.CKFakeAnvilContainer;
-import dev.anhcraft.craftkit.cb_common.internal.CBAnvilService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBAnvilService;
 import net.minecraft.server.v1_13_R1.ChatMessage;
 import net.minecraft.server.v1_13_R1.ContainerAnvil;
 import net.minecraft.server.v1_13_R1.EntityPlayer;

@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_10_r1.services;
 
 import dev.anhcraft.craftkit.cb_1_10_r1.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBBlockService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBBlockService;
 import net.minecraft.server.v1_10_R1.BlockPosition;
 import net.minecraft.server.v1_10_R1.PacketPlayOutBlockBreakAnimation;
 import org.bukkit.block.Block;

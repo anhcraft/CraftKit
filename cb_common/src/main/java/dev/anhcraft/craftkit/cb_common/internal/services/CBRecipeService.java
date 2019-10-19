@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_common.internal;
+package dev.anhcraft.craftkit.cb_common.internal.services;
 
 import org.bukkit.inventory.Recipe;
 

@@ -2,8 +2,8 @@ package dev.anhcraft.craftkit.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.anhcraft.craftkit.cb_common.internal.CBPlayerService;
-import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBPlayerService;
+import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.HandSlot;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * Utility methods which are related to Player.
  */
 public class PlayerUtil {
-    private static final CBPlayerService SERVICE = CBProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBPlayerService SERVICE = ServiceProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
     private static final Object FREEZE_LOCK = new Object();
 
     /**

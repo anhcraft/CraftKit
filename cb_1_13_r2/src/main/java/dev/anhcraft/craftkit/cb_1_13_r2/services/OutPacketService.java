@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_13_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_13_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBOutPacketService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBOutPacketService;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
 import net.minecraft.server.v1_13_R2.EntityHuman;
 import net.minecraft.server.v1_13_R2.PacketPlayOutEntityDestroy;

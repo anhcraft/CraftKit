@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.cb_1_9_r2.services;
 
 import dev.anhcraft.craftkit.cb_1_9_r2.CBModule;
-import dev.anhcraft.craftkit.cb_common.internal.CBEntityArmorStandService;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityArmorStandService;
 import net.minecraft.server.v1_9_R2.*;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_9_R2.CraftEquipmentSlot;
