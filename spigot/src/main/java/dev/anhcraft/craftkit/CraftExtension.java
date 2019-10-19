@@ -1,13 +1,18 @@
 package dev.anhcraft.craftkit;
 
+import dev.anhcraft.craftkit.cb_common.internal.CBCustomInventoryService;
+import dev.anhcraft.craftkit.cb_common.internal.CBProvider;
+import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
 import dev.anhcraft.craftkit.common.ICraftExtension;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.CraftKit;
-import dev.anhcraft.craftkit.internal.listeners.ExtensionListener;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.MathUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +48,6 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
         CraftExtension ext = REGISTRY.get(mainClass);
         if(ext == null){
             ext = new CraftExtension(JavaPlugin.getPlugin(mainClass));
-            Bukkit.getPluginManager().registerEvents(new ExtensionListener(ext), ext.getPlugin());
             REGISTRY.put(mainClass, ext);
         }
         return ext;
@@ -60,6 +64,15 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     @NotNull
     public TaskHelper getTaskHelper(){
         return taskHelper != null ? taskHelper : (taskHelper = new TaskHelper(plugin));
+    }
+
+    @NotNull
+    public CustomInventory createInventory(@Nullable InventoryHolder holder, int size, @Nullable String title){
+        size = (int) MathUtil.nextMultiple(size, 9);
+        return CBProvider.getService(CBCustomInventoryService.class,
+                new Class<?>[]{InventoryHolder.class, int.class, String.class},
+                new Object[]{holder, size, title},
+                false).orElseThrow(UnsupportedOperationException::new);
     }
 
     @Override

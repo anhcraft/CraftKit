@@ -9,6 +9,7 @@ import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.integrations.PluginProvider;
 import dev.anhcraft.craftkit.internal.integrations.VaultIntegration;
 import dev.anhcraft.craftkit.internal.listeners.EntityListener;
+import dev.anhcraft.craftkit.internal.listeners.InventoryListener;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.internal.listeners.ServerListener;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
@@ -48,6 +49,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new ServerListener(), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(), this);
 
         // register messaging channels
         INFO_CHAT.messageConsole("Registering messaging channels...");
