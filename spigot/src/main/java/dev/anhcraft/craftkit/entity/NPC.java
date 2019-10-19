@@ -4,11 +4,10 @@ import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
 import dev.anhcraft.craftkit.cb_common.internal.services.*;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
-import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,21 +65,18 @@ public class NPC extends CustomEntity {
         removeViewerCallback(viewers);
     }
 
+    @Override
+    protected void teleportCallback() {
+        List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
+        SERVICE_3.teleport(npc, location, vs);
+    }
+
     /**
      * Checks is the NPC is currently shown on viewers tablist.
      * @return {@code true} if it is or {@code false} if not
      */
     public boolean isShowOnTablist() {
         return showOnTablist;
-    }
-
-    /**
-     * Returns the current location of this NPC.
-     * @return NPC's location
-     */
-    @NotNull
-    public Location getLocation() {
-        return location;
     }
 
     /**
@@ -94,18 +90,6 @@ public class NPC extends CustomEntity {
         List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
         PlayerInfoEnum en = showOnTablist ? PlayerInfoEnum.ADD_PLAYER : PlayerInfoEnum.REMOVE_PLAYER;
         SERVICE_1.playerInfo(Collections.singletonList(npc), en, vs);
-    }
-
-    /**
-     * Teleports this NPC to the given location
-     * @param location new NPC location
-     */
-    public void teleport(@Nullable Location location){
-        if(location == null || location.equals(this.location)) return;
-        Condition.check(!isDead(), "Oops... This entity died!");
-        this.location = location;
-        List<Object> vs = SERVICE_4.toNmsEntityPlayers(viewers);
-        SERVICE_3.teleport(npc, location, vs);
     }
 
     /**

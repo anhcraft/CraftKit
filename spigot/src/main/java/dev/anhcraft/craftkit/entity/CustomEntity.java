@@ -3,6 +3,8 @@ package dev.anhcraft.craftkit.entity;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +27,7 @@ public abstract class CustomEntity {
     protected abstract void addViewerCallback(List<Player> players);
     protected abstract void removeViewerCallback(List<Player> players);
     protected abstract void killCallback();
+    protected abstract void teleportCallback();
 
     /**
      * Returns the id of this entity.
@@ -122,6 +125,39 @@ public abstract class CustomEntity {
     public boolean hasViewer(@NotNull Player player){
         Condition.argNotNull("player", player);
         return viewers.contains(player);
+    }
+
+    /**
+     * Teleports this entity to the given location.
+     * @param location the location
+     */
+    public void teleport(@NotNull Location location){
+        Condition.check(!isDead(), "Oops... This entity died!");
+        Condition.argNotNull("location", location);
+        this.location = location;
+        teleportCallback();
+    }
+
+    /**
+     * Teleports this entity to another entity.
+     * @param entity another entity
+     */
+    public void teleport(@NotNull Entity entity){
+        Condition.check(!isDead(), "Oops... This entity died!");
+        Condition.argNotNull("entity", entity);
+        location = (location == null) ? entity.getLocation() : entity.getLocation(location);
+        teleportCallback();
+    }
+
+    /**
+     * Teleports this entity to the given block.
+     * @param block the block
+     */
+    public void teleport(@NotNull Block block){
+        Condition.check(!isDead(), "Oops... This entity died!");
+        Condition.argNotNull("block", block);
+        location = (location == null) ? block.getLocation() : block.getLocation(location);
+        teleportCallback();
     }
 
     /**

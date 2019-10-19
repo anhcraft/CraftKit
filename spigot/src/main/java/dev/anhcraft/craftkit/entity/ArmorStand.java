@@ -4,8 +4,6 @@ import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityArmorStandServi
 import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -54,6 +52,11 @@ public class ArmorStand extends CustomEntity {
     @Override
     protected void killCallback() {
         removeViewerCallback(viewers);
+    }
+
+    @Override
+    protected void teleportCallback() {
+        service.teleport(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
     private EulerAngle angleFromNMS(float[] x){
@@ -174,24 +177,6 @@ public class ArmorStand extends CustomEntity {
     public ItemStack getEquipment(@NotNull EquipmentSlot slot){
         Condition.argNotNull("slot", slot);
         return service.getEquipment(slot);
-    }
-
-    public void teleport(@NotNull Location location){
-        Condition.argNotNull("location", location);
-        this.location = location;
-        service.teleport(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-    }
-
-    public void teleport(@NotNull Entity entity){
-        Condition.argNotNull("entity", entity);
-        location = (location == null) ? entity.getLocation() : entity.getLocation(location);
-        service.teleport(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-    }
-
-    public void teleport(@NotNull Block block){
-        Condition.argNotNull("block", block);
-        location = (location == null) ? block.getLocation() : block.getLocation(location);
-        service.teleport(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
     /**
