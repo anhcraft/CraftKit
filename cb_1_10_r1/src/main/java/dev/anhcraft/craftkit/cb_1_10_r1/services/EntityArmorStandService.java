@@ -1,14 +1,14 @@
-package dev.anhcraft.craftkit.cb_1_14_r1.services;
+package dev.anhcraft.craftkit.cb_1_10_r1.services;
 
-import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
+import dev.anhcraft.craftkit.cb_1_10_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.internal.CBEntityArmorStandService;
-import net.minecraft.server.v1_14_R1.*;
+import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_14_R1.CraftEquipmentSlot;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_14_R1.util.WeakCollection;
+import org.bukkit.craftbukkit.v1_10_R1.CraftEquipmentSlot;
+import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_10_R1.util.WeakCollection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -18,7 +18,7 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
     private EntityArmorStand as;
 
     @Override
-    public void init(org.bukkit.World world, double x, double y, double z) {
+    public void init(World world, double x, double y, double z) {
         as = new EntityArmorStand(((CraftWorld) world).getHandle(), x, y, z);
     }
 
