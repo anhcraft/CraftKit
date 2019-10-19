@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @Beta
 public abstract class CustomEntity {
-    protected List<Player> viewers = new CopyOnWriteArrayList<>();
+    List<Player> viewers = new CopyOnWriteArrayList<>();
     private boolean isDead;
     int id = -1;
     Location location;
@@ -112,6 +112,16 @@ public abstract class CustomEntity {
     @NotNull
     public List<Player> getViewers(){
         return Collections.unmodifiableList(viewers);
+    }
+
+    /**
+     * Checks if the given player is viewing this entity.
+     * @param player viewers
+     * @return {@code true} if he is or {@code false} if not
+     */
+    public boolean hasViewer(@NotNull Player player){
+        Condition.argNotNull("player", player);
+        return viewers.contains(player);
     }
 
     /**
