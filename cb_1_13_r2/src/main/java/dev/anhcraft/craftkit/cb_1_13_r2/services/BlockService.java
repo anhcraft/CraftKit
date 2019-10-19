@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_13_R2.block.CraftBlock;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Collection;
 
 public class BlockService extends CBModule implements CBBlockService {
     @Override
@@ -21,7 +21,7 @@ public class BlockService extends CBModule implements CBBlockService {
     }
 
     @Override
-    public void fakeBreak(int id, Block block, int stage, List<Player> viewers) {
+    public void fakeBreak(int id, Block block, int stage, Collection<Player> viewers) {
         BlockPosition pos = new BlockPosition(
                 block.getLocation().getBlockX(),
                 block.getLocation().getBlockY(),

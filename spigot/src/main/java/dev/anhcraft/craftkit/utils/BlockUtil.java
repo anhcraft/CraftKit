@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -99,7 +100,7 @@ public class BlockUtil {
      * @param stage the stage of the animation (0-9)
      * @param viewers a list of players who can see the animation
      */
-    public static void createBreakAnimation(int id, @NotNull Block block, int stage, @NotNull List<Player> viewers){
+    public static void createBreakAnimation(int id, @NotNull Block block, int stage, @NotNull Collection<Player> viewers){
         Condition.argNotNull("id", id);
         Condition.argNotNull("stage", stage);
         SERVICE.fakeBreak(id, block, MathUtil.clampInt(stage, 0, 9), viewers);

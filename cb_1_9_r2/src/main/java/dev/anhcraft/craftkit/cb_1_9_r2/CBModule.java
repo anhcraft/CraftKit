@@ -29,15 +29,15 @@ public class CBModule {
         return ((CraftPlayer) player).getHandle();
     }
 
-    protected List<EntityPlayer> toEntityPlayers(List<Player> x) {
+    protected List<EntityPlayer> toEntityPlayers(Collection<Player> x) {
         return x.stream().map(player -> ((CraftPlayer) player).getHandle()).collect(Collectors.toList());
     }
 
-    protected List<EntityPlayer> castEntityPlayers(List<Object> x) {
+    protected List<EntityPlayer> castEntityPlayers(Collection<Object> x) {
         return x.stream().map(player -> (EntityPlayer) player).collect(Collectors.toList());
     }
 
-    protected List<Entity> castEntities(List<Object> x) {
-        return x.stream().map(player -> (Entity) player).collect(Collectors.toList());
+    protected List<Entity> castEntities(Collection<Object> x) {
+        return x.stream().map(ent -> (Entity) ent).collect(Collectors.toList());
     }
 }

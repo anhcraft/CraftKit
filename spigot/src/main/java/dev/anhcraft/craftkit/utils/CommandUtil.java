@@ -10,8 +10,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,7 +63,7 @@ public class CommandUtil {
      * Unregisters given commands.
      * @param commands list of commands to be removed (strings must be lowercase)
      */
-    public static void unregister(@NotNull List<String> commands) {
+    public static void unregister(@NotNull Collection<String> commands) {
         Condition.argNotNull("commands", commands);
         SERVICE.unregister(commands);
     }

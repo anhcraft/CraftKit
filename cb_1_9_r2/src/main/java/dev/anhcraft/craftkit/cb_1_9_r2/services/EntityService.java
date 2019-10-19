@@ -11,7 +11,7 @@ import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import java.util.Collection;
 
 public class EntityService extends CBModule implements CBEntityService {
     @Override
@@ -25,7 +25,7 @@ public class EntityService extends CBModule implements CBEntityService {
     }
 
     @Override
-    public void rotate(Object entity, float yaw, float pitch, List<Object> viewers) {
+    public void rotate(Object entity, float yaw, float pitch, Collection<Object> viewers) {
         Entity ent = (Entity) entity;
         ent.lastYaw = ent.yaw;
         ent.yaw = yaw % 360.0f;
@@ -37,7 +37,7 @@ public class EntityService extends CBModule implements CBEntityService {
     }
 
     @Override
-    public void teleport(Object entity, Location location, List<Object> viewers) {
+    public void teleport(Object entity, Location location, Collection<Object> viewers) {
         Entity ent = (Entity) entity;
         ent.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 
@@ -54,7 +54,7 @@ public class EntityService extends CBModule implements CBEntityService {
     }
 
     @Override
-    public void displayItem(int entity, EquipmentSlot slot, ItemStack itemStack, List<Object> viewers) {
+    public void displayItem(int entity, EquipmentSlot slot, ItemStack itemStack, Collection<Object> viewers) {
         PacketPlayOutEntityEquipment packet = new PacketPlayOutEntityEquipment(entity, CraftEquipmentSlot.getNMS(slot), CraftItemStack.asNMSCopy(itemStack));
         for(EntityPlayer player : castEntityPlayers(viewers)){
             player.playerConnection.networkManager.sendPacket(packet);

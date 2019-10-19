@@ -8,6 +8,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -25,7 +26,7 @@ public class CommandService extends CBModule implements CBCommandService {
     }
 
     @Override
-    public void unregister(List<String> commands) {
+    public void unregister(Collection<String> commands) {
         getKnownCommands().keySet().removeAll(commands);
     }
 
