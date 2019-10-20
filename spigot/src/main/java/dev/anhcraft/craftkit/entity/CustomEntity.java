@@ -77,6 +77,7 @@ public abstract class CustomEntity {
         Condition.check(!isDead, "Oops... This entity died!");
         Condition.argNotNull("player", player);
         Condition.check(player.isOnline(), "Wait... the player is not online!!!");
+        if(viewers.contains(player)) return;
         viewers.add(player);
         addViewerCallback(Collections.singletonList(player));
     }
