@@ -7,7 +7,7 @@ public enum CenterSlot {
     /**
      * The single center position.
      */
-    CENTER(4),
+    CENTER_1(4),
 
     /**
      * The center position of first stuff in two ones.
