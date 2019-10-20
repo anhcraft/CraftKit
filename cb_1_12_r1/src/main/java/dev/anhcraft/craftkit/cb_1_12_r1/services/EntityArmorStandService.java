@@ -8,6 +8,7 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftEquipmentSlot;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_12_R1.util.CraftChatMessage;
 import org.bukkit.craftbukkit.v1_12_R1.util.WeakCollection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
@@ -47,6 +48,26 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
             viewers.remove(p);
             sendPacket(new PacketPlayOutEntityDestroy(as.getId()), p);
         }
+    }
+
+    @Override
+    public void setName(String s) {
+        as.setCustomName(s);
+    }
+
+    @Override
+    public String getName() {
+        return as.getCustomName();
+    }
+
+    @Override
+    public boolean isNameVisible() {
+        return as.getCustomNameVisible();
+    }
+
+    @Override
+    public void setNameVisible(boolean b) {
+        as.setCustomNameVisible(b);
     }
 
     @Override
@@ -199,11 +220,9 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
 
     @Override
     public void sendUpdate() {
-        for(EntityPlayer ep : viewers){
-            for(EnumItemSlot slot : EnumItemSlot.values()) {
-                sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), ep);
-            }
-            sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), ep);
+        for(EnumItemSlot slot : EnumItemSlot.values()) {
+            sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), viewers);
         }
+        sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), viewers);
     }
 }

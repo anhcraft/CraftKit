@@ -10,6 +10,10 @@ public interface CBEntityArmorStandService extends CBService {
     int getId();
     void addViewer(Player player);
     void removeViewer(Player player);
+    void setName(String s);
+    String getName();
+    boolean isNameVisible();
+    void setNameVisible(boolean b);
     void setEquipment(EquipmentSlot slot, ItemStack itemStack);
     ItemStack getEquipment(EquipmentSlot slot);
     void teleport(World world, double x, double y, double z, float yaw, float pitch);

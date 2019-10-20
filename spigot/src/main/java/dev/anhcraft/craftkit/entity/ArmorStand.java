@@ -3,12 +3,14 @@ package dev.anhcraft.craftkit.entity;
 import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityArmorStandService;
 import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.StringUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -57,6 +59,25 @@ public class ArmorStand extends CustomEntity {
     @Override
     protected void teleportCallback() {
         service.teleport(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+    }
+
+    public void setName(@NotNull String name){
+        Condition.argNotNull("name", name);
+        name = StringUtil.cutString(name, 256);
+        service.setName(name);
+    }
+
+    @NotNull
+    public String getName(){
+        return service.getName();
+    }
+
+    public void setNameVisible(boolean b){
+        service.setNameVisible(b);
+    }
+
+    public boolean isNameVisible(){
+        return service.isNameVisible();
     }
 
     private EulerAngle angleFromNMS(float[] x){

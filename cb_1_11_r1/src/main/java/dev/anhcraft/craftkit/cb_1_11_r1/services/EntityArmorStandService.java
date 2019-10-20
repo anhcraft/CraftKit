@@ -50,6 +50,26 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
     }
 
     @Override
+    public void setName(String s) {
+        as.setCustomName(s);
+    }
+
+    @Override
+    public String getName() {
+        return as.getCustomName();
+    }
+
+    @Override
+    public boolean isNameVisible() {
+        return as.getCustomNameVisible();
+    }
+
+    @Override
+    public void setNameVisible(boolean b) {
+        as.setCustomNameVisible(b);
+    }
+
+    @Override
     public void setEquipment(EquipmentSlot slot, org.bukkit.inventory.ItemStack itemStack) {
         ItemStack i = CraftItemStack.asNMSCopy(itemStack);
         EnumItemSlot s = CraftEquipmentSlot.getNMS(slot);
@@ -199,11 +219,9 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
 
     @Override
     public void sendUpdate() {
-        for(EntityPlayer ep : viewers){
-            for(EnumItemSlot slot : EnumItemSlot.values()) {
-                sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), ep);
-            }
-            sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), ep);
+        for(EnumItemSlot slot : EnumItemSlot.values()) {
+            sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), viewers);
         }
+        sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), viewers);
     }
 }
