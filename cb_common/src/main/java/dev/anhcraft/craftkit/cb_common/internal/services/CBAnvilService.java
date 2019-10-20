@@ -1,10 +1,8 @@
 package dev.anhcraft.craftkit.cb_common.internal.services;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-
-import java.util.function.Consumer;
+import org.bukkit.inventory.InventoryView;
 
 public interface CBAnvilService extends CBService {
-    void open(Player player, Consumer<Inventory> inv);
+    InventoryView create(Player player, String title);
 }

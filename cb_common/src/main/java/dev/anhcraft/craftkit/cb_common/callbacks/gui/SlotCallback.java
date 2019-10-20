@@ -1,6 +1,6 @@
-package dev.anhcraft.craftkit.cb_common.callbacks.inventory;
+package dev.anhcraft.craftkit.cb_common.callbacks.gui;
 
-import dev.anhcraft.craftkit.cb_common.inventory.CustomInventory;
+import dev.anhcraft.craftkit.cb_common.gui.BaseGUI;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import org.bukkit.entity.Player;
@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
- * Represents a callback of slot events which happens over {@link CustomInventory}.
+ * Represents a callback of slot events which happens over {@link BaseGUI}.
  */
 public interface SlotCallback extends Callback {
     /**
@@ -16,7 +16,7 @@ public interface SlotCallback extends Callback {
      */
     SlotCallback PREVENT_MODIFY = new SlotCallback() {
         @Override
-        public void click(InventoryClickEvent event, Player player, CustomInventory inventory) {
+        public void click(InventoryClickEvent event, Player player, BaseGUI gui) {
             event.setCancelled(true);
             event.setResult(Event.Result.DENY);
         }
@@ -27,7 +27,7 @@ public interface SlotCallback extends Callback {
      */
     SlotCallback CLOSE_INVENTORY = new SlotCallback() {
         @Override
-        public void click(InventoryClickEvent event, Player player, CustomInventory inventory) {
+        public void click(InventoryClickEvent event, Player player, BaseGUI gui) {
             CKProvider.TASK_HELPER.newTask(player::closeInventory);
         }
     };
@@ -36,7 +36,7 @@ public interface SlotCallback extends Callback {
      * This method is called when {@link InventoryClickEvent} is triggered.
      * @param event the event
      * @param player the player
-     * @param inventory the inventory
+     * @param gui the gui
      */
-    default void click(InventoryClickEvent event, Player player, CustomInventory inventory) {}
+    default void click(InventoryClickEvent event, Player player, BaseGUI gui) {}
 }

@@ -1,42 +1,21 @@
 package dev.anhcraft.craftkit.cb_common.inventory;
 
 /**
- * Kind of anvil slots.
+ * Contains anvil slots
  */
-public enum AnvilSlot {
+public class AnvilSlot {
     /**
-     * The item on the left side, represents the first input of an anvil.
+     * The first input slot.
      */
-    INPUT_LEFT(0),
-    /**
-     * The item at the center, represents the second input of an anvil.
-     */
-    INPUT_RIGHT(1),
-    /**
-     * The item on the right side, represents the output of an anvil.
-     */
-    OUTPUT(2);
-
-    private int id;
-
-    AnvilSlot(int id) {
-        this.id = id;
-    }
+    public static int INPUT_LEFT = 0;
 
     /**
-     * Returns the id of this slot.
-     * @return slot's id
+     * The second input slot.
      */
-    public int getId() {
-        return id;
-    }
+    public static int INPUT_RIGHT = 1;
 
     /**
-     * Gets the slot from its id.
-     * @param id slot's id
-     * @return slot
+     * The output slot.
      */
-    public static AnvilSlot getById(int id) {
-        return values()[id];
-    }
+    public static int OUTPUT = 2;
 }

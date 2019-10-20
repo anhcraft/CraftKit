@@ -1,31 +1,31 @@
-package dev.anhcraft.craftkit.cb_1_14_r1.services;
+package dev.anhcraft.craftkit.cb_1_10_r1.services;
 
-import dev.anhcraft.craftkit.cb_common.callbacks.inventory.InventoryCallback;
-import dev.anhcraft.craftkit.cb_common.callbacks.inventory.SlotCallback;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBCustomInventoryService;
-import dev.anhcraft.craftkit.cb_common.internal.InventoryMiddleware;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftInventoryCustom;
+import dev.anhcraft.craftkit.cb_common.callbacks.gui.GuiCallback;
+import dev.anhcraft.craftkit.cb_common.callbacks.gui.SlotCallback;
+import dev.anhcraft.craftkit.cb_common.internal.services.CBCustomGUIService;
+import dev.anhcraft.craftkit.cb_common.internal.GuiMiddleware;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftInventoryCustom;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
-public class CustomInventoryService extends CraftInventoryCustom implements CBCustomInventoryService {
-    private InventoryMiddleware inv = new InventoryMiddleware();
+public class CustomGUIService extends CraftInventoryCustom implements CBCustomGUIService {
+    private GuiMiddleware inv = new GuiMiddleware();
 
-    public CustomInventoryService(InventoryHolder owner, int size, String title) {
+    public CustomGUIService(InventoryHolder owner, int size, String title) {
         super(owner, size, title);
     }
 
     @Override
-    public void addInventoryCallback(@NotNull InventoryCallback callback) {
-        inv.addInventoryCallback(callback);
+    public void addInterfaceCallback(@NotNull GuiCallback callback) {
+        inv.addInterfaceCallback(callback);
     }
 
     @Override
-    public void clearInventoryCallbacks() {
-        inv.clearInventoryCallbacks();
+    public void clearInterfaceCallbacks() {
+        inv.clearInterfaceCallbacks();
     }
 
     @Override
