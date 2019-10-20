@@ -6,6 +6,8 @@ import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
 import dev.anhcraft.craftkit.common.ICraftExtension;
+import dev.anhcraft.craftkit.entity.CustomEntity;
+import dev.anhcraft.craftkit.entity.TrackedEntity;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.CraftKit;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -18,7 +20,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A CraftKit extension.
@@ -59,15 +64,27 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
 
     private JavaPlugin plugin;
     private TaskHelper taskHelper;
+    private final List<TrackedEntity> trackedEntities = new CopyOnWriteArrayList<>();
 
     private CraftExtension(JavaPlugin plugin){
         this.plugin = plugin;
+        taskHelper = new TaskHelper(plugin);
+        taskHelper.newTimerTask(() -> {
+            for (Iterator<TrackedEntity> it = trackedEntities.iterator(); it.hasNext(); ) {
+                TrackedEntity e = it.next();
+                if(e.isDead()){
+                    it.remove();
+                    continue;
+                }
+                e.updateView();
+            }
+        }, 0, 20);
     }
 
     @Override
     @NotNull
     public TaskHelper getTaskHelper(){
-        return taskHelper != null ? taskHelper : (taskHelper = new TaskHelper(plugin));
+        return taskHelper;
     }
 
     @NotNull
@@ -84,6 +101,19 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
         Condition.argNotNull("player", player);
         Condition.argNotNull("title", title);
         return (AnvilGUI) SERVICE_1.create(player, title).getTopInventory();
+    }
+
+    @NotNull
+    public <T extends CustomEntity> TrackedEntity<T> trackEntity(@NotNull T entity){
+        Condition.argNotNull("entity", entity);
+        TrackedEntity<T> x = new TrackedEntity<>(entity);
+        trackedEntities.add(x);
+        return x;
+    }
+
+    public void untrackEntity(@NotNull TrackedEntity<? extends CustomEntity> entity){
+        Condition.argNotNull("entity", entity);
+        trackedEntities.remove(entity);
     }
 
     @Override
