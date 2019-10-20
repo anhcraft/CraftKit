@@ -15,9 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class GUIAnvil extends CraftInventoryAnvil implements AnvilGUI {
     private GuiMiddleware inv = new GuiMiddleware();
+    private final ContainerAnvil container;
 
     public GUIAnvil(Location location, IInventory inventory, IInventory resultInventory, ContainerAnvil container) {
         super(location, inventory, resultInventory, container);
+        this.container = container;
     }
 
     @Override
@@ -53,5 +55,16 @@ public class GUIAnvil extends CraftInventoryAnvil implements AnvilGUI {
     @Override
     public void onClose(@NotNull InventoryCloseEvent event) {
         inv.onClose(event, this);
+    }
+
+    @Override
+    @NotNull
+    public String getInputText() {
+        return container.l;
+    }
+
+    @Override
+    public void setInputText(String text) {
+        container.l = (text == null ? "" : text);
     }
 }

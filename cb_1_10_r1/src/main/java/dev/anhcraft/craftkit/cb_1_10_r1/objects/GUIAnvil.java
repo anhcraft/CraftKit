@@ -4,6 +4,8 @@ import dev.anhcraft.craftkit.cb_common.callbacks.gui.GuiCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.gui.SlotCallback;
 import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.internal.GuiMiddleware;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
+import net.minecraft.server.v1_10_R1.ContainerAnvil;
 import net.minecraft.server.v1_10_R1.IInventory;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftInventoryAnvil;
@@ -14,9 +16,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class GUIAnvil extends CraftInventoryAnvil implements AnvilGUI {
     private GuiMiddleware inv = new GuiMiddleware();
+    private final ContainerAnvil container;
 
-    public GUIAnvil(Location location, IInventory inventory, IInventory resultInventory) {
+    public GUIAnvil(Location location, IInventory inventory, IInventory resultInventory, ContainerAnvil container) {
         super(location, inventory, resultInventory);
+        this.container = container;
     }
 
     @Override
@@ -52,5 +56,16 @@ public class GUIAnvil extends CraftInventoryAnvil implements AnvilGUI {
     @Override
     public void onClose(@NotNull InventoryCloseEvent event) {
         inv.onClose(event, this);
+    }
+
+    @Override
+    @NotNull
+    public String getInputText() {
+        return (String) ReflectionUtil.getDeclaredField(ContainerAnvil.class, container, "l");
+    }
+
+    @Override
+    public void setInputText(String text) {
+        ReflectionUtil.setDeclaredField(ContainerAnvil.class, container, "l", text == null ? "" : text);
     }
 }

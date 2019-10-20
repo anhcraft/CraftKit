@@ -30,7 +30,7 @@ public class AnvilService extends CBModule implements CBAnvilService {
         IInventory resultInv = (IInventory) getDeclaredField(ContainerAnvil.class, cont, "g");
         IInventory repairInv = (IInventory) getDeclaredField(ContainerAnvil.class, cont, "h");
         BlockPosition pos = (BlockPosition) getDeclaredField(ContainerAnvil.class, cont, "j");
-        GUIAnvil anvil = new GUIAnvil(new Location(player.getWorld(), pos.getX(), pos.getY(), pos.getZ()), repairInv, resultInv);
+        GUIAnvil anvil = new GUIAnvil(new Location(player.getWorld(), pos.getX(), pos.getY(), pos.getZ()), repairInv, resultInv, cont);
         CraftInventoryView view = new CraftInventoryView(player, anvil, cont);
         setDeclaredField(ContainerAnvil.class, cont, "bukkitEntity", view);
         return view;
