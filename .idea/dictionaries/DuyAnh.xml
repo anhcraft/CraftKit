@@ -8,6 +8,7 @@
       <w>uequipped</w>
       <w>unequips</w>
       <w>unselects</w>
+      <w>untrack</w>
     </words>
   </dictionary>
 </component>
