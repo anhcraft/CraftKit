@@ -9,6 +9,9 @@ import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.listeners.CKChannelListener;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public final class CraftKit extends Plugin implements CKPlugin {
     public static final Chat DEFAULT_CHAT = new Chat("&6#craftkit:&f ");
     public static final Chat INFO_CHAT = new Chat("&6#craftkit:&b ");
@@ -25,7 +28,13 @@ public final class CraftKit extends Plugin implements CKPlugin {
         CKProvider.TASK_HELPER = new TaskHelper(this);
 
         // load info
-        CKInfo.init(getClass().getResourceAsStream("/ck_info.json"));
+        InputStream in = getClass().getResourceAsStream("/ck_info.json");
+        CKInfo.init(in);
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // check updates
         checkUpdate(CKPlugin.BUNGEE_RESOURCE_ID);
