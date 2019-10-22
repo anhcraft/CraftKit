@@ -36,7 +36,6 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     public static void unregister(@NotNull Class<? extends JavaPlugin> mainClass){
         Condition.argNotNull("mainClass", mainClass);
         Condition.check(Bukkit.isPrimaryThread(), "Async catch! Require calling from main thread!");
-        Condition.check(!CraftKit.class.isAssignableFrom(mainClass), "Can't get CraftExtension from CraftKit");
         REGISTRY.remove(mainClass);
     }
 
