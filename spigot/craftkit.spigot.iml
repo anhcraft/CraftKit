@@ -57,15 +57,15 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.14-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:JvmKit:1.1.1" level="project" />
     <orderEntry type="module" module-name="craftkit.cb_common" />
-    <orderEntry type="module" module-name="craftkit.cb_1_9_r2" />
-    <orderEntry type="module" module-name="craftkit.cb_1_10_r1" />
-    <orderEntry type="module" module-name="craftkit.cb_1_11_r1" />
-    <orderEntry type="module" module-name="craftkit.cb_1_12_r1" />
-    <orderEntry type="module" module-name="craftkit.cb_1_13_r1" />
-    <orderEntry type="module" module-name="craftkit.cb_1_13_r2" />
-    <orderEntry type="module" module-name="craftkit.cb_1_14_r1" />
+    <orderEntry type="module" module-name="craftkit.cb_1_9_r2" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_10_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_11_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_12_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_13_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_13_r2" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_14_r1" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.milkbowl.vault:VaultAPI:1.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.13.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.mojang:authlib:1.5.25" level="project" />
