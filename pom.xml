@@ -65,6 +65,7 @@
     </repositories>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>

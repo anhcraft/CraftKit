@@ -65,6 +65,7 @@
       <module name="craftkit.cb_1_9_r2" options="-parameters" />
       <module name="craftkit.cb_common" options="-parameters" />
       <module name="craftkit.common" options="-parameters" />
+      <module name="craftkit.parent" options="" />
       <module name="craftkit.spigot" options="-parameters" />
       <module name="spigot" options="-Xlint:-requires-transitive-automatic" />
     </option>
