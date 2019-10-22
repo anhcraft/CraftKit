@@ -77,10 +77,9 @@ public class TrackedEntity<T extends CustomEntity> extends CustomEntity {
     public void updateView(){
         Location loc = location.clone();
         double x = viewDistance * viewDistance;
-        for (Iterator<Player> it = viewers.iterator(); it.hasNext(); ) {
-            Player p = it.next();
+        for (Player p : viewers) {
             if(!p.isOnline()){
-                it.remove();
+                removeViewer(p);
                 continue;
             }
             if(!p.getWorld().equals(location.getWorld()) || p.getLocation(loc).distanceSquared(location) >= x){

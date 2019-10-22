@@ -19,10 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -64,7 +61,7 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
 
     private JavaPlugin plugin;
     private TaskHelper taskHelper;
-    private final List<TrackedEntity> trackedEntities = new CopyOnWriteArrayList<>();
+    private final List<TrackedEntity> trackedEntities = new ArrayList<>();
 
     private CraftExtension(JavaPlugin plugin){
         this.plugin = plugin;
