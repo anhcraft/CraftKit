@@ -34,10 +34,11 @@ public class ServiceProvider {
         try {
             Class<?> nmsClass = getNMSServiceClass(clazz);
             S ins = (S) ReflectionUtil.invokeDeclaredConstructor(nmsClass);
-            if(cache) CACHED_SERVICE.put(clazz, ins);
-            return Optional.of(ins);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            if(ins != null) {
+                if (cache) CACHED_SERVICE.put(clazz, ins);
+                return Optional.of(ins);
+            }
+        } catch (ClassNotFoundException ignored) {
         }
         return Optional.empty();
     }
@@ -50,10 +51,11 @@ public class ServiceProvider {
         try {
             Class<?> nmsClass = getNMSServiceClass(clazz);
             S ins = (S) ReflectionUtil.invokeDeclaredConstructor(nmsClass, params, args);
-            if(cache) CACHED_SERVICE.put(clazz, ins);
-            return Optional.of(ins);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            if(ins != null) {
+                if (cache) CACHED_SERVICE.put(clazz, ins);
+                return Optional.of(ins);
+            }
+        } catch (ClassNotFoundException ignored) {
         }
         return Optional.empty();
     }
