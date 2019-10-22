@@ -4,12 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.anhcraft.craftkit.common.utils.SpigotApiUtil;
 
+import java.io.File;
+
 public interface CKPlugin {
     Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     String CHANNEL_NAMESPACE = "craftkit:plugin";
     String PARTY_CHANNEL_NAMESPACE = "craftkit:party";
     int BUNGEE_RESOURCE_ID = 68505;
     int SPIGOT_RESOURCE_ID = 39007;
+    File libDir = new File(".craftlibs");
 
     default void checkUpdate(int r){
         CKProvider.TASK_HELPER.newAsyncTask(() -> {
