@@ -56,24 +56,22 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
             e.printStackTrace();
         }
 
-        downloadNMSLib();
-
         // load libraries
         INFO_CHAT.messageConsole("Loading libraries...");
-        if(libDir.exists()){
-            FileUtil.streamFiles(libDir).filter(f -> {
-                return f.isFile() && f.getName().endsWith(".jar");
-            }).forEach(file -> {
-                try {
-                    JarUtil.loadJar(file, (URLClassLoader) getClassLoader());
-                } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                    WARN_CHAT.messageConsole("Failed to load library: "+file.getName());
-                    e.printStackTrace();
-                    return;
-                }
-                DEFAULT_CHAT.messageConsole("Loaded library: "+file.getName());
-            });
-        } else libDir.mkdir();
+        libDir.mkdir();
+        downloadNMSLib();
+        FileUtil.streamFiles(libDir).filter(f -> {
+            return f.isFile() && f.getName().endsWith(".jar");
+        }).forEach(file -> {
+            try {
+                JarUtil.loadJar(file, (URLClassLoader) getClassLoader());
+            } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+                WARN_CHAT.messageConsole("Failed to load library: "+file.getName());
+                e.printStackTrace();
+                return;
+            }
+            DEFAULT_CHAT.messageConsole("Loaded library: "+file.getName());
+        });
 
         // check updates
         checkUpdate(CKPlugin.SPIGOT_RESOURCE_ID);
