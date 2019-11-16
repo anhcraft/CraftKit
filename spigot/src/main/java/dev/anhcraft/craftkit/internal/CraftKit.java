@@ -16,7 +16,6 @@ import dev.anhcraft.craftkit.internal.listeners.ServerListener;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.craftkit.internal.tasks.ArmorHandleTask;
 import dev.anhcraft.craftkit.utils.BungeeUtil;
-import dev.anhcraft.jvmkit.utils.FileUtil;
 import dev.anhcraft.jvmkit.utils.JarUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -59,19 +58,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         // load libraries
         INFO_CHAT.messageConsole("Loading libraries...");
         libDir.mkdir();
-        downloadNMSLib();
-        FileUtil.streamFiles(libDir).filter(f -> {
-            return f.isFile() && f.getName().endsWith(".jar");
-        }).forEach(file -> {
-            try {
-                JarUtil.loadJar(file, (URLClassLoader) getClassLoader());
-            } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                WARN_CHAT.messageConsole("Failed to load library: "+file.getName());
-                e.printStackTrace();
-                return;
-            }
-            DEFAULT_CHAT.messageConsole("Loaded library: "+file.getName());
-        });
+        handleNMSLib();
 
         // check updates
         checkUpdate(CKPlugin.SPIGOT_RESOURCE_ID);
@@ -99,10 +86,20 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
     }
 
-    private void downloadNMSLib() {
+    private void handleNMSLib() {
         NMSVersion nms = NMSVersion.current();
-        File nmsFile = new File(libDir, "craftkit.nms."+nms.name()+"-"+CKInfo.getPluginVersion()+".jar");
-        if(nmsFile.exists()) return;
+        File nmsFile = new File(libDir, "craftkit.nms." + nms.name() + "-" + CKInfo.getPluginVersion() + ".jar");
+        if(nmsFile.exists()) {
+            try {
+                JarUtil.loadJar(nmsFile, (URLClassLoader) getClassLoader());
+            } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+                WARN_CHAT.messageConsole("Failed to load library: "+ nmsFile.getName());
+                e.printStackTrace();
+                return;
+            }
+            DEFAULT_CHAT.messageConsole("Loaded library: "+ nmsFile.getName());
+            return;
+        }
         INFO_CHAT.messageConsole("Downloading NMS library "+nms.name());
         if(CBLibProvider.downloadNMSLib(CKInfo.getPluginVersion(), nms, nmsFile)){
             DEFAULT_CHAT.messageConsole("Downloaded successfully!");
