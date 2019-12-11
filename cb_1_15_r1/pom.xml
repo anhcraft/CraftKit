@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>craftkit.cb_1_13_r2</artifactId>
+    <artifactId>craftkit.cb_1_15_r1</artifactId>
     <version>${project.parent.version}</version>
     <packaging>jar</packaging>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.13.2-R0.1-20190505.224334-50</version>
+            <version>1.15-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
