@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: co.aikar:acf-bungee:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20190904.223204-150.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20191117.162848-151.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20190904.223204-150-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20191117.162848-151-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20190904.223204-150-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/co/aikar/acf-bungee/0.5.0-SNAPSHOT/acf-bungee-0.5.0-20191117.162848-151-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
