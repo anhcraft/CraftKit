@@ -1,8 +1,8 @@
-package dev.anhcraft.craftkit.cb_1_14_r1.services;
+package dev.anhcraft.craftkit.cb_1_15_r1.services;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
+import dev.anhcraft.craftkit.cb_1_15_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.internal.services.CBPlayerService;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;

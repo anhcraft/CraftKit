@@ -1,6 +1,6 @@
-package dev.anhcraft.craftkit.cb_1_14_r1.services;
+package dev.anhcraft.craftkit.cb_1_15_r1.services;
 
-import dev.anhcraft.craftkit.cb_1_14_r1.CBModule;
+import dev.anhcraft.craftkit.cb_1_15_r1.CBModule;
 import dev.anhcraft.craftkit.cb_common.internal.services.CBOutPacketService;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
 import net.minecraft.server.v1_15_R1.EntityHuman;

@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_1_14_r1.services;
+package dev.anhcraft.craftkit.cb_1_15_r1.services;
 
 import dev.anhcraft.craftkit.cb_common.callbacks.gui.GuiCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.gui.SlotCallback;

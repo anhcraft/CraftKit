@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.cb_1_14_r1;
+package dev.anhcraft.craftkit.cb_1_15_r1;
 
 import net.minecraft.server.v1_15_R1.Entity;
 import net.minecraft.server.v1_15_R1.EntityPlayer;
