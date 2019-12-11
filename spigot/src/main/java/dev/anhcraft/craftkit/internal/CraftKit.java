@@ -32,7 +32,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
     public static final Chat WARN_CHAT = new Chat("&6#craftkit:&c ");
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         try{
             Class.forName("org.spigotmc.SpigotConfig");
         } catch(ClassNotFoundException e) {
@@ -59,7 +59,10 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         INFO_CHAT.messageConsole("Loading libraries...");
         libDir.mkdir();
         handleNMSLib();
+    }
 
+    @Override
+    public void onEnable() {
         // check updates
         checkUpdate(CKPlugin.SPIGOT_RESOURCE_ID);
 
