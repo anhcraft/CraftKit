@@ -51,6 +51,7 @@ public class VectorUtil {
                 vector.getY() * sin + vector.getZ() * cos
         );
     }
+
     /**
      * Rotates the given vector around the axis Y.
      * @param vector the vector
@@ -69,6 +70,7 @@ public class VectorUtil {
                 -vector.getX() * sin + vector.getZ() * cos
         );
     }
+
     /**
      * Rotates the given vector around the axis Z.
      * @param vector the vector

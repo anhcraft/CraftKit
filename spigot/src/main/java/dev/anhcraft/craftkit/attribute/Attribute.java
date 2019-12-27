@@ -17,7 +17,6 @@ public enum Attribute {
     GENERIC_ARMOR_TOUGHNESS(0.0, 0.0, 20.0, "generic.armorToughness"),
     GENERIC_ATTACK_SPEED(4.0, 0.0, 1024.0, "generic.attackSpeed"),
     GENERIC_LUCK(0.0, -1024.0, 1024.0, "generic.luck"),
-    @Deprecated
     HORSE_JUMP_STRENGTH(0.7, 0.0, 2.0, "generic.jumpStrength"),
     ZOMBIE_SPAWN_REINFORCEMENTS(0.0, 0.0, 1.0, "generic.spawnReinforcements"),
     PARROTS_FLYING_SPEED(0.4, 0.0, 1024.0, "generic.flyingSpeed");
