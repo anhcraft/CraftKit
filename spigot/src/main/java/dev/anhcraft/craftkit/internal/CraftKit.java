@@ -92,23 +92,23 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
     private void handleNMSLib() {
         NMSVersion nms = NMSVersion.current();
         File nmsFile = new File(libDir, "craftkit.nms." + nms.name() + "-" + CKInfo.getPluginVersion() + ".jar");
-        if(nmsFile.exists()) {
-            try {
-                JarUtil.loadJar(nmsFile, (URLClassLoader) getClassLoader());
-            } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                WARN_CHAT.messageConsole("Failed to load library: "+ nmsFile.getName());
-                e.printStackTrace();
+        if(!nmsFile.exists()) {
+            INFO_CHAT.messageConsole("Downloading NMS library "+nms.name());
+            if(CBLibProvider.downloadNMSLib(CKInfo.getPluginVersion(), nms, nmsFile)){
+                DEFAULT_CHAT.messageConsole("Downloaded successfully!");
+            } else {
+                WARN_CHAT.messageConsole("Failed to download NMS library! The plugin will be disabled");
+                getServer().getPluginManager().disablePlugin(this);
                 return;
             }
-            DEFAULT_CHAT.messageConsole("Loaded library: "+ nmsFile.getName());
+        }
+        try {
+            JarUtil.loadJar(nmsFile, (URLClassLoader) getClassLoader());
+        } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+            WARN_CHAT.messageConsole("Failed to load library: "+ nmsFile.getName());
+            e.printStackTrace();
             return;
         }
-        INFO_CHAT.messageConsole("Downloading NMS library "+nms.name());
-        if(CBLibProvider.downloadNMSLib(CKInfo.getPluginVersion(), nms, nmsFile)){
-            DEFAULT_CHAT.messageConsole("Downloaded successfully!");
-        } else {
-            WARN_CHAT.messageConsole("Failed to download NMS library! The plugin will be disabled");
-            getServer().getPluginManager().disablePlugin(this);
-        }
+        DEFAULT_CHAT.messageConsole("Loaded library: "+ nmsFile.getName());
     }
 }
