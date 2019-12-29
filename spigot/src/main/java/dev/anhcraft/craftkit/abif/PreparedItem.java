@@ -423,16 +423,29 @@ public class PreparedItem implements Serializable {
         return damage == that.damage &&
                 amount == that.amount &&
                 unbreakable == that.unbreakable &&
+                potionExtended == that.potionExtended &&
+                potionUpgraded == that.potionUpgraded &&
+                leatherColorRed == that.leatherColorRed &&
+                leatherColorGreen == that.leatherColorGreen &&
+                leatherColorBlue == that.leatherColorBlue &&
+                itemModifiers.equals(that.itemModifiers) &&
                 lore.equals(that.lore) &&
                 flags.equals(that.flags) &&
                 enchants.equals(that.enchants) &&
                 material == that.material &&
-                name.equals(that.name);
+                Objects.equals(name, that.name) &&
+                metaType == that.metaType &&
+                potionType == that.potionType &&
+                Objects.equals(skullOwner, that.skullOwner) &&
+                Objects.equals(bookTitle, that.bookTitle) &&
+                Objects.equals(bookAuthor, that.bookAuthor) &&
+                bookGeneration == that.bookGeneration &&
+                Objects.equals(bookPages, that.bookPages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lore, flags, enchants, material, name, damage, amount, unbreakable);
+        return Objects.hash(itemModifiers, lore, flags, enchants, material, name, damage, amount, unbreakable, metaType, potionType, potionExtended, potionUpgraded, leatherColorRed, leatherColorGreen, leatherColorBlue, skullOwner, bookTitle, bookAuthor, bookGeneration, bookPages);
     }
 
     /**
@@ -472,6 +485,18 @@ public class PreparedItem implements Serializable {
             pi.itemModifiers.add(m.duplicate());
         }
         pi.lore.addAll(lore);
+        pi.metaType = metaType;
+        pi.skullOwner = skullOwner;
+        pi.potionType = potionType;
+        pi.potionUpgraded = potionUpgraded;
+        pi.potionExtended = potionExtended;
+        pi.leatherColorRed = leatherColorRed;
+        pi.leatherColorGreen = leatherColorGreen;
+        pi.leatherColorBlue = leatherColorBlue;
+        pi.bookTitle = bookTitle;
+        pi.bookPages = bookPages;
+        pi.bookAuthor = bookAuthor;
+        pi.bookGeneration = bookGeneration;
         return pi;
     }
 
