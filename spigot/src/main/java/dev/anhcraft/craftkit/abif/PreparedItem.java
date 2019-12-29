@@ -4,6 +4,7 @@ import dev.anhcraft.confighelper.ConfigHelper;
 import dev.anhcraft.confighelper.ConfigSchema;
 import dev.anhcraft.confighelper.annotation.*;
 import dev.anhcraft.confighelper.exception.InvalidValueException;
+import dev.anhcraft.craftkit.BookGeneration;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.jvmkit.utils.Condition;
@@ -13,8 +14,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.*;
+import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,6 +79,90 @@ public class PreparedItem implements Serializable {
     @Explanation("Make the item unbreakable")
     private boolean unbreakable;
 
+    @Key(META_TYPE)
+    @Explanation("Item meta type")
+    @PrettyEnum
+    private MetaType metaType;
+
+    @Key(META_POTION_TYPE)
+    @Explanation({
+            "Set the potion type",
+            "Required item meta: potion"
+    })
+    @PrettyEnum
+    private PotionType potionType;
+
+    @Key(META_POTION_EXTENDED)
+    @Explanation({
+            "Set the 'extended' status",
+            "Required item meta: potion"
+    })
+    private boolean potionExtended;
+
+    @Key(META_POTION_UPGRADED)
+    @Explanation({
+            "Set the 'upgraded' status",
+            "Required item meta: potion"
+    })
+    private boolean potionUpgraded;
+
+    @Key(META_LEATHER_COLOR_R)
+    @Explanation({
+            "Set the leather color's red value",
+            "Required item meta: leather"
+    })
+    private int leatherColorRed;
+
+    @Key(META_LEATHER_COLOR_G)
+    @Explanation({
+            "Set the leather color's green value",
+            "Required item meta: leather"
+    })
+    private int leatherColorGreen;
+
+    @Key(META_LEATHER_COLOR_B)
+    @Explanation({
+            "Set the leather color's blue value",
+            "Required item meta: leather"
+    })
+    private int leatherColorBlue;
+
+    @Key(META_SKULL_OWNER)
+    @Explanation({
+            "Set the skull owner",
+            "Required item meta: skull"
+    })
+    private String skullOwner;
+
+    @Key(META_BOOK_TITLE)
+    @Explanation({
+            "Set the title of the book",
+            "Required item meta: book"
+    })
+    private String bookTitle;
+
+    @Key(META_BOOK_AUTHOR)
+    @Explanation({
+            "Set the author of the book",
+            "Required item meta: book"
+    })
+    private String bookAuthor;
+
+    @Key(META_BOOK_GENERATION)
+    @Explanation({
+            "Set the generation of the book",
+            "Required item meta: book"
+    })
+    @PrettyEnum
+    private BookMeta.Generation bookGeneration;
+
+    @Key(META_BOOK_PAGES)
+    @Explanation({
+            "Set the pages of the book",
+            "Required item meta: book"
+    })
+    private List<String> bookPages;
+
     /**
      * Makes a {@link PreparedItem} from the given {@link ItemStack}.
      * @param itemStack the item stack
@@ -96,11 +181,19 @@ public class PreparedItem implements Serializable {
                 if(meta.hasLore()) pi.lore = meta.getLore();
                 pi.flags = new ArrayList<>(meta.getItemFlags());
                 pi.enchants = meta.getEnchants();
+                if(meta instanceof PotionMeta) pi.metaType = MetaType.POTION;
+                else if(meta instanceof LeatherArmorMeta) pi.metaType = MetaType.LEADER;
+                else if(meta instanceof SkullMeta) pi.metaType = MetaType.SKULL;
+                else if(meta instanceof BookMeta) pi.metaType = MetaType.BOOK;
+                if(pi.metaType != null){
+                    pi.metaType.getOnLoad().accept(pi, meta);
+                }
             }
             ItemNBTHelper helper = ItemNBTHelper.of(itemStack);
             pi.unbreakable = helper.isUnbreakable();
             pi.itemModifiers.addAll(helper.getModifiers());
         }
+
         return pi;
     }
 
@@ -177,13 +270,116 @@ public class PreparedItem implements Serializable {
     }
 
     @NotNull
-    public List<ItemModifier> getItemModifiers() {
+    public List<ItemModifier> itemModifiers() {
         return itemModifiers;
     }
 
-    public void setItemModifiers(@Nullable List<ItemModifier> itemModifiers) {
+    public void itemModifiers(@Nullable List<ItemModifier> itemModifiers) {
         if(itemModifiers == null) this.itemModifiers.clear();
         else this.itemModifiers = itemModifiers;
+    }
+
+    @Nullable
+    public MetaType metaType() {
+        return metaType;
+    }
+
+    public void metaType(@Nullable MetaType metaType) {
+        this.metaType = metaType;
+    }
+
+    public boolean potionExtended() {
+        return potionExtended;
+    }
+
+    public void potionExtended(boolean potionExtended) {
+        this.potionExtended = potionExtended;
+    }
+
+    public boolean potionUpgraded() {
+        return potionUpgraded;
+    }
+
+    public void potionUpgraded(boolean potionUpgraded) {
+        this.potionUpgraded = potionUpgraded;
+    }
+
+    @Nullable
+    public PotionType potionType() {
+        return potionType;
+    }
+
+    public void potionType(@Nullable PotionType potionType) {
+        this.potionType = potionType;
+    }
+
+    public int leatherColorRed() {
+        return leatherColorRed;
+    }
+
+    public void leatherColorRed(int leatherColorRed) {
+        this.leatherColorRed = leatherColorRed;
+    }
+
+    public int leatherColorGreen() {
+        return leatherColorGreen;
+    }
+
+    public void leatherColorGreen(int leatherColorGreen) {
+        this.leatherColorGreen = leatherColorGreen;
+    }
+
+    public int leatherColorBlue() {
+        return leatherColorBlue;
+    }
+
+    public void leatherColorBlue(int leatherColorBlue) {
+        this.leatherColorBlue = leatherColorBlue;
+    }
+
+    @Nullable
+    public String skullOwner() {
+        return skullOwner;
+    }
+
+    public void skullOwner(@Nullable String skullOwner) {
+        this.skullOwner = skullOwner;
+    }
+
+    @Nullable
+    public String bookTitle() {
+        return bookTitle;
+    }
+
+    public void bookTitle(@Nullable String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    @Nullable
+    public String bookAuthor() {
+        return bookAuthor;
+    }
+
+    public void bookAuthor(@Nullable String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+    @Nullable
+    public BookMeta.Generation bookGeneration() {
+        return bookGeneration;
+    }
+
+    public void bookGeneration(@Nullable BookMeta.Generation bookGeneration) {
+        this.bookGeneration = bookGeneration;
+    }
+
+    @Nullable
+    public List<String> bookPages() {
+        return bookPages;
+    }
+
+    public void bookPages(@Nullable List<String> bookPages) {
+        this.bookPages = bookPages;
     }
 
     /**
@@ -207,6 +403,9 @@ public class PreparedItem implements Serializable {
             if(!enchants.isEmpty()) {
                 for (Map.Entry<Enchantment, Integer> e : enchants.entrySet())
                     meta.addEnchant(e.getKey(), e.getValue(), true);
+            }
+            if(metaType != null){
+                metaType.getOnSave().accept(this, meta);
             }
             item.setItemMeta(meta);
         }

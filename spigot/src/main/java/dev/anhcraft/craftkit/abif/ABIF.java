@@ -35,7 +35,20 @@ public class ABIF {
         final static String FLAG = "flag";
         final static String UNBREAKABLE = "unbreakable";
         final static String MODIFIERS = "modifiers";
-        static String ATTRIBUTE = "attr";
+        final static String ATTRIBUTE = "attr";
+        final static String META_TYPE = "meta.type";
+        final static String META_POTION_TYPE = "meta.potion.type";
+        final static String META_POTION_EXTENDED = "meta.potion.extended";
+        final static String META_POTION_UPGRADED = "meta.potion.upgraded";
+        final static String META_LEATHER_COLOR_R = "meta.leather.color_r";
+        final static String META_LEATHER_COLOR_G = "meta.leather.color_g";
+        final static String META_LEATHER_COLOR_B = "meta.leather.color_b";
+        final static String META_SPAWN_EGG_ENTITY = "meta.spawn_egg.entity";
+        final static String META_SKULL_OWNER = "meta.skull.owner";
+        final static String META_BOOK_AUTHOR = "meta.book.author";
+        final static String META_BOOK_TITLE = "meta.book.title";
+        final static String META_BOOK_GENERATION = "meta.book.generation";
+        final static String META_BOOK_PAGES = "meta.book.pages";
     }
 
     private static final Map<String, Enchantment> ENCHANT_MAP = new HashMap<>();
@@ -117,6 +130,7 @@ public class ABIF {
      * @param section the configuration section
      * @return {@link PreparedItem}
      */
+    @Deprecated
     @NotNull
     public static PreparedItem read(@NotNull ConfigurationSection section){
         return read(section, new PreparedItem());
@@ -128,6 +142,7 @@ public class ABIF {
      * @param item a {@link PreparedItem} which is used to store items data
      * @return the {@link PreparedItem} that was given
      */
+    @Deprecated
     @NotNull
     public static PreparedItem read(@NotNull ConfigurationSection section, @NotNull PreparedItem item){
         Condition.argNotNull("section", section);
@@ -178,7 +193,7 @@ public class ABIF {
                     String st = c.getString("slot");
                     EquipmentSlot slot = (st == null || st.trim().equalsIgnoreCase("all") ? null : EquipmentSlot.valueOf(st.toUpperCase()));
                     UUID id = UUID.nameUUIDFromBytes(key.getBytes(StandardCharsets.UTF_8));
-                    item.getItemModifiers().add(new ItemModifier(id, key, amount, operation, attr, slot));
+                    item.itemModifiers().add(new ItemModifier(id, key, amount, operation, attr, slot));
                 }
             }
         }
@@ -190,6 +205,7 @@ public class ABIF {
      * @param item the item
      * @return the config
      */
+    @Deprecated
     @NotNull
     public static YamlConfiguration write(@Nullable ItemStack item){
         return write(item, new YamlConfiguration());
@@ -202,6 +218,7 @@ public class ABIF {
      * @param <T> the sections data type
      * @return the section that was given
      */
+    @Deprecated
     @NotNull
     public static <T extends ConfigurationSection> T write(@Nullable ItemStack item, @NotNull T section){
         Condition.argNotNull("section", section);
