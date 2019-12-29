@@ -86,9 +86,10 @@ public class LocationUtil {
     public static boolean isUnderBlock(@NotNull Location loc) {
         Condition.argNotNull("loc", loc);
 
-        loc = loc.clone(); // we do not want to change the original
-        if(loc.getY() > 256) return false; // there is no blocks above 256
-        for(int i = loc.getBlockY(); i < 256; i++){
+        int h = loc.getWorld().getMaxHeight();
+        if(loc.getY() >= h) return false;
+        loc = loc.clone();
+        for(int i = loc.getBlockY(); i < h; i++){
             if(!loc.add(0, 1, 0).getBlock().getType().equals(Material.AIR)) return true;
         }
         return false;
