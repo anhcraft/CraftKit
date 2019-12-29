@@ -1,24 +1,22 @@
 package dev.anhcraft.craftkit.utils;
 
+import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.cb_common.internal.services.CBRecipeService;
+import dev.anhcraft.craftkit.cb_common.internal.utils.ReflectUtil;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
 import org.bukkit.inventory.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Extra methods for working with recipes.
- */
-/*
- TODO Compare by namedspace key for 1.12+
- - This must be optional since existing recipe can use random namespace
-
- TODO Support comparison for other recipes that are newly added in 1.14
  */
 public class RecipeUtil {
     private static final CBRecipeService SERVICE = ServiceProvider.getService(CBRecipeService.class).orElseThrow(UnsupportedOperationException::new);
@@ -57,6 +55,17 @@ public class RecipeUtil {
      * @return {@code true} if they are equal or {@code false} otherwise
      */
     public static boolean compare(@Nullable Recipe recipe, @Nullable Recipe otherRecipe){
+        if(recipe == null && otherRecipe == null) return true;
+        if(recipe == null || otherRecipe == null) return false;
+        if(!recipe.getClass().equals(otherRecipe.getClass())){
+            return false;
+        }
+        if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0 && recipe instanceof Keyed && otherRecipe instanceof Keyed){
+            Object v = ReflectUtil.getFieldValue(recipe.getClass(), "key", recipe);
+            if(v != null) {
+                return v.equals(ReflectUtil.getFieldValue(otherRecipe.getClass(), "key", otherRecipe));
+            }
+        }
         if(recipe instanceof ShapedRecipe && otherRecipe instanceof ShapedRecipe) {
             ShapedRecipe a = (ShapedRecipe) recipe;
             ShapedRecipe b = (ShapedRecipe) otherRecipe;
@@ -85,7 +94,11 @@ public class RecipeUtil {
                     && ItemUtil.compare(a.getInput(), b.getInput())
                     && ItemUtil.compare(a.getResult(), b.getResult());
         }
-        // TODO Support other Recipe types [1.14]
+        else if(recipe instanceof MerchantRecipe && otherRecipe instanceof MerchantRecipe){
+            MerchantRecipe a = (MerchantRecipe) recipe;
+            MerchantRecipe b = (MerchantRecipe) otherRecipe;
+            return a.hasExperienceReward() == b.hasExperienceReward() && a.getMaxUses() == b.getMaxUses() && a.getUses() == b.getUses() && ItemUtil.compare(a.getResult(), b.getResult()) && ItemUtil.compare(a.getIngredients(), b.getIngredients());
+        }
         return false;
     }
 }
