@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -35,8 +36,9 @@ public class BungeeUtilMessenger extends CKComponent implements PluginMessageLis
         super(parent);
 
         CKProvider.TASK_HELPER.newAsyncTimerTask(() -> {
-            if(!Bukkit.getOnlinePlayers().isEmpty()){
-                Player p = Bukkit.getOnlinePlayers().iterator().next();
+            Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+            if(players.hasNext()){
+                Player p = players.next();
                 TEMP_BG_QUEUE.forEach(x -> {
                     p.sendPluginMessage(parent, BungeeUtil.BC_CHANNEL_NAMESPACE, x.getFirst());
                     if(x.getSecond() != null) {
