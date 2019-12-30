@@ -39,7 +39,7 @@ public class LocationUtil {
         Location loc = new Location(
                 Bukkit.getWorld(str2loc[0]),
                 Double.parseDouble(str2loc[1]),
-                Double.parseDouble(str2loc[1]),
+                Double.parseDouble(str2loc[2]),
                 Double.parseDouble(str2loc[3]));
         if(str2loc.length >= 5) {
             loc.setPitch(Float.parseFloat(str2loc[4]));
