@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * A wrapper for {@link CustomEntity}.
@@ -77,17 +78,17 @@ public class TrackedEntity<T extends CustomEntity> extends CustomEntity {
     public void updateView(){
         Location loc = location.clone();
         double x = viewDistance * viewDistance;
-        for (Player p : viewers) {
-            if(!p.isOnline()){
-                removeViewer(p);
-                continue;
+        viewers.removeIf(p -> {
+            if(p.isOnline()){
+                if(!p.getWorld().equals(location.getWorld()) || p.getLocation(loc).distanceSquared(location) >= x){
+                    entity.removeViewer(p);
+                } else {
+                    entity.addViewer(p);
+                }
+                return false;
             }
-            if(!p.getWorld().equals(location.getWorld()) || p.getLocation(loc).distanceSquared(location) >= x){
-                entity.removeViewer(p);
-            } else {
-                entity.addViewer(p);
-            }
-        }
+            return true;
+        });
     }
 
     @NotNull

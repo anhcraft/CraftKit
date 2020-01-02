@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @Beta
 public abstract class CustomEntity {
-    List<Player> viewers = new CopyOnWriteArrayList<>();
+    List<Player> viewers = Collections.synchronizedList(new ArrayList<>());
     private boolean isDead;
     int id = -1;
     Location location;
@@ -106,7 +106,7 @@ public abstract class CustomEntity {
         addViewerCallback(newPlayers); // only add new viewers
         oldPlayers.removeAll(players); // skip all available viewers
         removeViewerCallback(oldPlayers); // only remove unavailable viewers
-        viewers = new ArrayList<>(players); // we do not want to get changes from the given list
+        viewers = Collections.synchronizedList(new ArrayList<>(players)); // we do not want to get changes from the given list
     }
 
     /**
