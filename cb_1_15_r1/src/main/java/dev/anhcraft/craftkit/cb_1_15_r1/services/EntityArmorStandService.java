@@ -38,7 +38,7 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
             for(EnumItemSlot slot : EnumItemSlot.values()) {
                 sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), p);
             }
-            sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), p);
+            sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), true), p);
         }
     }
 
@@ -224,6 +224,6 @@ public class EntityArmorStandService extends CBModule implements CBEntityArmorSt
         for(EnumItemSlot slot : EnumItemSlot.values()) {
             sendPacket(new PacketPlayOutEntityEquipment(as.getId(), slot, as.getEquipment(slot)), viewers);
         }
-        sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false), viewers);
+        sendPacket(new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), true), viewers);
     }
 }
