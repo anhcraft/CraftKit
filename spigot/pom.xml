@@ -156,8 +156,14 @@
         <dependency>
             <groupId>dev.anhcraft</groupId>
             <artifactId>confighelper.bukkit</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>confighelper.configdoc</artifactId>
+            <version>1.0.4</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

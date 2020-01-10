@@ -32,36 +32,53 @@ import static dev.anhcraft.craftkit.abif.ABIF.Key.*;
  * This is the clone of ABIF (https://github.com/anhcraft/ABIF/) which brings multi-version support.
  */
 @Schema
+@Example({
+        "material: diamond_sword",
+        "name: '&2Emerald sword'",
+        "enchant:",
+        "  sharpness: 1",
+        "flag:",
+        "- hide_enchants"
+})
+@Example({
+        "material: written_book",
+        "amount: 1",
+        "name: Steve's diary",
+        "lore:",
+        "- This is the diary of Steve",
+        "flag:",
+        "- hide_unbreakable",
+        "modifiers:",
+        "  '0':",
+        "    name: '1'",
+        "    amount: 1.0",
+        "    operation: add_number",
+        "    attr: generic_attack_damage",
+        "    slot: off_hand",
+        "meta:",
+        "  type: book",
+        "  book:",
+        "    title: Steve's diary",
+        "    author: Steve",
+        "    generation: original",
+        "    pages:",
+        "    - My first day,...",
+        "    - My second day,...",
+        "    - The next day,...",
+})
 public class PreparedItem implements Serializable {
     public static final ConfigSchema<PreparedItem> SCHEMA = ConfigSchema.of(PreparedItem.class);
     private static final long serialVersionUID = 7808305902298157946L;
-
-    @Key(MODIFIERS)
-    @Explanation("List of attribute modifiers")
-    @IgnoreValue(ifNull = true)
-    private List<ItemModifier> itemModifiers = new ArrayList<>();
-
-    @Key(LORE)
-    @Explanation("Item's lore")
-    @IgnoreValue(ifNull = true)
-    private List<String> lore = new ArrayList<>();
-
-    @Key(FLAG)
-    @PrettyEnum
-    @Explanation("Items's flags that used to hide something")
-    @IgnoreValue(ifNull = true)
-    private List<ItemFlag> flags = new ArrayList<>();
-
-    @Key(ENCHANT)
-    @Explanation("Item's enchantments")
-    @IgnoreValue(ifNull = true)
-    private Map<Enchantment, Integer> enchants = new HashMap<>();
 
     @Key(MATERIAL)
     @Explanation("The material that make up this item")
     @IgnoreValue(ifNull = true)
     @PrettyEnum
     private Material material = Material.AIR;
+
+    @Key(AMOUNT)
+    @Explanation("The amount of items in this stack")
+    private int amount = 1;
 
     @Key(NAME)
     @Explanation("The name of this item")
@@ -71,13 +88,45 @@ public class PreparedItem implements Serializable {
     @Explanation("The damaged value")
     private int damage;
 
-    @Key(AMOUNT)
-    @Explanation("The amount of items in this stack")
-    private int amount = 1;
+    @Key(LORE)
+    @Explanation("Item's lore")
+    @IgnoreValue(ifNull = true)
+    private List<String> lore = new ArrayList<>();
+
+    @Key(ENCHANT)
+    @Explanation("Item's enchantments")
+    @IgnoreValue(ifNull = true)
+    private Map<Enchantment, Integer> enchants = new HashMap<>();
+
+    @Key(FLAG)
+    @PrettyEnum
+    @Explanation("Items's flags that used to hide something")
+    @IgnoreValue(ifNull = true)
+    private List<ItemFlag> flags = new ArrayList<>();
 
     @Key(UNBREAKABLE)
     @Explanation("Make the item unbreakable")
     private boolean unbreakable;
+
+    @Key(MODIFIERS)
+    @Explanation("List of attribute modifiers")
+    @IgnoreValue(ifNull = true)
+    @Example({
+            "modifiers:",
+            "  '0':",
+            "    name: '1'",
+            "    amount: 5.0",
+            "    operation: add_number",
+            "    attr: generic_attack_damage",
+            "    slot: hand",
+            "  '1':",
+            "    name: '1'",
+            "    amount: 2.0",
+            "    operation: add_number",
+            "    attr: generic_attack_damage",
+            "    slot: off_hand"
+    })
+    private List<ItemModifier> itemModifiers = new ArrayList<>();
 
     @Key(META_TYPE)
     @Explanation("Item meta type")

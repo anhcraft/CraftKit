@@ -14,6 +14,11 @@ import java.util.UUID;
  * Represents an attribute modifier.
  */
 @Schema
+@Example({
+        "name: abcxyz # identifier",
+        "amount: 3",
+        "operation: add_number"
+})
 public class Modifier implements Serializable {
     public static final ConfigSchema<Modifier> SCHEMA = ConfigSchema.of(Modifier.class);
     private static final long serialVersionUID = -4638305656316584438L;

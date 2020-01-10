@@ -16,6 +16,12 @@ import java.util.UUID;
  * Represents an attribute modifier for items.
  */
 @Schema
+@Example({
+        "name: abcxyz # identifier",
+        "amount: 3",
+        "operation: add_scalar",
+        "slot: feet"
+})
 public class ItemModifier extends Modifier implements Serializable {
     public static final ConfigSchema<ItemModifier> SCHEMA = ConfigSchema.of(ItemModifier.class);
     private static final long serialVersionUID = 3443790587999457033L;
