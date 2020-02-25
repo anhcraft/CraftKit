@@ -29,7 +29,7 @@ public final class CraftKit extends Plugin implements CKPlugin {
 
         // load info
         InputStream in = getClass().getResourceAsStream("/ck_info.json");
-        CKInfo.init(in);
+        CKInfo.init(in, false);
         try {
             in.close();
         } catch (IOException e) {
