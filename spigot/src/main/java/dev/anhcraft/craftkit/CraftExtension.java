@@ -6,6 +6,7 @@ import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
 import dev.anhcraft.craftkit.common.ICraftExtension;
+import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.craftkit.entity.CustomEntity;
 import dev.anhcraft.craftkit.entity.TrackedEntity;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
@@ -75,6 +76,32 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
                 e.updateView();
             }
         }, 0, 20);
+    }
+
+    /**
+     * Checks the current CraftKit version and see if it meets the requirement.<br>
+     * If the check failed, {@link UnsupportedOperationException} will be thrown.
+     * @param minimum the minimum version (e.g: 1.0.1)
+     */
+    public void requireAtLeastVersion(String minimum) {
+        int i = minimum.chars().sum();
+        int j = CKInfo.getPluginVersion().chars().sum();
+        if(j < i) {
+            throw new UnsupportedOperationException("Require at least v"+minimum+"; current: "+CKInfo.getPluginVersion());
+        }
+    }
+
+    /**
+     * Checks the current CraftKit version and see if it meets the requirement.<br>
+     * If the check failed, {@link UnsupportedOperationException} will be thrown.
+     * @param exact the exact version (e.g: 1.0.1)
+     */
+    public void requireExactVersion(String exact) {
+        int i = exact.chars().sum();
+        int j = CKInfo.getPluginVersion().chars().sum();
+        if(j != i) {
+            throw new UnsupportedOperationException("Require v"+exact+"; current: "+CKInfo.getPluginVersion());
+        }
     }
 
     @Override
