@@ -184,7 +184,7 @@ public class PlayerUtil {
     public static void openBookGUI(@NotNull Player player, @NotNull HandSlot slot){
         Condition.argNotNull("player", player);
         Condition.argNotNull("slot", slot);
-        SERVICE.openBook(player, slot == HandSlot.MAINHAND ? 0 : 1);
+        SERVICE.openBook(player, (slot == HandSlot.MAINHAND || slot == HandSlot.MAIN_HAND) ? 0 : 1);
     }
 
     /**
