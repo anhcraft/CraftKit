@@ -26,6 +26,7 @@ public class ItemBuilder implements Builder<ItemStack> {
     private String name;
     private short durability;
     private int amount = 1;
+    private boolean unbreakable;
 
     /**
      * Constructs an instance of {@code ItemBuilder}.
@@ -129,6 +130,13 @@ public class ItemBuilder implements Builder<ItemStack> {
     }
 
     /**
+     * Makes the item unbreakable.
+     */
+    public void unbreakable() {
+        this.unbreakable = true;
+    }
+
+    /**
      * Builds this item stack and returns it.
      * @return the item stack
      */
@@ -141,7 +149,10 @@ public class ItemBuilder implements Builder<ItemStack> {
         meta.setLore(ChatUtil.formatColorCodes(lore));
         meta.addItemFlags(CollectionUtil.toArray(flags.stream().filter(Objects::nonNull)
                 .collect(Collectors.toList()), ItemFlag.class));
-        for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) meta.addEnchant(e.getKey(), e.getValue(), true);
+        for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) {
+            meta.addEnchant(e.getKey(), e.getValue(), true);
+        }
+        meta.spigot().setUnbreakable(unbreakable);
         item.setItemMeta(meta);
         return item;
     }
