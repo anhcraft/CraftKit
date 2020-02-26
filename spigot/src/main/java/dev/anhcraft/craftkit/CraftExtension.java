@@ -27,7 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class CraftExtension implements ICraftExtension<JavaPlugin> {
     private static final CBAnvilService SERVICE_1 = ServiceProvider.getService(CBAnvilService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final Map<Class<? extends JavaPlugin>, CraftExtension> REGISTRY = new HashMap<>();
+    private static final Map<Class<? extends JavaPlugin>, CraftExtension> REGISTRY = new WeakHashMap<>();
 
     /**
      * Unregisters an extension.
@@ -60,14 +60,14 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
 
     private JavaPlugin plugin;
     private TaskHelper taskHelper;
-    private final List<TrackedEntity> trackedEntities = new ArrayList<>();
+    private final List<TrackedEntity<?>> trackedEntities = Collections.synchronizedList(new ArrayList<>());
 
     private CraftExtension(JavaPlugin plugin){
         this.plugin = plugin;
         taskHelper = new TaskHelper(plugin);
         taskHelper.newTimerTask(() -> {
-            for (Iterator<TrackedEntity> it = trackedEntities.iterator(); it.hasNext(); ) {
-                TrackedEntity e = it.next();
+            for (Iterator<TrackedEntity<?>> it = trackedEntities.iterator(); it.hasNext(); ) {
+                TrackedEntity<?> e = it.next();
                 if(e.isDead()){
                     it.remove();
                     continue;
