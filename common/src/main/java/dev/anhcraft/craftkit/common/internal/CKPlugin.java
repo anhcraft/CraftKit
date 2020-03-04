@@ -12,7 +12,7 @@ public interface CKPlugin {
     String PARTY_CHANNEL_NAMESPACE = "craftkit:party";
     int BUNGEE_RESOURCE_ID = 68505;
     int SPIGOT_RESOURCE_ID = 39007;
-    File libDir = new File("plugins"+File.pathSeparatorChar+"CraftKit"+File.pathSeparatorChar+"libraries");
+    File libDir = new File("plugins"+File.separatorChar+"CraftKit"+File.separatorChar+"libraries");
 
     default void checkUpdate(int r){
         CKProvider.TASK_HELPER.newAsyncTask(() -> {
