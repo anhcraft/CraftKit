@@ -58,7 +58,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
 
         // load libraries
         INFO_CHAT.messageConsole("Loading libraries...");
-        libDir.mkdir();
+        libDir.mkdirs();
         handleNMSLib();
     }
 
