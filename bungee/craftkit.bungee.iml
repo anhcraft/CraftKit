@@ -63,7 +63,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-transport:4.1.45.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-resolver:4.1.45.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.25" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-proxy:1.15-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.flowpowered:flow-nbt:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-codec-haproxy:4.1.45.Final" level="project" />
@@ -84,8 +84,9 @@
     <orderEntry type="library" name="Maven: co.aikar:DelegatingMap:1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:locales:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.jodah:expiringmap:0.5.8" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.bungee:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.common:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.bungee:1.0.5" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.common:1.0.5" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.configdoc:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:18.0.0" level="project" />
   </component>
 </module>
