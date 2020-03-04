@@ -17,6 +17,7 @@ import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.craftkit.internal.tasks.ArmorHandleTask;
 import dev.anhcraft.craftkit.utils.BungeeUtil;
 import dev.anhcraft.jvmkit.utils.JarUtil;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -87,6 +88,8 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         // start tasks
         INFO_CHAT.messageConsole("Starting tasks...");
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
+
+        new Metrics(this, 6690);
     }
 
     private void handleNMSLib() {
