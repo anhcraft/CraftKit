@@ -1,6 +1,7 @@
 package dev.anhcraft.craftkit.builders;
 
 import dev.anhcraft.craftkit.common.utils.ChatUtil;
+import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.jvmkit.builders.Builder;
 import dev.anhcraft.jvmkit.utils.CollectionUtil;
 import org.bukkit.Material;
@@ -152,8 +153,10 @@ public class ItemBuilder implements Builder<ItemStack> {
         for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) {
             meta.addEnchant(e.getKey(), e.getValue(), true);
         }
-        meta.spigot().setUnbreakable(unbreakable);
         item.setItemMeta(meta);
+        if(unbreakable) {
+            item = ItemNBTHelper.of(item).setUnbreakable(true).save();
+        }
         return item;
     }
 }
