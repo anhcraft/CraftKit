@@ -16,7 +16,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.jvmKit>1.1.1</version.jvmKit>
+        <version.jvmKit>1.1.4</version.jvmKit>
         <version.bungeecordChat>1.14-SNAPSHOT</version.bungeecordChat>
         <version.spigotApi>1.9.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
