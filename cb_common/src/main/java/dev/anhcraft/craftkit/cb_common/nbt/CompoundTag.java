@@ -338,8 +338,9 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      */
     @Nullable
     @SuppressWarnings("unchecked")
-    public <T extends NBTTag> T get(@NotNull String name, Class<T> classType){
+    public <T extends NBTTag> T get(@NotNull String name, @NotNull Class<T> classType){
         Condition.argNotNull("name", name);
+        Condition.argNotNull("classType", classType);
         NBTTag s = service.get(name);
         return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : null;
     }
@@ -355,7 +356,7 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     @SuppressWarnings("unchecked")
     public <T extends NBTTag> T getOrCreateDefault(@NotNull String name, @NotNull Class<T> classType){
         Condition.argNotNull("name", name);
-        // do not check classType == null here, NBTTag.createDefaultTag does that
+        Condition.argNotNull("classType", classType);
         NBTTag s = service.get(name);
         return (s != null && classType.isAssignableFrom(s.getClass())) ? (T) s : NBTTag.createDefaultTag(classType);
     }
@@ -370,11 +371,11 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
      */
     @Nullable
     @SuppressWarnings("unchecked")
-    public <V, T extends NBTTag<V>> V getValue(@NotNull String name, Class<T> classType){
+    public <V, T extends NBTTag<V>> V getValue(@NotNull String name, @NotNull Class<T> classType){
         Condition.argNotNull("name", name);
+        Condition.argNotNull("classType", classType);
         NBTTag s = service.get(name);
-        if(classType.isAssignableFrom(s.getClass())) return (V) s.getValue();
-        else return null;
+        return (s != null && classType.isAssignableFrom(s.getClass())) ? (V) s.getValue() : null;
     }
 
     /**
