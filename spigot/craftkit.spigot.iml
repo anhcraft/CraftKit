@@ -55,9 +55,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.avaje:ebean:2.8.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.persistence:persistence-api:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.14-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.15-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.4" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.5" level="project" />
     <orderEntry type="module" module-name="craftkit.cb_common" />
     <orderEntry type="module" module-name="craftkit.cb_1_9_r2" scope="PROVIDED" />
     <orderEntry type="module" module-name="craftkit.cb_1_10_r1" scope="PROVIDED" />

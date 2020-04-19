@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
@@ -16,11 +16,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.jvmKit>1.1.4</version.jvmKit>
-        <version.bungeecordChat>1.14-SNAPSHOT</version.bungeecordChat>
+        <version.jvmKit>1.1.5</version.jvmKit>
+        <version.bungeecord>1.15-SNAPSHOT</version.bungeecord>
         <version.spigotApi>1.9.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.5.25</version.authlib>
+        <version.confighelper>1.0.5</version.confighelper>
     </properties>
 
     <developers>

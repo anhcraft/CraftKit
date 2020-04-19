@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.anhcraft</groupId>
         <artifactId>craftkit.parent</artifactId>
-        <version>1.1.8</version>
+        <version>1.1.9</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -62,13 +62,13 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.15-SNAPSHOT</version>
+            <version>${version.bungeecord}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-proxy</artifactId>
-            <version>1.15-SNAPSHOT</version>
+            <version>${version.bungeecord}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -87,7 +87,7 @@
             <groupId>dev.anhcraft</groupId>
             <artifactId>confighelper.bungee</artifactId>
             <version>1.0.5</version>
-            <scope>compile</scope>
+            <scope>${version.confighelper}</scope>
         </dependency>
     </dependencies>
 </project>

@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.anhcraft</groupId>
         <artifactId>craftkit.parent</artifactId>
-        <version>1.1.8</version>
+        <version>1.1.9</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-chat</artifactId>
-            <version>${version.bungeecordChat}</version>
+            <version>${version.bungeecord}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -160,13 +160,13 @@
         <dependency>
             <groupId>dev.anhcraft</groupId>
             <artifactId>confighelper.bukkit</artifactId>
-            <version>1.0.5</version>
+            <version>${version.confighelper}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dev.anhcraft</groupId>
             <artifactId>confighelper.configdoc</artifactId>
-            <version>1.0.5</version>
+            <version>${version.confighelper}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

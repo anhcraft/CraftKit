@@ -48,7 +48,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="craftkit.common" scope="PROVIDED" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: dev.anhcraft:jvmkit:1.1.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: dev.anhcraft:jvmkit:1.1.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:18.0.0" level="project" />
     <orderEntry type="module" module-name="craftkit.cb_common" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.13.2-R0.1-SNAPSHOT" level="project" />
