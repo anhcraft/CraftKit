@@ -1,13 +1,10 @@
 package dev.anhcraft.craftkit.common.utils;
 
-import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.HttpUtil;
-import dev.anhcraft.jvmkit.utils.UserAgent;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * A utility class which gives you simpler ways to interact with the Spigot API.

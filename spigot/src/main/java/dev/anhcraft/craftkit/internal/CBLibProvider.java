@@ -1,18 +1,11 @@
 package dev.anhcraft.craftkit.internal;
 
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBServerService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
-import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
 import dev.anhcraft.jvmkit.utils.FileUtil;
 import dev.anhcraft.jvmkit.utils.HttpUtil;
-import dev.anhcraft.jvmkit.utils.UserAgent;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class CBLibProvider {
     private static final String[] MIRRORS = new String[]{

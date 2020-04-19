@@ -4,7 +4,6 @@ import dev.anhcraft.confighelper.ConfigHelper;
 import dev.anhcraft.confighelper.ConfigSchema;
 import dev.anhcraft.confighelper.annotation.*;
 import dev.anhcraft.confighelper.exception.InvalidValueException;
-import dev.anhcraft.craftkit.BookGeneration;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
 import dev.anhcraft.jvmkit.utils.Condition;

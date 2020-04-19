@@ -2,16 +2,13 @@ package dev.anhcraft.craftkit.common.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
 import dev.anhcraft.jvmkit.utils.HttpUtil;
-import dev.anhcraft.jvmkit.utils.UserAgent;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * A utility class which gives you simpler ways to interact with the Spiget API.
