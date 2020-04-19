@@ -5,6 +5,8 @@ import dev.anhcraft.craftkit.cb_common.internal.services.CBServerService;
 import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
 import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
 import dev.anhcraft.jvmkit.utils.FileUtil;
+import dev.anhcraft.jvmkit.utils.HttpUtil;
+import dev.anhcraft.jvmkit.utils.UserAgent;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -21,15 +23,9 @@ public class CBLibProvider {
     public static boolean downloadNMSLib(String pv, NMSVersion nv, File file){
         for(String link : MIRRORS){
             try {
-                URLConnection url = new URL(link
+                FileUtil.write(file, HttpUtil.fetch(link
                         .replace("{pluginVer}", pv)
-                        .replace("{nmsVer}", nv.name().toLowerCase().substring(1))
-                ).openConnection();
-                url.setRequestProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME);
-                url.connect();
-                BufferedInputStream in = new BufferedInputStream(url.getInputStream());
-                FileUtil.write(file, in);
-                in.close();
+                        .replace("{nmsVer}", nv.name().toLowerCase().substring(1))));
                 return true;
             } catch (IOException ignored) {
             }
