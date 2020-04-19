@@ -3,6 +3,8 @@ package dev.anhcraft.craftkit.common.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
+import dev.anhcraft.jvmkit.utils.HttpUtil;
+import dev.anhcraft.jvmkit.utils.UserAgent;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.FileUtil;
@@ -18,29 +20,33 @@ public class SpigetApiUtil {
     /**
      * Gets the latest version of a resource.
      * @param resourceId the id of the resource
-     * @return version number
+     * @return version
      */
     @NotNull
     public static String getResourceLatestVersion(@NotNull String resourceId) {
         Condition.argNotNull("resourceId", resourceId);
-        String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
-                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .connect()
-                .readText();
+        String text;
+        try {
+            text = HttpUtil.fetchString("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name");
+        } catch (IOException e) {
+            return "";
+        }
         return new Gson().fromJson(text, JsonArray.class).get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString();
     }
 
     /**
      * Gets the latest version of a resource.
      * @param resourceId the id of the resource
-     * @return version number
+     * @return version
      */
     @NotNull
     public static String getResourceLatestVersion(int resourceId) {
-        String text = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name")
-                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .connect()
-                .readText();
+        String text;
+        try {
+            text = HttpUtil.fetchString("https://api.spiget.org/v2/resources/"+resourceId+"/versions?size=1&sort=-releaseDate&fields=name");
+        } catch (IOException e) {
+            return "";
+        }
         return new Gson().fromJson(text, JsonArray.class).get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString();
     }
 
@@ -53,13 +59,10 @@ public class SpigetApiUtil {
     public static boolean downloadResource(@NotNull String resourceId, @NotNull File file) {
         Condition.argNotNull("resourceId", resourceId);
         Condition.argNotNull("file", file);
-        InputStream in = new HTTPConnectionHelper("https://api.spiget.org/v2/resources/"+resourceId+"/download").setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME).connect().getInput();
-        boolean res = FileUtil.write(file, in);
         try {
-            in.close();
+            return FileUtil.write(file, HttpUtil.fetch("https://api.spiget.org/v2/resources/"+resourceId+"/download"));
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
-        return res;
     }
 }

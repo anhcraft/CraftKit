@@ -2,8 +2,11 @@ package dev.anhcraft.craftkit.common.utils;
 
 import dev.anhcraft.jvmkit.helpers.HTTPConnectionHelper;
 import dev.anhcraft.jvmkit.utils.Condition;
+import dev.anhcraft.jvmkit.utils.HttpUtil;
+import dev.anhcraft.jvmkit.utils.UserAgent;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -18,10 +21,12 @@ public class SpigotApiUtil {
     @NotNull
     public static String getResourceLatestVersion(@NotNull String resourceId) {
         Condition.argNotNull("resourceId", resourceId);
-        return Objects.requireNonNull(new HTTPConnectionHelper("https://api.spigotmc.org/legacy/update.php?resource=" + resourceId)
-                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .connect()
-                .readText());
+        try {
+            return HttpUtil.fetchString("https://api.spigotmc.org/legacy/update.php?resource=" + resourceId);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     /**
@@ -31,9 +36,11 @@ public class SpigotApiUtil {
      */
     @NotNull
     public static String getResourceLatestVersion(int resourceId) {
-        return Objects.requireNonNull(new HTTPConnectionHelper("https://api.spigotmc.org/legacy/update.php?resource=" + resourceId)
-                .setProperty("User-Agent", HTTPConnectionHelper.USER_AGENT_CHROME)
-                .connect()
-                .readText());
+        try {
+            return HttpUtil.fetchString("https://api.spigotmc.org/legacy/update.php?resource=" + resourceId);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
