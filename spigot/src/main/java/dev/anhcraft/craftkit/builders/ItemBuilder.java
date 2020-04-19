@@ -132,9 +132,11 @@ public class ItemBuilder implements Builder<ItemStack> {
 
     /**
      * Makes the item unbreakable.
+     * @return this object
      */
-    public void unbreakable() {
+    public ItemBuilder unbreakable() {
         this.unbreakable = true;
+        return this;
     }
 
     /**
