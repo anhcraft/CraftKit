@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerJumpEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-    private boolean onSpot;
+    private final boolean onSpot;
 
     public PlayerJumpEvent(@NotNull Player player, boolean onSpot){
         super(player);

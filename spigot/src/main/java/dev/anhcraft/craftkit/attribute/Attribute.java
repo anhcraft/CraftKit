@@ -21,10 +21,10 @@ public enum Attribute {
     ZOMBIE_SPAWN_REINFORCEMENTS(0.0, 0.0, 1.0, "generic.spawnReinforcements"),
     PARROTS_FLYING_SPEED(0.4, 0.0, 1024.0, "generic.flyingSpeed");
 
-    private double min;
-    private double max;
-    private double base;
-    private String id;
+    private final double min;
+    private final double max;
+    private final double base;
+    private final String id;
 
     Attribute(double base, double min, double max, String id){
         this.min = min;

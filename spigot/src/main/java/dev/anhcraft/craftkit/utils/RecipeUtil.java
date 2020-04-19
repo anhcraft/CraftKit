@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBRecipeService;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBRecipeBackend;
 import dev.anhcraft.craftkit.cb_common.internal.utils.ReflectUtil;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import org.bukkit.Bukkit;
@@ -18,7 +18,7 @@ import java.util.List;
  * Extra methods for working with recipes.
  */
 public class RecipeUtil {
-    private static final CBRecipeService SERVICE = ServiceProvider.getService(CBRecipeService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBRecipeBackend SERVICE = BackendManager.request(CBRecipeBackend.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Registers the given recipe.

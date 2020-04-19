@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBEntityBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Utilities related to entity
  */
 public class EntityUtil {
-    private static final CBEntityService SERVICE = ServiceProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityBackend SERVICE = BackendManager.request(CBEntityBackend.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Gets the bounding box of the given entity.

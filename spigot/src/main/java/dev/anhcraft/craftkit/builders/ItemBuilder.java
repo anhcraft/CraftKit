@@ -23,7 +23,7 @@ public class ItemBuilder implements Builder<ItemStack> {
     private final List<String> lore = new ArrayList<>();
     private final List<ItemFlag> flags = new ArrayList<>();
     private final Map<Enchantment, Integer> enchants = new HashMap<>();
-    private Material type;
+    private final Material type;
     private String name;
     private short durability;
     private int amount = 1;

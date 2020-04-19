@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.utils;
 
 import dev.anhcraft.craftkit.cb_common.BoundingBox;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBBlockService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBBlockBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.MathUtil;
 import org.bukkit.Location;
@@ -20,7 +20,7 @@ import java.util.List;
  * Utility methods for working with {@link Block}.
  */
 public class BlockUtil {
-    private static final CBBlockService SERVICE = ServiceProvider.getService(CBBlockService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBBlockBackend SERVICE = BackendManager.request(CBBlockBackend.class).orElseThrow(UnsupportedOperationException::new);
     private static final BlockFace[] HORIZONTAL_FACE = new BlockFace[]{
             BlockFace.NORTH,
             BlockFace.EAST,

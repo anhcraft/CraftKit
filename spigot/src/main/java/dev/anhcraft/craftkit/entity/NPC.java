@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.entity;
 
 import com.mojang.authlib.GameProfile;
 import dev.anhcraft.craftkit.cb_common.internal.enums.PlayerInfoEnum;
-import dev.anhcraft.craftkit.cb_common.internal.services.*;
+import dev.anhcraft.craftkit.cb_common.internal.backend.*;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Location;
@@ -17,10 +17,10 @@ import java.util.List;
  * This class represents a fake entity player (NPC).
  */
 public class NPC extends CustomEntity {
-    private static final CBOutPacketService SERVICE_1 = ServiceProvider.getService(CBOutPacketService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBEntityNPCService SERVICE_2 = ServiceProvider.getService(CBEntityNPCService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBEntityService SERVICE_3 = ServiceProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
-    private static final CBPlayerService SERVICE_4 = ServiceProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBOutPacketBackend SERVICE_1 = BackendManager.request(CBOutPacketBackend.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityNPCBackend SERVICE_2 = BackendManager.request(CBEntityNPCBackend.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityBackend SERVICE_3 = BackendManager.request(CBEntityBackend.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBPlayerBackend SERVICE_4 = BackendManager.request(CBPlayerBackend.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Spawns a new NPC with the given information.
@@ -35,7 +35,7 @@ public class NPC extends CustomEntity {
         return new NPC(SERVICE_2.create(profile, location.getWorld()), location.clone());
     }
 
-    private Object npc;
+    private final Object npc;
     private boolean showOnTablist;
 
     private NPC(Object npc, Location location){

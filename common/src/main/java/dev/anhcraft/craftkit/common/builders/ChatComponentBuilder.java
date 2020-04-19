@@ -20,7 +20,7 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
     private ClickEvent clickEvent;
     private HoverEvent hoverEvent;
     private String insertion;
-    private Map<Object, Object[]> extra = new LinkedHashMap<>();
+    private final Map<Object, Object[]> extra = new LinkedHashMap<>();
     private ChatColor color = ChatColor.WHITE;
     private boolean bold = false;
     private boolean obfuscate = false;

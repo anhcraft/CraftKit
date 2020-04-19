@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ArmorChangeEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-    private ItemStack oldArmor;
-    private ItemStack newArmor;
-    private EquipmentSlot slot;
+    private final ItemStack oldArmor;
+    private final ItemStack newArmor;
+    private final EquipmentSlot slot;
 
     public ArmorChangeEvent(@NotNull Player player, @NotNull ItemStack oldArmor, @NotNull ItemStack newArmor, @NotNull EquipmentSlot slot){
         super(player);

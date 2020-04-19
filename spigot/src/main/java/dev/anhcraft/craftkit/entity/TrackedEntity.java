@@ -15,7 +15,7 @@ import java.util.List;
  * @param <T> The entity type
  */
 public class TrackedEntity<T extends CustomEntity> extends CustomEntity {
-    private T entity;
+    private final T entity;
     private double viewDistance = Bukkit.getViewDistance();
 
     /**

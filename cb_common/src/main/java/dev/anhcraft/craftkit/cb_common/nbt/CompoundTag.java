@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit.cb_common.nbt;
 
-import dev.anhcraft.craftkit.cb_common.internal.services.CBEntityService;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBNBTService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBEntityBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBNBTBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  */
 public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializable {
     private static final long serialVersionUID = 18520914327229522L;
-    private static final CBEntityService E_SERVICE = ServiceProvider.getService(CBEntityService.class).orElseThrow(UnsupportedOperationException::new);
-    private final CBNBTService service = ServiceProvider.getService(CBNBTService.class, false).orElseThrow(UnsupportedOperationException::new);
+    private static final CBEntityBackend E_SERVICE = BackendManager.request(CBEntityBackend.class).orElseThrow(UnsupportedOperationException::new);
+    private final CBNBTBackend service = BackendManager.request(CBNBTBackend.class, false).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Constructs an instance of {@code CompoundTag}.

@@ -13,9 +13,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BowArrowHitEvent extends Event {
     public static final HandlerList handlers = new HandlerList();
-    private Arrow arrow;
-    private LivingEntity shooter;
-    private ItemStack bow;
+    private final Arrow arrow;
+    private final LivingEntity shooter;
+    private final ItemStack bow;
 
     public BowArrowHitEvent(@NotNull Arrow arrow, @NotNull Pair<LivingEntity, ItemStack> x) {
         this.arrow = arrow;

@@ -18,7 +18,7 @@ import java.util.UUID;
  * A builder that helps you to build and work with {@link GameProfile}.
  */
 public class GameProfileBuilder implements Builder<GameProfile> {
-    private GameProfile gp;
+    private final GameProfile gp;
 
     /**
      * Constructs an instance of {@code GameProfileBuilder}.

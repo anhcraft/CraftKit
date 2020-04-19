@@ -31,7 +31,7 @@ public class Modifier implements Serializable {
         ADD_SCALAR(0),
         MULTIPLY_SCALAR_1(2);
 
-        private int id;
+        private final int id;
 
         Operation(int id) {
             this.id = id;

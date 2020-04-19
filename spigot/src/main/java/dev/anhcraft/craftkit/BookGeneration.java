@@ -10,7 +10,7 @@ public enum BookGeneration {
     COPY_COPY(2),
     TATTERED(3);
 
-    private int id;
+    private final int id;
 
     BookGeneration(int id) {
         this.id = id;

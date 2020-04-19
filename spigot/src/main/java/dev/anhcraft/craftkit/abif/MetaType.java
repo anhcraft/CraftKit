@@ -65,8 +65,8 @@ public enum MetaType {
         m.setPages(i.bookPages());
     });
 
-    private BiConsumer<PreparedItem, ItemMeta> onLoad;
-    private BiConsumer<PreparedItem, ItemMeta> onSave;
+    private final BiConsumer<PreparedItem, ItemMeta> onLoad;
+    private final BiConsumer<PreparedItem, ItemMeta> onSave;
 
     MetaType(BiConsumer<PreparedItem, ItemMeta> onLoad, BiConsumer<PreparedItem, ItemMeta> onSave) {
         this.onLoad = onLoad;

@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBServerService;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBServerBackend;
 import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Bukkit;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  * This class contains extra methods which are related to the whole server.
  */
 public class ServerUtil {
-    private static final CBServerService SERVICE = ServiceProvider.getService(CBServerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBServerBackend SERVICE = BackendManager.request(CBServerBackend.class).orElseThrow(UnsupportedOperationException::new);
 
     /**
      * Gets all entities over the server.

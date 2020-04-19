@@ -1,8 +1,8 @@
 package dev.anhcraft.craftkit;
 
-import dev.anhcraft.craftkit.cb_common.internal.services.CBAnvilService;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBCustomGUIService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBAnvilBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBCustomGUIBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
 import dev.anhcraft.craftkit.common.ICraftExtension;
@@ -26,7 +26,7 @@ import java.util.*;
  * A CraftKit extension.
  */
 public class CraftExtension implements ICraftExtension<JavaPlugin> {
-    private static final CBAnvilService SERVICE_1 = ServiceProvider.getService(CBAnvilService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBAnvilBackend SERVICE_1 = BackendManager.request(CBAnvilBackend.class).orElseThrow(UnsupportedOperationException::new);
     private static final Map<Class<? extends JavaPlugin>, CraftExtension> REGISTRY = new WeakHashMap<>();
 
     /**
@@ -58,8 +58,8 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
         return ext;
     }
 
-    private JavaPlugin plugin;
-    private TaskHelper taskHelper;
+    private final JavaPlugin plugin;
+    private final TaskHelper taskHelper;
     private final List<TrackedEntity<?>> trackedEntities = Collections.synchronizedList(new ArrayList<>());
 
     private CraftExtension(JavaPlugin plugin){
@@ -111,8 +111,8 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
 
     @NotNull
     public CustomGUI createCustomGUI(@Nullable InventoryHolder holder, int size, @Nullable String title){
-        size = (int) MathUtil.nextMultiple(size, 9);
-        return ServiceProvider.getService(CBCustomGUIService.class,
+        size = MathUtil.nextMultiple(size, 9);
+        return BackendManager.request(CBCustomGUIBackend.class,
                 new Class<?>[]{InventoryHolder.class, int.class, String.class},
                 new Object[]{holder, size, title},
                 false).orElseThrow(UnsupportedOperationException::new);

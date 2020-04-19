@@ -69,7 +69,7 @@ public enum CenterSlot {
      */
     CENTER_5_E(8);
 
-    private int slot;
+    private final int slot;
 
     CenterSlot(int slot) {
         this.slot = slot;

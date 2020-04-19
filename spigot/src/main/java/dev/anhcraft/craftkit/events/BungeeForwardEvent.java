@@ -11,7 +11,7 @@ import java.io.DataInputStream;
 public class BungeeForwardEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
-    private DataInputStream data;
+    private final DataInputStream data;
 
     public BungeeForwardEvent(DataInputStream data){
         this.data = data;

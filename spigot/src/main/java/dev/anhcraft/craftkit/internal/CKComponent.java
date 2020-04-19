@@ -1,7 +1,7 @@
 package dev.anhcraft.craftkit.internal;
 
 public class CKComponent {
-    private CraftKit parent;
+    private final CraftKit parent;
 
     public CKComponent(CraftKit parent) {
         this.parent = parent;

@@ -2,8 +2,8 @@ package dev.anhcraft.craftkit.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.anhcraft.craftkit.cb_common.internal.services.CBPlayerService;
-import dev.anhcraft.craftkit.cb_common.internal.services.ServiceProvider;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBPlayerBackend;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
 import dev.anhcraft.craftkit.HandSlot;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * Utility methods which are related to Player.
  */
 public class PlayerUtil {
-    private static final CBPlayerService SERVICE = ServiceProvider.getService(CBPlayerService.class).orElseThrow(UnsupportedOperationException::new);
+    private static final CBPlayerBackend SERVICE = BackendManager.request(CBPlayerBackend.class).orElseThrow(UnsupportedOperationException::new);
     private static final Object FREEZE_LOCK = new Object();
 
     /**
@@ -201,7 +201,7 @@ public class PlayerUtil {
 
     // A fake operator (tks OpticFusion)
     static class FakeOperator implements CommandSender {
-        private Player player;
+        private final Player player;
 
         FakeOperator(Player player) {
             this.player = player;

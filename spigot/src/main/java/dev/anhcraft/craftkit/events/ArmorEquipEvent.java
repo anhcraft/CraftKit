@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ArmorEquipEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-    private ItemStack armor;
-    private EquipmentSlot slot;
+    private final ItemStack armor;
+    private final EquipmentSlot slot;
 
     public ArmorEquipEvent(@NotNull Player player, @NotNull ItemStack armor, @NotNull EquipmentSlot slot){
         super(player);

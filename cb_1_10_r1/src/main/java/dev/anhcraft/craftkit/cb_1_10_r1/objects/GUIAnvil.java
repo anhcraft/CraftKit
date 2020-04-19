@@ -15,7 +15,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class GUIAnvil extends CraftInventoryAnvil implements AnvilGUI {
-    private GuiMiddleware inv = new GuiMiddleware();
+    private final GuiMiddleware inv = new GuiMiddleware();
     private final ContainerAnvil container;
 
     public GUIAnvil(Location location, IInventory inventory, IInventory resultInventory, ContainerAnvil container) {

@@ -57,8 +57,8 @@ public class Skin implements Serializable {
     public static final Skin MHF_EXCLAMATION = new Skin(CKInfo.getMHFSkin("MHF_Exclamation"), null);
     public static final Skin MHF_QUESTION = new Skin(CKInfo.getMHFSkin("MHF_Question"), null);
 
-    private String value;
-    private String signature;
+    private final String value;
+    private final String signature;
 
     /**
      * Constructs an instance of {@code Skin} with the given information.
