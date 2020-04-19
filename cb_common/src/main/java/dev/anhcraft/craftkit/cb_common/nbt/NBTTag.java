@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import dev.anhcraft.jvmkit.utils.Condition;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents NBT tags implementation.
@@ -107,5 +108,18 @@ public abstract class NBTTag<T> implements Serializable {
     public void setValue(@NotNull T value) {
         Condition.argNotNull("value", value);
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NBTTag<?> nbtTag = (NBTTag<?>) o;
+        return value.equals(nbtTag.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
