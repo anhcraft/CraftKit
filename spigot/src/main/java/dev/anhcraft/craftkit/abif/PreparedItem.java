@@ -6,6 +6,7 @@ import dev.anhcraft.confighelper.annotation.*;
 import dev.anhcraft.confighelper.exception.InvalidValueException;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
+import dev.anhcraft.craftkit.utils.MaterialUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -551,6 +552,9 @@ public class PreparedItem implements Serializable {
     @Middleware(Middleware.Direction.CONFIG_TO_SCHEMA)
     private @Nullable Object conf2schema(ConfigSchema.Entry entry, @Nullable Object value) {
         if(value != null){
+            if(entry.getKey().equals(MATERIAL) && value instanceof String) {
+                return MaterialUtil.modernize((String) value);
+            }
             if(entry.getKey().equals(MODIFIERS)) {
                 ConfigurationSection cs = (ConfigurationSection) value;
                 List<ItemModifier> bullets = new ArrayList<>();
