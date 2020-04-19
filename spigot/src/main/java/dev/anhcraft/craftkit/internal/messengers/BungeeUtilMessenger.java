@@ -36,6 +36,8 @@ public class BungeeUtilMessenger extends CKComponent implements PluginMessageLis
         super(parent);
 
         CKProvider.TASK_HELPER.newAsyncTimerTask(() -> {
+            if(TEMP_BG_QUEUE.isEmpty() && TEMP_CK_QUEUE.isEmpty()) return;
+
             Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
             if(players.hasNext()){
                 Player p = players.next();
@@ -49,6 +51,7 @@ public class BungeeUtilMessenger extends CKComponent implements PluginMessageLis
                         }
                     }
                 });
+                TEMP_BG_QUEUE.clear();
 
                 TEMP_CK_QUEUE.forEach(x -> {
                     p.sendPluginMessage(parent, CKPlugin.CHANNEL_NAMESPACE, x.getFirst());
@@ -60,6 +63,7 @@ public class BungeeUtilMessenger extends CKComponent implements PluginMessageLis
                         }
                     }
                 });
+                TEMP_CK_QUEUE.clear();
             }
         }, 0, 20);
 
