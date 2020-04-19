@@ -102,6 +102,18 @@ public class BoundingBox {
         return allocate(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
     }
 
+    @Contract("_, -> this")
+    public BoundingBox allocate(@NotNull Location loc){
+        Condition.argNotNull("loc", loc);
+        return allocate(loc.getX(), loc.getY(), loc.getZ());
+    }
+
+    @Contract("_, -> this")
+    public BoundingBox allocate(@NotNull Vector vector){
+        Condition.argNotNull("vector", vector);
+        return allocate(vector.getX(), vector.getY(), vector.getZ());
+    }
+
     @Contract("_, _, _ -> this")
     public BoundingBox allocate(double x, double y, double z){
         this.minX = x;
@@ -187,15 +199,15 @@ public class BoundingBox {
     }
 
     public double getCenterX(){
-        return (maxX - minX) * 0.5;
+        return (maxX - minX) * 0.5 + minX;
     }
 
     public double getCenterY(){
-        return (maxY - minY) * 0.5;
+        return (maxY - minY) * 0.5 + minY;
     }
 
     public double getCenterZ(){
-        return (maxZ - minZ) * 0.5;
+        return (maxZ - minZ) * 0.5 + minZ;
     }
 
     @NotNull
@@ -252,9 +264,12 @@ public class BoundingBox {
         Condition.check(offsetX >= 0, "Offset X must not be negative");
         Condition.check(offsetY >= 0, "Offset Y must not be negative");
         Condition.check(offsetZ >= 0, "Offset Z must not be negative");
-        if(offsetX > getCenterX()) offsetX = getCenterX();
-        if(offsetY > getCenterY()) offsetY = getCenterY();
-        if(offsetZ > getCenterZ()) offsetZ = getCenterZ();
+        double halfX = (maxX - minX) * 0.5;
+        double halfY = (maxY - minY) * 0.5;
+        double halfZ = (maxZ - minZ) * 0.5;
+        offsetX = Math.min(offsetX, halfX);
+        offsetY = Math.min(offsetY, halfY);
+        offsetZ = Math.min(offsetZ, halfZ);
         minX += offsetX;
         minY += offsetY;
         minZ += offsetZ;
@@ -272,21 +287,15 @@ public class BoundingBox {
         Condition.check(offsetMaxX >= 0, "Offset max X must not be negative");
         Condition.check(offsetMaxY >= 0, "Offset max Y must not be negative");
         Condition.check(offsetMaxZ >= 0, "Offset max Z must not be negative");
-        double centerX = getCenterX();
-        double centerY = getCenterY();
-        double centerZ = getCenterZ();
-        if(offsetMinX > centerX) offsetMinX = centerX;
-        if(offsetMinY > centerY) offsetMinY = centerY;
-        if(offsetMinZ > centerZ) offsetMinZ = centerZ;
-        if(offsetMaxX > centerX) offsetMaxX = centerX;
-        if(offsetMaxY > centerY) offsetMaxY = centerY;
-        if(offsetMaxZ > centerZ) offsetMaxZ = centerZ;
-        minX += offsetMinX;
-        minY += offsetMinY;
-        minZ += offsetMinZ;
-        maxX -= offsetMaxX;
-        maxY -= offsetMaxY;
-        maxZ -= offsetMaxZ;
+        double halfX = (maxX - minX) * 0.5;
+        double halfY = (maxY - minY) * 0.5;
+        double halfZ = (maxZ - minZ) * 0.5;
+        minX += Math.min(halfX, offsetMinX);
+        minY += Math.min(halfY, offsetMinY);
+        minZ += Math.min(halfZ, offsetMinZ);
+        maxX -= Math.min(halfX, offsetMaxX);
+        maxY -= Math.min(halfY, offsetMaxY);
+        maxZ -= Math.min(halfZ, offsetMaxZ);
         return this;
     }
 
