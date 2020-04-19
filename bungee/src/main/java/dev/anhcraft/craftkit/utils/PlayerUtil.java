@@ -1,9 +1,7 @@
 package dev.anhcraft.craftkit.utils;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.Skin;
+import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.jvmkit.utils.Condition;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -12,7 +10,11 @@ import net.md_5.bungee.connection.LoginResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -63,11 +65,16 @@ public class PlayerUtil {
                 new LoginResult.Property("textures", skin.getValue(), skin.getSignature())
         });
         ReflectionUtil.setDeclaredField(InitialHandler.class, ih,"loginProfile", lr);
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("ChangeSkin");
-        out.writeUTF(player.getName());
-        out.writeUTF(skin.getValue());
-        out.writeUTF(skin.getSignature());
-        player.getServer().getInfo().sendData(CKPlugin.CHANNEL_NAMESPACE, out.toByteArray(), true);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(stream);
+        try {
+            out.writeUTF("ChangeSkin");
+            out.writeUTF(player.getName());
+            out.writeUTF(skin.getValue());
+            out.writeUTF(Objects.requireNonNull(skin.getSignature()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        player.getServer().getInfo().sendData(CKPlugin.CHANNEL_NAMESPACE, stream.toByteArray(), true);
     }
 }

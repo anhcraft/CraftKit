@@ -1,17 +1,13 @@
 package dev.anhcraft.craftkit.internal.listeners;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.Skin;
+import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.utils.PlayerUtil;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.io.*;
 
 import static net.md_5.bungee.api.ProxyServer.getInstance;
 
@@ -20,8 +16,8 @@ public class CKChannelListener implements Listener {
     public void onPluginMessage(PluginMessageEvent ev) {
         if (!ev.getTag().equals(CKPlugin.CHANNEL_NAMESPACE)) return;
         try {
-            ByteArrayInputStream stream = new ByteArrayInputStream(ev.getData());
-            DataInputStream data = new DataInputStream(stream);
+            ByteArrayInputStream ins = new ByteArrayInputStream(ev.getData());
+            DataInputStream data = new DataInputStream(ins);
             String sc = data.readUTF();
             switch(sc) {
                 case "ChangeSkin": {
@@ -45,22 +41,22 @@ public class CKChannelListener implements Listener {
                     );
                     break;
                 case "RunServerCmdConsole": {
-                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    DataOutputStream out = new DataOutputStream(os);
                     String sv = data.readUTF();
                     out.writeUTF("RunServerCmdConsole");
                     out.writeUTF(data.readUTF());
-                    getInstance().getServerInfo(sv).sendData(CKPlugin.CHANNEL_NAMESPACE,
-                            out.toByteArray(), true);
+                    getInstance().getServerInfo(sv).sendData(CKPlugin.CHANNEL_NAMESPACE, os.toByteArray(), true);
                     break;
                 }
                 case "RunServerCmdPlayer": {
-                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    DataOutputStream out = new DataOutputStream(os);
                     String player = data.readUTF();
                     out.writeUTF("RunServerCmdPlayer");
                     out.writeUTF(player);
                     out.writeUTF(data.readUTF());
-                    getInstance().getPlayer(player).getServer().getInfo().sendData(CKPlugin.CHANNEL_NAMESPACE,
-                            out.toByteArray(), true);
+                    getInstance().getPlayer(player).getServer().getInfo().sendData(CKPlugin.CHANNEL_NAMESPACE, os.toByteArray(), true);
                     break;
                 }
             }
