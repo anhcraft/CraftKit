@@ -131,7 +131,7 @@ public class PlayerUtil {
     public static void freeze(@NotNull Player player){
         Condition.argNotNull("player", player);
         synchronized (FREEZE_LOCK) {
-            PlayerListener.freezedPlayers.put(player.getUniqueId(), player.getLocation());
+            PlayerListener.FREEZED_PLAYERS.put(player.getUniqueId(), player.getLocation());
         }
     }
 
@@ -142,7 +142,7 @@ public class PlayerUtil {
     public static void unfreeze(@Nullable Player player){
         if(player != null) {
             synchronized (FREEZE_LOCK) {
-                PlayerListener.freezedPlayers.remove(player.getUniqueId());
+                PlayerListener.FREEZED_PLAYERS.remove(player.getUniqueId());
             }
         }
     }

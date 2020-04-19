@@ -18,10 +18,10 @@ import java.util.UUID;
 
 public class PlayerListener implements Listener {
     private static final double DELTA_JUMP_HEIGHT = 0.33319999363422426;
-    public static final Map<UUID, Location> freezedPlayers = new HashMap<>();
+    public static final Map<UUID, Location> FREEZED_PLAYERS = new HashMap<>();
 
     private void checkFreeze(Player p, Location to, Cancellable e){
-        Location last = freezedPlayers.get(p.getUniqueId());
+        Location last = FREEZED_PLAYERS.get(p.getUniqueId());
         if(last != null) {
             double offX = to.getX() - last.getX();
             double offY = to.getY() - last.getY();
@@ -32,7 +32,9 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void quit(PlayerQuitEvent e){
-        ArmorHandleTask.data.remove(e.getPlayer().getUniqueId());
+        UUID id = e.getPlayer().getUniqueId();
+        ArmorHandleTask.data.remove(id);
+        FREEZED_PLAYERS.remove(id);
     }
 
     @EventHandler
