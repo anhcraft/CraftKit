@@ -4,6 +4,7 @@ import dev.anhcraft.craftkit.attribute.Attribute;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.attribute.Modifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
+import dev.anhcraft.craftkit.utils.MaterialUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -150,7 +151,7 @@ public class ABIF {
         item.amount(section.getInt(Key.AMOUNT, 1));
 
         String material = section.getString(Key.MATERIAL);
-        item.material(material == null ? Material.DIRT : Material.valueOf(material.toUpperCase()));
+        item.material(MaterialUtil.parse(material).orElse(Material.DIRT));
 
         item.damage((short) section.getInt(Key.DAMAGE));
         String name = section.getString(Key.NAME);
