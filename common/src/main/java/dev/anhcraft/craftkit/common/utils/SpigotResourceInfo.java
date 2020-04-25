@@ -27,6 +27,7 @@ public class SpigotResourceInfo {
                 root.get("id").getAsInt(),
                 root.get("title").getAsString(),
                 root.get("tag").getAsString(),
+                root.get("current_version").getAsString(),
                 author.get("id").getAsInt(),
                 author.get("username").getAsString(),
                 premium.get("price").getAsDouble(),
@@ -41,6 +42,7 @@ public class SpigotResourceInfo {
     private final int id;
     private final String title;
     private final String tag;
+    private final String currentVersion;
     private final int authorId;
     private final String authorName;
     private final double price;
@@ -50,10 +52,11 @@ public class SpigotResourceInfo {
     private final int reviewCount;
     private final double rating;
 
-    private SpigotResourceInfo(int id, @NotNull String title, @NotNull String tag, int authorId, @NotNull String authorName, double price, @NotNull String currency, int downloadCount, int updateCount, int reviewCount, double rating) {
+    private SpigotResourceInfo(int id, @NotNull String title, @NotNull String tag, @NotNull String currentVersion, int authorId, @NotNull String authorName, double price, @NotNull String currency, int downloadCount, int updateCount, int reviewCount, double rating) {
         this.id = id;
         this.title = title;
         this.tag = tag;
+        this.currentVersion = currentVersion;
         this.authorId = authorId;
         this.authorName = authorName;
         this.price = price;
@@ -88,6 +91,15 @@ public class SpigotResourceInfo {
     @NotNull
     public String getTag() {
         return tag;
+    }
+
+    /**
+     * Gets current version.
+     * @return latest plugin's version
+     */
+    @NotNull
+    public String getCurrentVersion() {
+        return currentVersion;
     }
 
     /**
