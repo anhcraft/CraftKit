@@ -1,6 +1,8 @@
 package dev.anhcraft.craftkit.internal;
 
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
+import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBBlockBackend;
 import dev.anhcraft.craftkit.chat.ActionBar;
 import dev.anhcraft.craftkit.chat.Chat;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
@@ -90,6 +92,11 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
 
         new Metrics(this, 6690);
+    }
+
+    @Override
+    public void onDisable() {
+        BackendManager.request(CBBlockBackend.class).orElseThrow(UnsupportedOperationException::new).stopThreadPool();
     }
 
     private void handleNMSLib() {
