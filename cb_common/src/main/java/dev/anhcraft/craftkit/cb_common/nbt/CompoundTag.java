@@ -155,12 +155,23 @@ public class CompoundTag extends NBTTag<Map<String, NBTTag>> implements Serializ
     }
 
     /**
-     * Saves this compound to the given block.
+     * Saves this compound to the given "tile-entity" block.
      * @param block the block
      */
     public void save(@NotNull Block block){
         Condition.argNotNull("block", block);
-        service.save(block);
+        service.save(block, true);
+    }
+
+    /**
+     * Saves this compound to the given "tile-entity" block.
+     * @param block the block
+     * @param replace should we replace the existing one
+     */
+    public void save(@NotNull Block block, boolean replace){
+        Condition.argNotNull("block", block);
+        Condition.argNotNull("replace", replace);
+        service.save(block, replace);
     }
 
     /**

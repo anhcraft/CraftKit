@@ -146,10 +146,16 @@ public class NBTBackend extends CBModule implements CBNBTBackend {
     }
 
     @Override
-    public void save(Block block) {
+    public void save(Block block, boolean replace) {
         CraftWorld craftWorld = (CraftWorld) block.getWorld();
-        TileEntity tileEntity = craftWorld.getTileEntityAt(block.getX(), block.getY(), block.getZ());
-        if(tileEntity != null) tileEntity.load(root);
+        if(replace) {
+            craftWorld.getHandle().setTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()), TileEntity.create(craftWorld.getHandle(), root));
+        } else {
+            TileEntity tileEntity = craftWorld.getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+            if (tileEntity != null) {
+                tileEntity.load(root);
+            }
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public interface CBNBTBackend extends IBackend {
     void save(CompoundTag root);
     ItemStack save(ItemStack item);
     void save(@IsNMS Object entity);
-    void save(Block block);
+    void save(Block block, boolean replace);
     void save(DataOutput dataOutput);
     void save(OutputStream outputStream);
     int size();
