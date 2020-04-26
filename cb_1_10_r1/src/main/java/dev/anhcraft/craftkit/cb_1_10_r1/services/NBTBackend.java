@@ -6,6 +6,7 @@ import dev.anhcraft.craftkit.cb_common.nbt.*;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
@@ -96,8 +97,8 @@ public class NBTBackend extends CBModule implements CBNBTBackend {
     }
 
     @Override
-    public void load(Object entity) {
-        ((Entity) entity).c(root);
+    public void load(org.bukkit.entity.Entity entity) {
+        ((CraftEntity) entity).getHandle().c(root);
     }
 
     @Override
@@ -138,8 +139,8 @@ public class NBTBackend extends CBModule implements CBNBTBackend {
     }
 
     @Override
-    public void save(Object entity) {
-        ((Entity) entity).f(root);
+    public void save(org.bukkit.entity.Entity entity) {
+        ((CraftEntity) entity).getHandle().f(root);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package dev.anhcraft.craftkit.cb_common.internal.backend;
 
-import dev.anhcraft.craftkit.cb_common.internal.annotation.IsNMS;
 import dev.anhcraft.craftkit.cb_common.nbt.CompoundTag;
 import dev.anhcraft.craftkit.cb_common.nbt.NBTTag;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.DataInput;
@@ -18,13 +18,13 @@ public interface CBNBTBackend extends IBackend {
     void remove(String key);
     void load(CompoundTag root);
     void load(ItemStack item);
-    void load(@IsNMS Object entity);
+    void load(Entity entity);
     void load(Block block);
     void load(DataInput dataInput);
     void load(InputStream inputStream);
     void save(CompoundTag root);
     ItemStack save(ItemStack item);
-    void save(@IsNMS Object entity);
+    void save(Entity entity);
     void save(Block block, boolean replace);
     void save(DataOutput dataOutput);
     void save(OutputStream outputStream);
