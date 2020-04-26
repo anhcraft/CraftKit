@@ -1,4 +1,4 @@
-package dev.anhcraft.craftkit.utils;
+package dev.anhcraft.craftkit.common.utils;
 
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import org.jetbrains.annotations.NotNull;
