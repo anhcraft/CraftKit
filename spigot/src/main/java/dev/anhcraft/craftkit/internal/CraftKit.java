@@ -67,7 +67,7 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
     @Override
     public void onEnable() {
         // check updates
-        checkUpdate(CKPlugin.SPIGOT_RESOURCE_ID);
+        checkUpdate();
 
         // register listeners
         INFO_CHAT.messageConsole("Registering internal listeners...");

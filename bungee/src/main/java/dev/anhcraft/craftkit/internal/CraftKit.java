@@ -37,7 +37,7 @@ public final class CraftKit extends Plugin implements CKPlugin {
         }
 
         // check updates
-        checkUpdate(CKPlugin.BUNGEE_RESOURCE_ID);
+        checkUpdate();
 
         // register listeners
         INFO_CHAT.messageConsole("Registering internal listeners...");
