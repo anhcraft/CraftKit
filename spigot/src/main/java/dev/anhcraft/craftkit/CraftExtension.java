@@ -7,6 +7,7 @@ import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
 import dev.anhcraft.craftkit.common.ICraftExtension;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
+import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.craftkit.entity.CustomEntity;
 import dev.anhcraft.craftkit.entity.TrackedEntity;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
@@ -48,8 +49,9 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     public static CraftExtension of(@NotNull Class<? extends JavaPlugin> mainClass){
         Condition.argNotNull("mainClass", mainClass);
         Condition.check(Bukkit.isPrimaryThread(), "Async catch! Require calling from main thread!");
-        Condition.check(!CraftKit.class.isAssignableFrom(mainClass), "Can't get CraftExtension from CraftKit");
-
+        if(CraftKit.class.isAssignableFrom(mainClass)) {
+            Supervisor.checkAccess();
+        }
         CraftExtension ext = REGISTRY.get(mainClass);
         if(ext == null){
             ext = new CraftExtension(JavaPlugin.getPlugin(mainClass));
