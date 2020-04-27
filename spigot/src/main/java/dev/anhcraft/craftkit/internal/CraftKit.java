@@ -1,5 +1,6 @@
 package dev.anhcraft.craftkit.internal;
 
+import co.aikar.commands.PaperCommandManager;
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.craftkit.cb_common.internal.backend.CBBlockBackend;
@@ -8,6 +9,7 @@ import dev.anhcraft.craftkit.chat.Chat;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.craftkit.common.internal.CKPlugin;
 import dev.anhcraft.craftkit.common.internal.CKProvider;
+import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
 import dev.anhcraft.craftkit.internal.integrations.PluginProvider;
 import dev.anhcraft.craftkit.internal.integrations.VaultIntegration;
@@ -22,6 +24,7 @@ import dev.anhcraft.jvmkit.utils.JarUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +94,10 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         INFO_CHAT.messageConsole("Starting tasks...");
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
 
+        PaperCommandManager pcm = new PaperCommandManager(this);
+        pcm.registerCommand(new CKCommand());
+        pcm.enableUnstableAPI("help");
+
         new Metrics(this, 6690);
     }
 
@@ -120,5 +127,12 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
             return;
         }
         DEFAULT_CHAT.messageConsole("Loaded library: "+ nmsFile.getName());
+    }
+
+    @Deprecated
+    @NotNull
+    public URLClassLoader getURLClassLoader(){
+        Supervisor.checkAccess();
+        return (URLClassLoader) getClassLoader();
     }
 }
