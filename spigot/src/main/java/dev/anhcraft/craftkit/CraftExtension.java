@@ -29,6 +29,7 @@ import java.util.*;
  */
 public class CraftExtension implements ICraftExtension<JavaPlugin> {
     private static final CBAnvilBackend SERVICE_1 = BackendManager.request(CBAnvilBackend.class).orElseThrow(UnsupportedOperationException::new);
+    private static final Object LOCK = new Object();
     private static final Map<Class<? extends JavaPlugin>, CraftExtension> REGISTRY = new WeakHashMap<>();
 
     /**
@@ -49,14 +50,15 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     @NotNull
     public static CraftExtension of(@NotNull Class<? extends JavaPlugin> mainClass){
         Condition.argNotNull("mainClass", mainClass);
-        Condition.check(Bukkit.isPrimaryThread(), "Async catch! Require calling from main thread!");
         if(CraftKit.class.isAssignableFrom(mainClass)) {
             Supervisor.checkAccess();
         }
         CraftExtension ext = REGISTRY.get(mainClass);
         if(ext == null){
-            ext = new CraftExtension(JavaPlugin.getPlugin(mainClass));
-            REGISTRY.put(mainClass, ext);
+            synchronized (LOCK) {
+                ext = new CraftExtension(JavaPlugin.getPlugin(mainClass));
+                REGISTRY.put(mainClass, ext);
+            }
         }
         return ext;
     }
