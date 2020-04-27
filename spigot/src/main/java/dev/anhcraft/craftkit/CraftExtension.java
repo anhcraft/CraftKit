@@ -8,6 +8,7 @@ import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
 import dev.anhcraft.craftkit.common.ICraftExtension;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.craftkit.common.internal.Supervisor;
+import dev.anhcraft.craftkit.common.utils.VersionUtil;
 import dev.anhcraft.craftkit.entity.CustomEntity;
 import dev.anhcraft.craftkit.entity.TrackedEntity;
 import dev.anhcraft.craftkit.helpers.TaskHelper;
@@ -85,10 +86,8 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
      * @param minimum the minimum version (e.g: 1.0.1)
      */
     public void requireAtLeastVersion(String minimum) {
-        int i = minimum.chars().sum();
-        int j = CKInfo.getPluginVersion().chars().sum();
-        if(j < i) {
-            throw new UnsupportedOperationException("Require at least v"+minimum+"; current: "+CKInfo.getPluginVersion());
+        if(VersionUtil.compareVersion(CKInfo.getPluginVersion(), minimum) < 0) {
+            throw new UnsupportedOperationException("Require CraftKit v"+minimum+" or newer; current: "+CKInfo.getPluginVersion());
         }
     }
 
@@ -98,10 +97,8 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
      * @param exact the exact version (e.g: 1.0.1)
      */
     public void requireExactVersion(String exact) {
-        int i = exact.chars().sum();
-        int j = CKInfo.getPluginVersion().chars().sum();
-        if(j != i) {
-            throw new UnsupportedOperationException("Require v"+exact+"; current: "+CKInfo.getPluginVersion());
+        if(VersionUtil.compareVersion(CKInfo.getPluginVersion(), exact) != 0) {
+            throw new UnsupportedOperationException("Require CraftKit v"+exact+"; current: "+CKInfo.getPluginVersion());
         }
     }
 
