@@ -32,6 +32,7 @@ public class CKCommand extends BaseCommand {
 
     @Subcommand("dev test")
     @Description("Run in-game tests")
+    @CommandPermission("ck.dev.test")
     public void devTest(Player player) {
         new TestChain(player, chain -> {
             if(chain.isSuccess() && chain.isFinished()) {
@@ -44,6 +45,7 @@ public class CKCommand extends BaseCommand {
 
     @Subcommand("dev load-jar")
     @Description("Load library jar")
+    @CommandPermission("ck.dev.load-jar")
     public void devLoadJar(Player player, String file) {
         File f = new File(CraftKit.libDir, file + ".jar");
         if(!f.exists()) {
