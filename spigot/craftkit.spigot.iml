@@ -77,13 +77,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-api:2.8.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-core:2.8.1" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-paper:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:acf-bukkit:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:acf-core:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:Table:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:DelegatingMap:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:locales:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: net.jodah:expiringmap:0.5.8" level="project" />
-    <orderEntry type="library" name="Maven: co.aikar:minecraft-timings:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.bukkit:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: dev.anhcraft:confighelper.common:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:18.0.0" level="project" />
