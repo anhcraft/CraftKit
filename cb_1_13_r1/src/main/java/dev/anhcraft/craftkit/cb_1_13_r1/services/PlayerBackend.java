@@ -39,7 +39,7 @@ public class PlayerBackend extends CBModule implements CBPlayerBackend {
 
     @Override
     public void setProfile(Player player, GameProfile profile) {
-        ReflectionUtil.setDeclaredField(EntityHuman.class, ((CraftPlayer) player).getHandle(), "bS", profile);
+        ReflectionUtil.setDeclaredField(EntityHuman.class, ((CraftPlayer) player).getHandle(), "h", profile);
     }
 
     @Override
