@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/cb_1_15_r1/cb_1_15_r1.iml" filepath="$PROJECT_DIR$/cb_1_15_r1/cb_1_15_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/bungee/craftkit.bungee.iml" filepath="$PROJECT_DIR$/bungee/craftkit.bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_10_r1/craftkit.cb_1_10_r1.iml" filepath="$PROJECT_DIR$/cb_1_10_r1/craftkit.cb_1_10_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_11_r1/craftkit.cb_1_11_r1.iml" filepath="$PROJECT_DIR$/cb_1_11_r1/craftkit.cb_1_11_r1.iml" />
@@ -10,6 +9,8 @@
       <module fileurl="file://$PROJECT_DIR$/cb_1_13_r1/craftkit.cb_1_13_r1.iml" filepath="$PROJECT_DIR$/cb_1_13_r1/craftkit.cb_1_13_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_13_r2/craftkit.cb_1_13_r2.iml" filepath="$PROJECT_DIR$/cb_1_13_r2/craftkit.cb_1_13_r2.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_14_r1/craftkit.cb_1_14_r1.iml" filepath="$PROJECT_DIR$/cb_1_14_r1/craftkit.cb_1_14_r1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cb_1_15_r1/craftkit.cb_1_15_r1.iml" filepath="$PROJECT_DIR$/cb_1_15_r1/craftkit.cb_1_15_r1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cb_1_16_r1/craftkit.cb_1_16_r1.iml" filepath="$PROJECT_DIR$/cb_1_16_r1/craftkit.cb_1_16_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_9_r2/craftkit.cb_1_9_r2.iml" filepath="$PROJECT_DIR$/cb_1_9_r2/craftkit.cb_1_9_r2.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_common/craftkit.cb_common.iml" filepath="$PROJECT_DIR$/cb_common/craftkit.cb_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/craftkit.common.iml" filepath="$PROJECT_DIR$/common/craftkit.common.iml" />

@@ -130,6 +130,10 @@ public class MaterialUtil {
         LEGACY.put("LOG", 1, "SPRUCE_LOG");
         LEGACY.put("LOG", 2, "BIRCH_LOG");
         LEGACY.put("LOG", 3, "JUNGLE_LOG");
+        LEGACY.put("LOG", 12, "OAK_WOOD");
+        LEGACY.put("LOG", 13, "SPRUCE_WOOD");
+        LEGACY.put("LOG", 14, "BIRCH_WOOD");
+        LEGACY.put("LOG", 15, "JUNGLE_WOOD");
         LEGACY.put("LEAVES", 0, "OAK_LEAVES");
         LEGACY.put("LEAVES", 1, "SPRUCE_LEAVES");
         LEGACY.put("LEAVES", 2, "BIRCH_LEAVES");
@@ -186,7 +190,7 @@ public class MaterialUtil {
         LEGACY.put("RED_MUSHROOM", 0, "RED_MUSHROOM");
         LEGACY.put("GOLD_BLOCK", 0, "GOLD_BLOCK");
         LEGACY.put("IRON_BLOCK", 0, "IRON_BLOCK");
-        LEGACY.put("DOUBLE_STEP", 0, "STONE_SLAB");
+        LEGACY.put("DOUBLE_STEP", 0, "SMOOTH_STONE_SLAB");
         LEGACY.put("DOUBLE_STEP", 1, "SANDSTONE_SLAB");
         LEGACY.put("DOUBLE_STEP", 2, "PETRIFIED_OAK_SLAB");
         LEGACY.put("DOUBLE_STEP", 3, "COBBLESTONE_SLAB");
@@ -197,7 +201,7 @@ public class MaterialUtil {
         LEGACY.put("DOUBLE_STEP", 8, "SMOOTH_STONE");
         LEGACY.put("DOUBLE_STEP", 9, "SMOOTH_SANDSTONE");
         LEGACY.put("DOUBLE_STEP", 15, "SMOOTH_QUARTZ");
-        LEGACY.put("STEP", 0, "STONE_SLAB");
+        LEGACY.put("STEP", 0, "SMOOTH_STONE_SLAB");
         LEGACY.put("STEP", 1, "SANDSTONE_SLAB");
         LEGACY.put("STEP", 2, "PETRIFIED_OAK_SLAB");
         LEGACY.put("STEP", 3, "COBBLESTONE_SLAB");
@@ -229,6 +233,7 @@ public class MaterialUtil {
         LEGACY.put("LADDER", 0, "LADDER");
         LEGACY.put("RAILS", 0, "RAIL");
         LEGACY.put("COBBLESTONE_STAIRS", 0, "COBBLESTONE_STAIRS");
+        LEGACY.put("WALL_SIGN", 0, "OAK_WALL_SIGN");
         LEGACY.put("LEVER", 0, "LEVER");
         LEGACY.put("STONE_PLATE", 0, "STONE_PRESSURE_PLATE");
         LEGACY.put("IRON_DOOR_BLOCK", 0, "IRON_DOOR");
@@ -396,6 +401,8 @@ public class MaterialUtil {
         LEGACY.put("LEAVES_2", 1, "DARK_OAK_LEAVES");
         LEGACY.put("LOG_2", 0, "ACACIA_LOG");
         LEGACY.put("LOG_2", 1, "DARK_OAK_LOG");
+        LEGACY.put("LOG_2", 12, "ACACIA_WOOD");
+        LEGACY.put("LOG_2", 13, "DARK_OAK_WOOD");
         LEGACY.put("ACACIA_STAIRS", 0, "ACACIA_STAIRS");
         LEGACY.put("DARK_OAK_STAIRS", 0, "DARK_OAK_STAIRS");
         LEGACY.put("SLIME_BLOCK", 0, "SLIME_BLOCK");
@@ -487,7 +494,7 @@ public class MaterialUtil {
         LEGACY.put("GRAY_SHULKER_BOX", 0, "GRAY_SHULKER_BOX");
         LEGACY.put("SILVER_SHULKER_BOX", 0, "LIGHT_GRAY_SHULKER_BOX");
         LEGACY.put("CYAN_SHULKER_BOX", 0, "CYAN_SHULKER_BOX");
-        LEGACY.put("PURPLE_SHULKER_BOX", 0, "PURPLE_SHULKER_BOX");
+        LEGACY.put("PURPLE_SHULKER_BOX", 0, "PURPLE_SHULKER_BOX"); // not sure why the generated one is SHULKER_BOX
         LEGACY.put("BLUE_SHULKER_BOX", 0, "BLUE_SHULKER_BOX");
         LEGACY.put("BROWN_SHULKER_BOX", 0, "BROWN_SHULKER_BOX");
         LEGACY.put("GREEN_SHULKER_BOX", 0, "GREEN_SHULKER_BOX");
@@ -723,7 +730,7 @@ public class MaterialUtil {
         LEGACY.put("MONSTER_EGG", 54, "ZOMBIE_SPAWN_EGG");
         LEGACY.put("MONSTER_EGG", 55, "SLIME_SPAWN_EGG");
         LEGACY.put("MONSTER_EGG", 56, "GHAST_SPAWN_EGG");
-        LEGACY.put("MONSTER_EGG", 57, "ZOMBIE_PIGMAN_SPAWN_EGG");
+        LEGACY.put("MONSTER_EGG", 57, "ZOMBIFIED_PIGLIN_SPAWN_EGG");
         LEGACY.put("MONSTER_EGG", 58, "ENDERMAN_SPAWN_EGG");
         LEGACY.put("MONSTER_EGG", 59, "CAVE_SPIDER_SPAWN_EGG");
         LEGACY.put("MONSTER_EGG", 60, "SILVERFISH_SPAWN_EGG");
