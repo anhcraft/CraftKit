@@ -97,6 +97,7 @@ public class ABIF {
         registerEnchant("multishot", "MULTISHOT");
         registerEnchant("quick charge", "QUICK_CHARGE");
         registerEnchant("piercing", "PIERCING");
+        registerEnchant("soul speed", "SOUL_SPEED");
     }
 
     private static void registerEnchant(String encName, String enumName){
