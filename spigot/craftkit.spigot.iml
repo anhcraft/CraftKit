@@ -66,7 +66,7 @@
     <orderEntry type="module" module-name="craftkit.cb_1_13_r1" scope="PROVIDED" />
     <orderEntry type="module" module-name="craftkit.cb_1_13_r2" scope="PROVIDED" />
     <orderEntry type="module" module-name="craftkit.cb_1_14_r1" scope="PROVIDED" />
-    <orderEntry type="module" module-name="craftkit.cb_1_16_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_15_r1" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.milkbowl.vault:VaultAPI:1.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.13.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.mojang:authlib:1.5.25" level="project" />
