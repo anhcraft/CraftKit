@@ -23,7 +23,8 @@ public class TestChain {
         tests = ImmutableList.of(
                 new InventoryTest1(),
                 new InventoryTest2(),
-                new AsyncBlockTest()
+                new AsyncBlockTest(),
+                new NBTTest()
         );
         runNext();
     }
