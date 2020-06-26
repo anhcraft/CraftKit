@@ -8,6 +8,7 @@ import dev.anhcraft.craftkit.chat.Chat;
 import dev.anhcraft.craftkit.common.internal.CKInfo;
 import dev.anhcraft.craftkit.internal.tests.TestChain;
 import dev.anhcraft.jvmkit.utils.JarUtil;
+import dev.anhcraft.jvmkit.utils.ObjectUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -39,6 +40,7 @@ public class CKCommand extends BaseCommand {
                 CraftKit.INFO_CHAT.message(chain.getPlayer(), "All tests passed!");
             } else {
                 CraftKit.WARN_CHAT.message(chain.getPlayer(), "Test failed: &f" + chain.getCurrentTest());
+                CraftKit.WARN_CHAT.message(chain.getPlayer(), "Reason: &f" + ObjectUtil.optional(chain.getError(), "unknown"));
             }
         });
     }
