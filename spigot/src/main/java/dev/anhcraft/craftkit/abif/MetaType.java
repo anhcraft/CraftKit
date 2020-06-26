@@ -1,21 +1,21 @@
 package dev.anhcraft.craftkit.abif;
 
+import dev.anhcraft.jvmkit.utils.ObjectUtil;
 import org.bukkit.Color;
 import org.bukkit.inventory.meta.*;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
+import java.util.ArrayList;
 import java.util.function.BiConsumer;
 
 public enum MetaType {
     POTION((i, im) -> {
         PotionMeta m = (PotionMeta) im;
         PotionData pd = m.getBasePotionData();
-        if (pd != null) {
-            i.potionType(pd.getType());
-            i.potionExtended(pd.isExtended());
-            i.potionUpgraded(pd.isUpgraded());
-        }
+        i.potionType(pd.getType());
+        i.potionExtended(pd.isExtended());
+        i.potionUpgraded(pd.isUpgraded());
     }, (i, im) -> {
         PotionMeta m = (PotionMeta) im;
         PotionType pt = i.potionType();
@@ -31,11 +31,9 @@ public enum MetaType {
     LEADER((i, im) -> {
         LeatherArmorMeta m = (LeatherArmorMeta) im;
         Color c = m.getColor();
-        if (c != null) {
-            i.leatherColorRed(c.getRed());
-            i.leatherColorGreen(c.getGreen());
-            i.leatherColorBlue(c.getBlue());
-        }
+        i.leatherColorRed(c.getRed());
+        i.leatherColorGreen(c.getGreen());
+        i.leatherColorBlue(c.getBlue());
     }, (i, im) -> {
         LeatherArmorMeta m = (LeatherArmorMeta) im;
         m.setColor(Color.fromRGB(
@@ -62,7 +60,7 @@ public enum MetaType {
         m.setTitle(i.bookTitle());
         m.setAuthor(i.bookAuthor());
         m.setGeneration(i.bookGeneration());
-        m.setPages(i.bookPages());
+        m.setPages(ObjectUtil.optional(i.bookPages(), new ArrayList<>()));
     });
 
     private final BiConsumer<PreparedItem, ItemMeta> onLoad;
