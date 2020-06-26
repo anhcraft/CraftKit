@@ -14,20 +14,31 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PlayerListener implements Listener {
     private static final double DELTA_JUMP_HEIGHT = 0.33319999363422426;
     public static final Map<UUID, Location> FREEZED_PLAYERS = new HashMap<>();
 
-    private void checkFreeze(Player p, Location to, Cancellable e){
+    private boolean checkFreeze(Player p, Location to, Cancellable e){
+        if(to == null || to.getWorld() == null) return true;
         Location last = FREEZED_PLAYERS.get(p.getUniqueId());
         if(last != null) {
-            double offX = to.getX() - last.getX();
-            double offY = to.getY() - last.getY();
-            double offZ = to.getZ() - last.getZ();
-            if (offX * offX + offY * offY + offZ * offZ >= 1) e.setCancelled(true);
+            if(Objects.equals(last.getWorld(), to.getWorld())) {
+                double offX = to.getX() - last.getX();
+                double offY = to.getY() - last.getY();
+                double offZ = to.getZ() - last.getZ();
+                if (offX * offX + offY * offY + offZ * offZ >= 1) {
+                    e.setCancelled(true);
+                    return false;
+                }
+            } else {
+                e.setCancelled(true);
+                return false;
+            }
         }
+        return true;
     }
 
     @EventHandler
@@ -39,17 +50,21 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void teleport(PlayerTeleportEvent e){
-        checkFreeze(e.getPlayer(), e.getTo(), e);
+        if(!checkFreeze(e.getPlayer(), e.getTo(), e)){
+            e.setTo(e.getFrom());
+        }
     }
 
     @EventHandler
-    public void move(PlayerMoveEvent e){
+    public void move(PlayerMoveEvent e) {
         checkFreeze(e.getPlayer(), e.getTo(), e);
-        double a = e.getTo().getY() - e.getFrom().getY();
-        if(a == DELTA_JUMP_HEIGHT) {
-            PlayerJumpEvent ev = new PlayerJumpEvent(e.getPlayer(),
-                    e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ());
-            Bukkit.getPluginManager().callEvent(ev);
+        if (e.getTo() != null) {
+            double a = e.getTo().getY() - e.getFrom().getY();
+            if (a == DELTA_JUMP_HEIGHT) {
+                PlayerJumpEvent ev = new PlayerJumpEvent(e.getPlayer(),
+                        e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ());
+                Bukkit.getPluginManager().callEvent(ev);
+            }
         }
     }
 }
