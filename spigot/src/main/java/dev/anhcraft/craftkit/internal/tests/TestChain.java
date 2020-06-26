@@ -24,7 +24,8 @@ public class TestChain {
                 new InventoryTest1(),
                 new InventoryTest2(),
                 new AsyncBlockTest(),
-                new NBTTest()
+                new NBTTest(),
+                new PreparedItemTest()
         );
         runNext();
     }
