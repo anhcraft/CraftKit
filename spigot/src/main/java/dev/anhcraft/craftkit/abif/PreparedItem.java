@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit.abif;
 
 import dev.anhcraft.confighelper.ConfigHelper;
 import dev.anhcraft.confighelper.ConfigSchema;
+import dev.anhcraft.confighelper.EntryFilter;
 import dev.anhcraft.confighelper.annotation.*;
 import dev.anhcraft.confighelper.exception.InvalidValueException;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
@@ -25,11 +26,12 @@ import java.util.*;
 import static dev.anhcraft.craftkit.abif.ABIF.Key.*;
 
 /**
- * An object which holds all data of an {@link ItemStack}.<br>
- * This object is used during complex item-making works. It provides a method to get the final result as an {@link ItemStack}. It can also be serialized to store.<br>
- * Currently, {@link PreparedItem} does not support custom NBT tags.
- *
- * This is the clone of ABIF (https://github.com/anhcraft/ABIF/) which brings multi-version support.
+ * A prepared item stack that offers following features:<br>
+ * <ul>
+ *     <li>Easy to build</li>
+ *     <li>Can be serialized as string</li>
+ *     <li>Readable for most people</li>
+ * </ul>
  */
 @Schema
 @Example({
@@ -69,6 +71,7 @@ import static dev.anhcraft.craftkit.abif.ABIF.Key.*;
 public class PreparedItem implements Serializable {
     public static final ConfigSchema<PreparedItem> SCHEMA = ConfigSchema.of(PreparedItem.class);
     private static final long serialVersionUID = 7808305902298157946L;
+    private static final EntryFilter ENTRY_FILTER = ConfigHelper.newOptions().ignoreZero().ignoreEmptySection().ignoreEmptyArray().ignoreEmptyList();
 
     @Key(MATERIAL)
     @Explanation("The material that make up this item")
@@ -244,6 +247,17 @@ public class PreparedItem implements Serializable {
         }
 
         return pi;
+    }
+
+    /**
+     * Makes a {@link PreparedItem} from the given {@link ConfigurationSection}
+     * @param section configuration section
+     * @return {@link PreparedItem}
+     * @throws InvalidValueException if having issues from the configuration
+     */
+    @NotNull
+    public static PreparedItem of(@NotNull ConfigurationSection section) throws InvalidValueException {
+        return ConfigHelper.readConfig(section, PreparedItem.SCHEMA, new PreparedItem());
     }
 
     @NotNull
@@ -547,6 +561,18 @@ public class PreparedItem implements Serializable {
         pi.bookAuthor = bookAuthor;
         pi.bookGeneration = bookGeneration;
         return pi;
+    }
+
+    /**
+     * Saves this item to configuration.
+     * @param conf the configuration
+     * @param <T> data type
+     * @return configuration
+     */
+    @NotNull
+    public <T extends ConfigurationSection> T saveTo(@NotNull T conf){
+        ConfigHelper.writeConfig(conf, PreparedItem.SCHEMA, this, ENTRY_FILTER);
+        return conf;
     }
 
     @Middleware(Middleware.Direction.CONFIG_TO_SCHEMA)
