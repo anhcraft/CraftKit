@@ -4,6 +4,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.jvmkit.utils.EnumUtil;
+import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
@@ -1455,89 +1456,89 @@ public class MaterialUtil {
 			HOE_TYPES.add(Material.valueOf("WOODEN_HOE"));
         } else {
             // SKULL
-            SKULL_TYPES.add(Material.SKULL);
-            SKULL_TYPES.add(Material.SKULL_ITEM);
+            SKULL_TYPES.add(Material.valueOf("SKULL"));
+            SKULL_TYPES.add(Material.valueOf("SKULL_ITEM"));
 
             // ORE
-            ORE_TYPES.add(Material.GLOWING_REDSTONE_ORE);
-            ORE_TYPES.add(Material.QUARTZ_ORE);
+            ORE_TYPES.add(Material.valueOf("GLOWING_REDSTONE_ORE"));
+            ORE_TYPES.add(Material.valueOf("QUARTZ_ORE"));
 
             // BOAT
-            BOAT_TYPES.add(Material.BOAT_SPRUCE);
-            BOAT_TYPES.add(Material.BOAT_BIRCH);
-            BOAT_TYPES.add(Material.BOAT_JUNGLE);
-            BOAT_TYPES.add(Material.BOAT_ACACIA);
-            BOAT_TYPES.add(Material.BOAT_DARK_OAK);
-            BOAT_TYPES.add(Material.BOAT);
+            BOAT_TYPES.add(Material.valueOf("BOAT_SPRUCE"));
+            BOAT_TYPES.add(Material.valueOf("BOAT_BIRCH"));
+            BOAT_TYPES.add(Material.valueOf("BOAT_JUNGLE"));
+            BOAT_TYPES.add(Material.valueOf("BOAT_ACACIA"));
+            BOAT_TYPES.add(Material.valueOf("BOAT_DARK_OAK"));
+            BOAT_TYPES.add(Material.valueOf("BOAT"));
 
             // BUTTON
-            BUTTON_TYPES.add(Material.STONE_BUTTON);
-            BUTTON_TYPES.add(Material.WOOD_BUTTON);
+            BUTTON_TYPES.add(Material.valueOf("STONE_BUTTON"));
+            BUTTON_TYPES.add(Material.valueOf("WOOD_BUTTON"));
 
             // DOOR
-            DOOR_TYPES.add(Material.WOODEN_DOOR);
-            DOOR_TYPES.add(Material.WOOD_DOOR);
+            DOOR_TYPES.add(Material.valueOf("WOODEN_DOOR"));
+            DOOR_TYPES.add(Material.valueOf("WOOD_DOOR"));
 
             // FENCE
-            FENCE_TYPES.add(Material.FENCE);
-            FENCE_TYPES.add(Material.IRON_FENCE);
-            FENCE_TYPES.add(Material.NETHER_FENCE);
+            FENCE_TYPES.add(Material.valueOf("FENCE"));
+            FENCE_TYPES.add(Material.valueOf("IRON_FENCE"));
+            FENCE_TYPES.add(Material.valueOf("NETHER_FENCE"));
 
             // FENCE_GATE
-            FENCE_GATE_TYPES.add(Material.FENCE_GATE);
+            FENCE_GATE_TYPES.add(Material.valueOf("FENCE_GATE"));
 
             // LEAVES
-            LEAVES_TYPES.add(Material.LEAVES);
-            LEAVES_TYPES.add(Material.LEAVES_2);
+            LEAVES_TYPES.add(Material.valueOf("LEAVES"));
+            LEAVES_TYPES.add(Material.valueOf("LEAVES_2"));
 
             // LOG
-            LOG_TYPES.add(Material.LOG);
-            LOG_TYPES.add(Material.LOG_2);
+            LOG_TYPES.add(Material.valueOf("LOG"));
+            LOG_TYPES.add(Material.valueOf("LOG_2"));
 
             // PRESSURE_PLATE
-            PRESSURE_PLATE_TYPES.add(Material.IRON_PLATE);
-            PRESSURE_PLATE_TYPES.add(Material.GOLD_PLATE);
-            PRESSURE_PLATE_TYPES.add(Material.STONE_PLATE);
-            PRESSURE_PLATE_TYPES.add(Material.WOOD_PLATE);
+            PRESSURE_PLATE_TYPES.add(Material.valueOf("IRON_PLATE"));
+            PRESSURE_PLATE_TYPES.add(Material.valueOf("GOLD_PLATE"));
+            PRESSURE_PLATE_TYPES.add(Material.valueOf("STONE_PLATE"));
+            PRESSURE_PLATE_TYPES.add(Material.valueOf("WOOD_PLATE"));
 
             // SAPLING
-            SAPLING_TYPES.add(Material.SAPLING);
+            SAPLING_TYPES.add(Material.valueOf("SAPLING"));
 
             // SLAB
             if(NMSVersion.current().compare(NMSVersion.v1_9_R2) >= 0) {
-                SLAB_TYPES.add(Material.PURPUR_DOUBLE_SLAB);
-                SLAB_TYPES.add(Material.PURPUR_SLAB);
+                SLAB_TYPES.add(Material.valueOf("PURPUR_DOUBLE_SLAB"));
+                SLAB_TYPES.add(Material.valueOf("PURPUR_SLAB"));
             }
-			SLAB_TYPES.add(Material.DOUBLE_STONE_SLAB2);
-            SLAB_TYPES.add(Material.STONE_SLAB2);
-            SLAB_TYPES.add(Material.STEP);
+			SLAB_TYPES.add(Material.valueOf("DOUBLE_STONE_SLAB2"));
+            SLAB_TYPES.add(Material.valueOf("STONE_SLAB2"));
+            SLAB_TYPES.add(Material.valueOf("STEP"));
 
             // STAIRS
-            STAIRS_TYPES.add(Material.WOOD_STAIRS);
-            STAIRS_TYPES.add(Material.SMOOTH_STAIRS);
-            STAIRS_TYPES.add(Material.NETHER_BRICK_STAIRS);
-            STAIRS_TYPES.add(Material.SPRUCE_WOOD_STAIRS);
-            STAIRS_TYPES.add(Material.BIRCH_WOOD_STAIRS);
-            STAIRS_TYPES.add(Material.JUNGLE_WOOD_STAIRS);
+            STAIRS_TYPES.add(Material.valueOf("WOOD_STAIRS"));
+            STAIRS_TYPES.add(Material.valueOf("SMOOTH_STAIRS"));
+            STAIRS_TYPES.add(Material.valueOf("NETHER_BRICK_STAIRS"));
+            STAIRS_TYPES.add(Material.valueOf("SPRUCE_WOOD_STAIRS"));
+            STAIRS_TYPES.add(Material.valueOf("BIRCH_WOOD_STAIRS"));
+            STAIRS_TYPES.add(Material.valueOf("JUNGLE_WOOD_STAIRS"));
 
             // TRAPDOOR
-            TRAPDOOR_TYPES.add(Material.TRAP_DOOR);
-            TRAPDOOR_TYPES.add(Material.IRON_TRAPDOOR);
+            TRAPDOOR_TYPES.add(Material.valueOf("TRAP_DOOR"));
+            TRAPDOOR_TYPES.add(Material.valueOf("IRON_TRAPDOOR"));
 			
             // WOOD
-            WOOD_TYPES.add(Material.WOOD);
+            WOOD_TYPES.add(Material.valueOf("WOOD"));
 
             // BANNER
-            BANNER_TYPES.add(Material.STANDING_BANNER);
-            BANNER_TYPES.add(Material.WALL_BANNER);
-            BANNER_TYPES.add(Material.BANNER);
+            BANNER_TYPES.add(Material.valueOf("STANDING_BANNER"));
+            BANNER_TYPES.add(Material.valueOf("WALL_BANNER"));
+            BANNER_TYPES.add(Material.valueOf("BANNER"));
 
             // BED
-            BED_TYPES.add(Material.BED_BLOCK);
-            BED_TYPES.add(Material.BED);
+            BED_TYPES.add(Material.valueOf("BED_BLOCK"));
+            BED_TYPES.add(Material.valueOf("BED"));
 
             // CARPET
-            CARPET_TYPES.add(Material.CARPET);
+            CARPET_TYPES.add(Material.valueOf("CARPET"));
 
             if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0) {
                 // CONCRETE
@@ -1548,109 +1549,109 @@ public class MaterialUtil {
             }
 
             // STAINED_GLASS
-            STAINED_GLASS_TYPES.add(Material.STAINED_GLASS);
+            STAINED_GLASS_TYPES.add(Material.valueOf("STAINED_GLASS"));
 
             // STAINED_GLASS_PANE
-            STAINED_GLASS_PANE_TYPES.add(Material.STAINED_GLASS_PANE);
+            STAINED_GLASS_PANE_TYPES.add(Material.valueOf("STAINED_GLASS_PANE"));
 
             // WALL_BANNER
-            WALL_BANNER_TYPES.add(Material.WALL_BANNER);
+            WALL_BANNER_TYPES.add(Material.valueOf("WALL_BANNER"));
 
             // WOOL
-            WOOL_TYPES.add(Material.WOOL);
+            WOOL_TYPES.add(Material.valueOf("WOOL"));
 
             // MUSIC_DISC
-            MUSIC_DISC_TYPES.add(Material.GOLD_RECORD);
-            MUSIC_DISC_TYPES.add(Material.GREEN_RECORD);
-            MUSIC_DISC_TYPES.add(Material.RECORD_3);
-            MUSIC_DISC_TYPES.add(Material.RECORD_4);
-            MUSIC_DISC_TYPES.add(Material.RECORD_5);
-            MUSIC_DISC_TYPES.add(Material.RECORD_6);
-            MUSIC_DISC_TYPES.add(Material.RECORD_7);
-            MUSIC_DISC_TYPES.add(Material.RECORD_8);
-            MUSIC_DISC_TYPES.add(Material.RECORD_9);
-            MUSIC_DISC_TYPES.add(Material.RECORD_10);
-            MUSIC_DISC_TYPES.add(Material.RECORD_11);
-            MUSIC_DISC_TYPES.add(Material.RECORD_12);
+            MUSIC_DISC_TYPES.add(Material.valueOf("GOLD_RECORD"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("GREEN_RECORD"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_3"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_4"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_5"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_6"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_7"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_8"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_9"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_10"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_11"));
+            MUSIC_DISC_TYPES.add(Material.valueOf("RECORD_12"));
 
             // DYE
-            DYE_TYPES.add(Material.INK_SACK);
+            DYE_TYPES.add(Material.valueOf("INK_SACK"));
 
             // HELMET
-            HELMET_TYPES.add(Material.GOLD_HELMET);
+            HELMET_TYPES.add(Material.valueOf("GOLD_HELMET"));
 
             // CHESTPLATE
-            CHESTPLATE_TYPES.add(Material.GOLD_CHESTPLATE);
+            CHESTPLATE_TYPES.add(Material.valueOf("GOLD_CHESTPLATE"));
 
             // LEGGINGS
-            LEGGINGS_TYPES.add(Material.GOLD_LEGGINGS);
+            LEGGINGS_TYPES.add(Material.valueOf("GOLD_LEGGINGS"));
 
             // BOOTS
-            BOOTS_TYPES.add(Material.GOLD_BOOTS);
+            BOOTS_TYPES.add(Material.valueOf("GOLD_BOOTS"));
 
 			// SHOVEL
-			SHOVEL_TYPES.add(Material.IRON_SPADE);
-			SHOVEL_TYPES.add(Material.WOOD_SPADE);
-			SHOVEL_TYPES.add(Material.STONE_SPADE);
-			SHOVEL_TYPES.add(Material.DIAMOND_SPADE);
-			SHOVEL_TYPES.add(Material.GOLD_SPADE);
+			SHOVEL_TYPES.add(Material.valueOf("IRON_SPADE"));
+			SHOVEL_TYPES.add(Material.valueOf("WOOD_SPADE"));
+			SHOVEL_TYPES.add(Material.valueOf("STONE_SPADE"));
+			SHOVEL_TYPES.add(Material.valueOf("DIAMOND_SPADE"));
+			SHOVEL_TYPES.add(Material.valueOf("GOLD_SPADE"));
 			
 			// SWORD
-			SWORD_TYPES.add(Material.GOLD_SWORD);
-			SWORD_TYPES.add(Material.WOOD_SWORD);
+			SWORD_TYPES.add(Material.valueOf("GOLD_SWORD"));
+			SWORD_TYPES.add(Material.valueOf("WOOD_SWORD"));
 
 			// AXE
-			AXE_TYPES.add(Material.GOLD_AXE);
-			AXE_TYPES.add(Material.WOOD_AXE);
+			AXE_TYPES.add(Material.valueOf("GOLD_AXE"));
+			AXE_TYPES.add(Material.valueOf("WOOD_AXE"));
 
 			// PICKAXE
-			PICKAXE_TYPES.add(Material.GOLD_PICKAXE);
-			PICKAXE_TYPES.add(Material.WOOD_PICKAXE);
+			PICKAXE_TYPES.add(Material.valueOf("GOLD_PICKAXE"));
+			PICKAXE_TYPES.add(Material.valueOf("WOOD_PICKAXE"));
 
 			// HOE
-			HOE_TYPES.add(Material.GOLD_HOE);
-			HOE_TYPES.add(Material.WOOD_HOE);
+			HOE_TYPES.add(Material.valueOf("GOLD_HOE"));
+			HOE_TYPES.add(Material.valueOf("WOOD_HOE"));
         }
 
         // ORE
-        ORE_TYPES.add(Material.COAL_ORE);
-        ORE_TYPES.add(Material.DIAMOND_ORE);
-        ORE_TYPES.add(Material.EMERALD_ORE);
-        ORE_TYPES.add(Material.GOLD_ORE);
-        ORE_TYPES.add(Material.IRON_ORE);
-        ORE_TYPES.add(Material.LAPIS_ORE);
-        ORE_TYPES.add(Material.REDSTONE_ORE);
+        ORE_TYPES.add(Material.valueOf("COAL_ORE"));
+        ORE_TYPES.add(Material.valueOf("DIAMOND_ORE"));
+        ORE_TYPES.add(Material.valueOf("EMERALD_ORE"));
+        ORE_TYPES.add(Material.valueOf("GOLD_ORE"));
+        ORE_TYPES.add(Material.valueOf("IRON_ORE"));
+        ORE_TYPES.add(Material.valueOf("LAPIS_ORE"));
+        ORE_TYPES.add(Material.valueOf("REDSTONE_ORE"));
 
         // DOOR
-        DOOR_TYPES.add(Material.ACACIA_DOOR);
-        DOOR_TYPES.add(Material.BIRCH_DOOR);
-        DOOR_TYPES.add(Material.DARK_OAK_DOOR);
-        DOOR_TYPES.add(Material.IRON_DOOR);
-        DOOR_TYPES.add(Material.JUNGLE_DOOR);
-        DOOR_TYPES.add(Material.SPRUCE_DOOR);
+        DOOR_TYPES.add(Material.valueOf("ACACIA_DOOR"));
+        DOOR_TYPES.add(Material.valueOf("BIRCH_DOOR"));
+        DOOR_TYPES.add(Material.valueOf("DARK_OAK_DOOR"));
+        DOOR_TYPES.add(Material.valueOf("IRON_DOOR"));
+        DOOR_TYPES.add(Material.valueOf("JUNGLE_DOOR"));
+        DOOR_TYPES.add(Material.valueOf("SPRUCE_DOOR"));
 
         // FENCE
-        FENCE_TYPES.add(Material.SPRUCE_FENCE);
-        FENCE_TYPES.add(Material.ACACIA_FENCE);
-        FENCE_TYPES.add(Material.BIRCH_FENCE);
-        FENCE_TYPES.add(Material.DARK_OAK_FENCE);
-        FENCE_TYPES.add(Material.JUNGLE_FENCE);
+        FENCE_TYPES.add(Material.valueOf("SPRUCE_FENCE"));
+        FENCE_TYPES.add(Material.valueOf("ACACIA_FENCE"));
+        FENCE_TYPES.add(Material.valueOf("BIRCH_FENCE"));
+        FENCE_TYPES.add(Material.valueOf("DARK_OAK_FENCE"));
+        FENCE_TYPES.add(Material.valueOf("JUNGLE_FENCE"));
 
         // FENCE_GATE
-        FENCE_GATE_TYPES.add(Material.ACACIA_FENCE_GATE);
-        FENCE_GATE_TYPES.add(Material.BIRCH_FENCE_GATE);
-        FENCE_GATE_TYPES.add(Material.DARK_OAK_FENCE_GATE);
-        FENCE_GATE_TYPES.add(Material.JUNGLE_FENCE_GATE);
-        FENCE_GATE_TYPES.add(Material.SPRUCE_FENCE_GATE);
+        FENCE_GATE_TYPES.add(Material.valueOf("ACACIA_FENCE_GATE"));
+        FENCE_GATE_TYPES.add(Material.valueOf("BIRCH_FENCE_GATE"));
+        FENCE_GATE_TYPES.add(Material.valueOf("DARK_OAK_FENCE_GATE"));
+        FENCE_GATE_TYPES.add(Material.valueOf("JUNGLE_FENCE_GATE"));
+        FENCE_GATE_TYPES.add(Material.valueOf("SPRUCE_FENCE_GATE"));
 
         // STAIRS
-        STAIRS_TYPES.add(Material.ACACIA_STAIRS);
-        STAIRS_TYPES.add(Material.BRICK_STAIRS);
-        STAIRS_TYPES.add(Material.COBBLESTONE_STAIRS);
-        STAIRS_TYPES.add(Material.DARK_OAK_STAIRS);
-        STAIRS_TYPES.add(Material.QUARTZ_STAIRS);
-        STAIRS_TYPES.add(Material.RED_SANDSTONE_STAIRS);
-        STAIRS_TYPES.add(Material.SANDSTONE_STAIRS);
+        STAIRS_TYPES.add(Material.valueOf("ACACIA_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("BRICK_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("COBBLESTONE_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("DARK_OAK_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("QUARTZ_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("RED_SANDSTONE_STAIRS"));
+        STAIRS_TYPES.add(Material.valueOf("SANDSTONE_STAIRS"));
 
         if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0) {
             // GLAZED_TERRACOTTA
@@ -1691,51 +1692,51 @@ public class MaterialUtil {
         }
 
         // BUSH
-        BUSH_TYPES.add(Material.DEAD_BUSH);
+        BUSH_TYPES.add(Material.valueOf("DEAD_BUSH"));
 
         // HELMET
-        HELMET_TYPES.add(Material.LEATHER_HELMET);
-        HELMET_TYPES.add(Material.CHAINMAIL_HELMET);
-        HELMET_TYPES.add(Material.IRON_HELMET);
-        HELMET_TYPES.add(Material.DIAMOND_HELMET);
+        HELMET_TYPES.add(Material.valueOf("LEATHER_HELMET"));
+        HELMET_TYPES.add(Material.valueOf("CHAINMAIL_HELMET"));
+        HELMET_TYPES.add(Material.valueOf("IRON_HELMET"));
+        HELMET_TYPES.add(Material.valueOf("DIAMOND_HELMET"));
 
         // CHESTPLATE
-        CHESTPLATE_TYPES.add(Material.LEATHER_CHESTPLATE);
-        CHESTPLATE_TYPES.add(Material.CHAINMAIL_CHESTPLATE);
-        CHESTPLATE_TYPES.add(Material.IRON_CHESTPLATE);
-        CHESTPLATE_TYPES.add(Material.DIAMOND_CHESTPLATE);
+        CHESTPLATE_TYPES.add(Material.valueOf("LEATHER_CHESTPLATE"));
+        CHESTPLATE_TYPES.add(Material.valueOf("CHAINMAIL_CHESTPLATE"));
+        CHESTPLATE_TYPES.add(Material.valueOf("IRON_CHESTPLATE"));
+        CHESTPLATE_TYPES.add(Material.valueOf("DIAMOND_CHESTPLATE"));
 
         // LEGGINGS
-        LEGGINGS_TYPES.add(Material.LEATHER_LEGGINGS);
-        LEGGINGS_TYPES.add(Material.CHAINMAIL_LEGGINGS);
-        LEGGINGS_TYPES.add(Material.IRON_LEGGINGS);
-        LEGGINGS_TYPES.add(Material.DIAMOND_LEGGINGS);
+        LEGGINGS_TYPES.add(Material.valueOf("LEATHER_LEGGINGS"));
+        LEGGINGS_TYPES.add(Material.valueOf("CHAINMAIL_LEGGINGS"));
+        LEGGINGS_TYPES.add(Material.valueOf("IRON_LEGGINGS"));
+        LEGGINGS_TYPES.add(Material.valueOf("DIAMOND_LEGGINGS"));
 
         // BOOTS
-        BOOTS_TYPES.add(Material.LEATHER_BOOTS);
-        BOOTS_TYPES.add(Material.CHAINMAIL_BOOTS);
-        BOOTS_TYPES.add(Material.IRON_BOOTS);
-        BOOTS_TYPES.add(Material.DIAMOND_BOOTS);
+        BOOTS_TYPES.add(Material.valueOf("LEATHER_BOOTS"));
+        BOOTS_TYPES.add(Material.valueOf("CHAINMAIL_BOOTS"));
+        BOOTS_TYPES.add(Material.valueOf("IRON_BOOTS"));
+        BOOTS_TYPES.add(Material.valueOf("DIAMOND_BOOTS"));
 
 		// SWORD
-		SWORD_TYPES.add(Material.IRON_SWORD);
-		SWORD_TYPES.add(Material.STONE_SWORD);
-		SWORD_TYPES.add(Material.DIAMOND_SWORD);
+		SWORD_TYPES.add(Material.valueOf("IRON_SWORD"));
+		SWORD_TYPES.add(Material.valueOf("STONE_SWORD"));
+		SWORD_TYPES.add(Material.valueOf("DIAMOND_SWORD"));
 
 		// AXE
-		AXE_TYPES.add(Material.IRON_AXE);
-		AXE_TYPES.add(Material.STONE_AXE);
-		AXE_TYPES.add(Material.DIAMOND_AXE);
+		AXE_TYPES.add(Material.valueOf("IRON_AXE"));
+		AXE_TYPES.add(Material.valueOf("STONE_AXE"));
+		AXE_TYPES.add(Material.valueOf("DIAMOND_AXE"));
 
 		// PICKAXE
-		PICKAXE_TYPES.add(Material.IRON_PICKAXE);
-		PICKAXE_TYPES.add(Material.STONE_PICKAXE);
-		PICKAXE_TYPES.add(Material.DIAMOND_PICKAXE);
+		PICKAXE_TYPES.add(Material.valueOf("IRON_PICKAXE"));
+		PICKAXE_TYPES.add(Material.valueOf("STONE_PICKAXE"));
+		PICKAXE_TYPES.add(Material.valueOf("DIAMOND_PICKAXE"));
 
 		// HOE
-		HOE_TYPES.add(Material.STONE_HOE);
-		HOE_TYPES.add(Material.IRON_HOE);
-		HOE_TYPES.add(Material.DIAMOND_HOE);
+		HOE_TYPES.add(Material.valueOf("STONE_HOE"));
+		HOE_TYPES.add(Material.valueOf("IRON_HOE"));
+		HOE_TYPES.add(Material.valueOf("DIAMOND_HOE"));
 
         // ARMOR
         ARMOR_TYPES.addAll(HELMET_TYPES);
@@ -1744,10 +1745,10 @@ public class MaterialUtil {
         ARMOR_TYPES.addAll(BOOTS_TYPES);
 
         // STAIRS
-        STAIRS_TYPES.add(Material.PURPUR_STAIRS);
+        STAIRS_TYPES.add(Material.valueOf("PURPUR_STAIRS"));
 
         // ARMOR
-        ARMOR_TYPES.add(Material.ELYTRA);
+        ARMOR_TYPES.add(Material.valueOf("ELYTRA"));
     }
 
     /**
@@ -1782,7 +1783,9 @@ public class MaterialUtil {
         String[] x = str.split(":");
         Material mt;
         if(NMSVersion.current().compare(NMSVersion.v1_13_R1) < 0 && StringUtils.isNumeric(x[0])) {
-            mt = Material.getMaterial(Integer.parseInt(x[0]));
+            mt = (Material) ReflectionUtil.invokeDeclaredStaticMethod(Material.class, "getMaterial",
+                    new Class<?>[]{int.class},
+                    new Object[]{Integer.parseInt(x[0])});
         } else {
             mt = parse(x[0].toUpperCase()).orElse(Material.AIR);
         }

@@ -2,25 +2,21 @@ package dev.anhcraft.craftkit.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.anhcraft.craftkit.cb_common.internal.backend.CBPlayerBackend;
+import dev.anhcraft.craftkit.HandSlot;
 import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
+import dev.anhcraft.craftkit.cb_common.internal.backend.CBPlayerBackend;
 import dev.anhcraft.craftkit.common.Skin;
 import dev.anhcraft.craftkit.internal.listeners.PlayerListener;
-import dev.anhcraft.craftkit.HandSlot;
 import dev.anhcraft.jvmkit.utils.Condition;
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -152,10 +148,9 @@ public class PlayerUtil {
      * @param player the player
      * @param cmds commands to be executed
      */
+    @Deprecated
     public static void execCmdAsOp(@NotNull Player player, @NotNull String... cmds){
-        Condition.argNotNull("player", player);
-        Condition.argNotNull("cmds", cmds);
-        for(String s : cmds) Bukkit.dispatchCommand(new FakeOperator(player), s);
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -197,100 +192,5 @@ public class PlayerUtil {
     public static void fakeExp(@NotNull Player player, float expBar, int level, int totalExp){
         Condition.argNotNull("player", player);
         SERVICE.fakeExp(expBar, level, totalExp, player);
-    }
-
-    // A fake operator (tks OpticFusion)
-    static class FakeOperator implements CommandSender {
-        private final Player player;
-
-        FakeOperator(Player player) {
-            this.player = player;
-        }
-
-        public Player getPlayer() {
-            return player;
-        }
-
-        public boolean isPermissionSet(@NotNull String name) {
-            return true;
-        }
-
-        public boolean isPermissionSet(@NotNull Permission perm) {
-            return true;
-        }
-
-        @Override
-        public boolean isOp() {
-            return true;
-        }
-
-        @Override
-        public void setOp(boolean value) {
-        }
-
-        @Override
-        public boolean hasPermission(@NotNull String name) {
-            return true;
-        }
-
-        @Override
-        public boolean hasPermission(@NotNull Permission perm) {
-            return true;
-        }
-
-        @Override
-        public void sendMessage(String string) {
-            player.sendMessage(string);
-        }
-
-        @Override
-        public void sendMessage(String[] strings) {
-            player.sendMessage(strings);
-        }
-
-        @Override
-        public Server getServer() {
-            return player.getServer();
-        }
-
-        @Override
-        public String getName() {
-            return player.getName();
-        }
-
-        @Override
-        public PermissionAttachment addAttachment(Plugin plugin, String string, boolean bln) {
-            return player.addAttachment(plugin, string, bln);
-        }
-
-        @Override
-        public PermissionAttachment addAttachment(Plugin plugin) {
-            return player.addAttachment(plugin);
-        }
-
-        @Override
-        public PermissionAttachment addAttachment(Plugin plugin, String string, boolean bln, int i) {
-            return player.addAttachment(plugin, string, bln, i);
-        }
-
-        @Override
-        public PermissionAttachment addAttachment(Plugin plugin, int i) {
-            return player.addAttachment(plugin, i);
-        }
-
-        @Override
-        public void removeAttachment(PermissionAttachment pa) {
-            player.removeAttachment(pa);
-        }
-
-        @Override
-        public void recalculatePermissions() {
-            player.recalculatePermissions();
-        }
-
-        @Override
-        public Set<PermissionAttachmentInfo> getEffectivePermissions() {
-            return player.getEffectivePermissions();
-        }
     }
 }
