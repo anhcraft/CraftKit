@@ -25,7 +25,9 @@ public class TestChain {
                 new InventoryTest2(),
                 new AsyncBlockTest(),
                 new NBTTest(),
-                new PreparedItemTest()
+                new PreparedItemTest(),
+                new ArmorStandTest(),
+                new NPCTest()
         );
         runNext();
     }
