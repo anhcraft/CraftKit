@@ -26,5 +26,6 @@ public class PreparedItemTest implements ITest {
             e.printStackTrace();
         }
         player.getInventory().addItem(pi.build());
+        chain.report(true, null);
     }
 }

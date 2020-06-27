@@ -28,19 +28,46 @@ public class NBTTest implements ITest {
         tag.put("e", (byte) 5);
         tag.put("f", new int[]{3, 0, 1, 4, 7, 2, 9});
         tag.put("g", tag.duplicate());
-        if(tag.has("h")) chain.report(false, null);
-        if(!tag.has("a")) chain.report(false, null);
-        if(tag.getValue("b", IntTag.class) == null) chain.report(false, null);
-        if(tag.getValue("f", IntArrayTag.class) == null) chain.report(false, null);
+        if(tag.has("h")) {
+            chain.report(false, null);
+            return;
+        }
+        if(!tag.has("a")) {
+            chain.report(false, null);
+            return;
+        }
+        if(tag.getValue("b", IntTag.class) == null) {
+            chain.report(false, null);
+            return;
+        }
+        if(tag.getValue("f", IntArrayTag.class) == null) {
+            chain.report(false, null);
+            return;
+        }
         File f = new File(FileUtil.TEMP_DIR, "abc.xyz");
         tag.save(f);
         tag = new CompoundTag();
         tag.load(f);
-        if(tag.has("h")) chain.report(false, null);
-        if(!tag.has("a")) chain.report(false, null);
-        if(tag.getValue("b", IntTag.class) == null) chain.report(false, null);
-        if(tag.getValue("f", IntArrayTag.class) == null) chain.report(false, null);
-        if(!(tag.get("g") instanceof CompoundTag)) chain.report(false, null);
+        if(tag.has("h")) {
+            chain.report(false, null);
+            return;
+        }
+        if(!tag.has("a")) {
+            chain.report(false, null);
+            return;
+        }
+        if(tag.getValue("b", IntTag.class) == null) {
+            chain.report(false, null);
+            return;
+        }
+        if(tag.getValue("f", IntArrayTag.class) == null) {
+            chain.report(false, null);
+            return;
+        }
+        if(!(tag.get("g") instanceof CompoundTag)) {
+            chain.report(false, null);
+            return;
+        }
         tag = CompoundTag.of(player);
         tag.save(f);
         tag = CompoundTag.of(player.getLocation().getBlock());
@@ -48,5 +75,6 @@ public class NBTTest implements ITest {
         tag = CompoundTag.of(ObjectUtil.optional(player.getInventory().getItemInMainHand(), new ItemStack(Material.AIR)));
         tag.save(f);
         f.delete();
+        chain.report(true, null);
     }
 }
