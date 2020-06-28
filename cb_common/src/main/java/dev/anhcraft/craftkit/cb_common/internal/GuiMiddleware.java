@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit.cb_common.internal;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import dev.anhcraft.craftkit.cb_common.callbacks.gui.SlotCallback;
 import dev.anhcraft.craftkit.cb_common.callbacks.gui.GuiCallback;
 import dev.anhcraft.craftkit.cb_common.gui.BaseGUI;
@@ -15,11 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class GuiMiddleware implements BaseUI<GuiCallback, SlotCallback> {
-    private final Multimap<Integer, SlotCallback> slotCallbacks = HashMultimap.create();
-    private final List<GuiCallback> invCallbacks = new ArrayList<>();
+    private final Multimap<Integer, SlotCallback> slotCallbacks = Multimaps.synchronizedMultimap(HashMultimap.create());
+    private final List<GuiCallback> invCallbacks = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void addInterfaceCallback(@NotNull GuiCallback callback) {
