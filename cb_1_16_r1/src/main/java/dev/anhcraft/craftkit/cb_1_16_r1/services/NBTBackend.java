@@ -103,7 +103,7 @@ public class NBTBackend extends CBModule implements CBNBTBackend {
 
     @Override
     public void load(org.bukkit.entity.Entity entity) {
-        ((CraftEntity) entity).getHandle().load(root);
+        ((CraftEntity) entity).getHandle().save(root);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class NBTBackend extends CBModule implements CBNBTBackend {
 
     @Override
     public void save(org.bukkit.entity.Entity entity) {
-        ((CraftEntity) entity).getHandle().save(root);
+        ((CraftEntity) entity).getHandle().load(root);
     }
 
     @Override
