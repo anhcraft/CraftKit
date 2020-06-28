@@ -1,14 +1,14 @@
 # CraftKit
-A lightweight and effective utility kit for Spigot/Bungeecord plugins.<br>
+A utility kit for Spigot/Bungeecord plugins.<br>
 
 Contributions are welcome!
 
 ## implement
-My repo:
+Repo:
 ```xml
 <repository>
-    <id>anhcraft-repo</id>
-    <url>https://repo.anhcraft.dev/repository/mvn/</url>
+    <id>mcvn-repo</id>
+    <url>https://repo.minecraftvn.net/repository/maven-public/</url>
 </repository>
 ```
 
