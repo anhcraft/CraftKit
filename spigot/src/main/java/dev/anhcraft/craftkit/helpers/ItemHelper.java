@@ -147,7 +147,8 @@ public class ItemHelper extends Selector<ItemStack> {
     @Contract("_ -> this")
     public ItemHelper addLoreLine(@NotNull String line) {
         Condition.argNotNull("line", line);
-        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+        List<String> lore = meta.getLore();
+        if(lore == null) lore = new ArrayList<>();
         lore.add(ChatUtil.formatColorCodes(line));
         meta.setLore(lore);
         return this;
@@ -162,7 +163,8 @@ public class ItemHelper extends Selector<ItemStack> {
     @Contract("_ -> this")
     public ItemHelper addLoreLines(@NotNull String... lines) {
         Condition.argNotNull("lines", lines);
-        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+        List<String> lore = meta.getLore();
+        if(lore == null) lore = new ArrayList<>();
         for(String line : lines) lore.add(ChatUtil.formatColorCodes(line));
         meta.setLore(lore);
         return this;
@@ -177,7 +179,8 @@ public class ItemHelper extends Selector<ItemStack> {
     @Contract("_ -> this")
     public ItemHelper addLoreLines(@NotNull List<String> lines) {
         Condition.argNotNull("lines", lines);
-        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
+        List<String> lore = meta.getLore();
+        if(lore == null) lore = new ArrayList<>();
         lore.addAll(ChatUtil.formatColorCodes(lines));
         meta.setLore(lore);
         return this;
@@ -194,8 +197,8 @@ public class ItemHelper extends Selector<ItemStack> {
     public ItemHelper setLoreLine(int index, @NotNull String content) {
         Condition.argNotNull("content", content);
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
-        if(meta.hasLore()) {
-            List<String> lore = meta.getLore();
+        List<String> lore = meta.getLore();
+        if(lore != null) {
             Condition.check(index < lore.size(), "`index` is out of bounds");
             lore.set(index, content);
             meta.setLore(lore);
@@ -223,8 +226,8 @@ public class ItemHelper extends Selector<ItemStack> {
     @Contract("_ -> this")
     public ItemHelper removeLoreLine(int index) {
         Condition.check(index >= 0, "`index` must be higher than or equals with zero");
-        if(meta.hasLore()) {
-            List<String> lore = meta.getLore();
+        List<String> lore = meta.getLore();
+        if(lore != null) {
             Condition.check(index < lore.size(), "`index` is out of bounds");
             lore.remove(index);
             meta.setLore(lore);
@@ -240,12 +243,22 @@ public class ItemHelper extends Selector<ItemStack> {
     }
 
     /**
+     * Checks if the lore exists.
+     * @return {@code true} if it does, otherwise is {@code false}
+     */
+    public boolean hasLore() {
+        return meta.hasLore();
+    }
+
+    /**
      * Returns the lore of the stack.
      * @return the lore
      */
     @NotNull
     public List<String> getLore() {
-        return meta.hasLore() ? meta.getLore() : new ArrayList<>();
+        List<String> lore = meta.getLore();
+        if(lore == null) lore = new ArrayList<>();
+        return lore;
     }
 
     /**
