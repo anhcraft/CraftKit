@@ -53,9 +53,8 @@ public class PlayerBackend extends CBModule implements CBPlayerBackend {
         ent.getProfile().getProperties().put("textures", new Property("textures", skin.getValue(), skin.getSignature()));
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, ent), vws);
         sendPacket(new PacketPlayOutNamedEntitySpawn(ent), vws);
-
         CraftWorld cw = (CraftWorld) player.getWorld();
-        DimensionManager dimension = (DimensionManager) ReflectionUtil.getDeclaredField(WorldServer.class, cw.getHandle(), "dimension");
+        DimensionManager dimension = cw.getHandle().getWorldProvider().getDimensionManager();
         craftServer.getHandle().moveToWorld(ent, dimension, true, player.getLocation(), true);
     }
 
