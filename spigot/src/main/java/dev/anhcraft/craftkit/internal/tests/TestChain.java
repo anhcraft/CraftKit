@@ -27,7 +27,8 @@ public class TestChain {
                 new NBTTest(),
                 new PreparedItemTest(),
                 new ArmorStandTest(),
-                new NPCTest()
+                new NPCTest(),
+                new PlayerSkinTest()
         );
         runNext();
     }
