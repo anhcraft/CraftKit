@@ -31,12 +31,10 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void hit(ProjectileHitEvent e){
-        if(e.getEntity() instanceof Arrow) {
-            Pair<LivingEntity, ItemStack> pair = bowArrows.remove(e.getEntity().getUniqueId());
-            if (pair != null) {
-                BowArrowHitEvent ev = new BowArrowHitEvent((Arrow) e.getEntity(), pair);
-                Bukkit.getPluginManager().callEvent(ev);
-            }
+        Pair<LivingEntity, ItemStack> pair = bowArrows.remove(e.getEntity().getUniqueId());
+        if (pair != null && e.getEntity() instanceof Arrow) {
+            BowArrowHitEvent ev = new BowArrowHitEvent((Arrow) e.getEntity(), pair);
+            Bukkit.getPluginManager().callEvent(ev);
         }
     }
 }
