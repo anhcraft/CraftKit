@@ -31,15 +31,15 @@ public class PlayerSkinTest implements ITest {
             customGUI.addItem(new ItemBuilder(Material.DIAMOND).name("Confirm ok").build(), new SlotCallback() {
                 @Override
                 public void click(InventoryClickEvent event, Player player, BaseGUI gui) {
-                    player.closeInventory();
                     chain.report(true, null);
+                    player.closeInventory();
                 }
             });
             customGUI.addItem(new ItemBuilder(Material.REDSTONE).name("Something wrong...").build(), new SlotCallback() {
                 @Override
                 public void click(InventoryClickEvent event, Player player, BaseGUI gui) {
-                    player.closeInventory();
                     chain.report(false, null);
+                    player.closeInventory();
                 }
             });
             customGUI.addInterfaceCallback(new GuiCallback() {

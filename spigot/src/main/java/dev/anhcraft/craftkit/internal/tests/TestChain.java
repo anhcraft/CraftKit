@@ -1,6 +1,10 @@
 package dev.anhcraft.craftkit.internal.tests;
 
 import com.google.common.collect.ImmutableList;
+import dev.anhcraft.craftkit.CraftExtension;
+import dev.anhcraft.craftkit.chat.Chat;
+import dev.anhcraft.craftkit.helpers.TaskHelper;
+import dev.anhcraft.craftkit.internal.CraftKit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,11 +38,30 @@ public class TestChain {
     }
 
     private void runNext() {
-        try {
-            tests.get(currentTest).run(player, this);
-        } catch (Exception e) {
-            report(false, e.getLocalizedMessage());
-        }
+        ITest test = tests.get(currentTest);
+        Chat.noPrefix().message(player, "&aCurrent test: &f" + test.name());
+        player.sendTitle("Start in", "5", 20, 40, 20);
+        TaskHelper task = CraftExtension.of(CraftKit.class).getTaskHelper();
+        task.newDelayedTask(() -> {
+            player.sendTitle("Start in", "4", 20, 40, 20);
+            task.newDelayedTask(() -> {
+                player.sendTitle("Start in", "3", 20, 40, 20);
+                task.newDelayedTask(() -> {
+                    player.sendTitle("Start in", "2", 20, 40, 20);
+                    task.newDelayedTask(() -> {
+                        player.sendTitle("Start in", "1", 20, 40, 20);
+                        task.newDelayedTask(() -> {
+                            player.sendTitle("Start in", "0", 20, 40, 20);
+                            try {
+                                test.run(player, this);
+                            } catch (Exception e) {
+                                report(false, e.getLocalizedMessage());
+                            }
+                        }, 20);
+                    }, 20);
+                }, 20);
+            }, 20);
+        }, 20);
     }
 
     public void report(boolean ok, @Nullable String error) {
