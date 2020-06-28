@@ -22,9 +22,9 @@ public class LocationUtil {
      */
     @NotNull
     public static String toString(@Nullable Location loc) {
-        return loc == null ? "null" : (loc.getWorld().getName() + ":" + loc.getX() + ":" +
-                loc.getY() + ":" + loc.getZ() +
-                ":" + loc.getPitch() + ":" + loc.getYaw());
+        if(loc == null) return "null";
+        World w = loc.getWorld();
+        return (w == null ? "/null/" : w.getName()) + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch() + ":" + loc.getYaw();
     }
 
     /**
@@ -34,7 +34,7 @@ public class LocationUtil {
      */
     @NotNull
     public static Location fromString(@Nullable String str) {
-        if(str == null || str.equalsIgnoreCase("null")) return Bukkit.getWorld("world").getSpawnLocation();
+        if(str == null || str.equalsIgnoreCase("null")) return Bukkit.getWorlds().get(0).getSpawnLocation();
         String[] str2loc = str.split(":");
         Location loc = new Location(
                 Bukkit.getWorld(str2loc[0]),
@@ -85,7 +85,7 @@ public class LocationUtil {
      */
     public static boolean isUnderBlock(@NotNull Location loc) {
         Condition.argNotNull("loc", loc);
-
+        Condition.check(loc.getWorld() != null, "World must be present");
         int h = loc.getWorld().getMaxHeight();
         if(loc.getY() >= h) return false;
         loc = loc.clone();

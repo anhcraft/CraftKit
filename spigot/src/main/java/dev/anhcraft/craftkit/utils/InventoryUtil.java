@@ -18,8 +18,9 @@ public class InventoryUtil {
      * @param itemStack the item stack
      * @return {@code true} if that item was added (which means it was unique) or {@code false} if there was another similar item
      */
-    public static boolean addUniqueItem(@NotNull Inventory inventory, @Nullable ItemStack itemStack){
+    public static boolean addUniqueItem(@NotNull Inventory inventory, @NotNull ItemStack itemStack){
         Condition.argNotNull("inventory", inventory);
+        Condition.argNotNull("itemStack", itemStack);
         if(Arrays.stream(inventory.getContents()).noneMatch(x -> ItemUtil.compare(x, itemStack))){
             inventory.addItem(itemStack);
             return true;
