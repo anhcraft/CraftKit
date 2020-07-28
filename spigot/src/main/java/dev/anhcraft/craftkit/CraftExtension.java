@@ -2,6 +2,7 @@ package dev.anhcraft.craftkit;
 
 import dev.anhcraft.craftkit.cb_common.gui.AnvilGUI;
 import dev.anhcraft.craftkit.cb_common.gui.CustomGUI;
+import dev.anhcraft.craftkit.cb_common.gui.FakeInventoryHolder;
 import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.craftkit.cb_common.internal.backend.CBAnvilBackend;
 import dev.anhcraft.craftkit.cb_common.internal.backend.CBCustomGUIBackend;
@@ -111,12 +112,21 @@ public class CraftExtension implements ICraftExtension<JavaPlugin> {
     }
 
     @NotNull
+    @Deprecated
     public CustomGUI createCustomGUI(@Nullable InventoryHolder holder, int size, @Nullable String title){
+        return createCustomGUI(size, title);
+    }
+
+    @NotNull
+    public CustomGUI createCustomGUI(int size, @Nullable String title){
         size = MathUtil.nextMultiple(size, 9);
-        return BackendManager.request(CBCustomGUIBackend.class,
+        FakeInventoryHolder ih = new FakeInventoryHolder();
+        CustomGUI cg = BackendManager.request(CBCustomGUIBackend.class,
                 new Class<?>[]{InventoryHolder.class, int.class, String.class},
-                new Object[]{holder, size, title},
+                new Object[]{ih, size, title},
                 false).orElseThrow(UnsupportedOperationException::new);
+        ih.setInventory(cg);
+        return cg;
     }
 
     @NotNull
