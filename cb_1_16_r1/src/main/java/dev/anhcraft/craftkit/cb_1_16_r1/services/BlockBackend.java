@@ -182,7 +182,7 @@ public class BlockBackend extends CBModule implements CBBlockBackend {
 
                         try {
                             // * this -> world
-                            world.notifyAndUpdatePhysics(blockposition, chunk, iblockdata1, iblockdata, iblockdata2, i);
+                            world.notifyAndUpdatePhysics(blockposition, chunk, iblockdata1, iblockdata, iblockdata2, i, 512);
                         } catch (StackOverflowError var10) {
                             // * lastPhysicsProblem -> World.lastPhysicsProblem
                             World.lastPhysicsProblem = new BlockPosition(blockposition);
