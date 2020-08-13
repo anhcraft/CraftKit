@@ -73,25 +73,23 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         checkUpdate();
 
         // register listeners
-        INFO_CHAT.messageConsole("Registering internal listeners...");
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         getServer().getPluginManager().registerEvents(new ServerListener(), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
 
         // register messaging channels
-        INFO_CHAT.messageConsole("Registering messaging channels...");
         getServer().getMessenger().registerOutgoingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE);
         getServer().getMessenger().registerIncomingPluginChannel(this, BungeeUtil.BC_CHANNEL_NAMESPACE, new BungeeUtilMessenger(this));
         getServer().getMessenger().registerOutgoingPluginChannel(this, CHANNEL_NAMESPACE);
         getServer().getMessenger().registerIncomingPluginChannel(this, CHANNEL_NAMESPACE, new BungeeUtilMessenger(this));
 
         // plugin integrations
-        INFO_CHAT.messageConsole("Hooking soft-dependencies...");
-        if(PluginProvider.getProvider(VaultIntegration.class).init()) INFO_CHAT.messageConsole("&aVault&f support enabled");
+        if(PluginProvider.getProvider(VaultIntegration.class).init()) {
+            INFO_CHAT.messageConsole("&aVault&f support enabled");
+        }
 
         // start tasks
-        INFO_CHAT.messageConsole("Starting tasks...");
         CKProvider.TASK_HELPER.newTimerTask(new ArmorHandleTask(), 0, 20);
 
         PaperCommandManager pcm = new PaperCommandManager(this);
