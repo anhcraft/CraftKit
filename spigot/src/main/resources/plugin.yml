@@ -2,6 +2,6 @@ name: ${project.parent.name}
 version: ${project.version}
 main: dev.anhcraft.craftkit.internal.CraftKit
 api-version: 1.13
-softdepend: [Vault, PlayerPoints]
+softdepend: [Vault]
 authors: [anhcraft]
 description: ${project.parent.description}
