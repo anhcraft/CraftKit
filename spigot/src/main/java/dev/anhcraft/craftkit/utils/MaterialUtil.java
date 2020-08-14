@@ -83,6 +83,7 @@ public class MaterialUtil {
     @Deprecated
     public static void registerLegacyMaterial(String legacy, int data, String modern){
         LEGACY.put(legacy, data, modern);
+        LEGACY.put("LEGACY_" + legacy, data, modern);
         MODERN.put(modern, new PresentPair<>(legacy, data));
     }
 
@@ -1463,9 +1464,11 @@ public class MaterialUtil {
         } else {
             PresentPair<String, Integer> pair = MODERN.get(material);
             if(pair != null) {
-                mt = (Material) EnumUtil.findEnum(Material.class, pair.getFirst());
-                if (mt != null) return new LegacyMaterial(mt, pair.getSecond());
+                // put this one first for faster searching in 1.13+
                 mt = (Material) EnumUtil.findEnum(Material.class, "LEGACY_" + pair.getFirst());
+                if (mt != null) return new LegacyMaterial(mt, pair.getSecond());
+                // if legacy not found, maybe in 1.12 and earlier versions
+                mt = (Material) EnumUtil.findEnum(Material.class, pair.getFirst());
                 if (mt != null) return new LegacyMaterial(mt, pair.getSecond());
             }
             return null;
