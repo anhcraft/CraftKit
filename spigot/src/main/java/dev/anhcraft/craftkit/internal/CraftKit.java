@@ -20,15 +20,14 @@ import dev.anhcraft.craftkit.internal.listeners.ServerListener;
 import dev.anhcraft.craftkit.internal.messengers.BungeeUtilMessenger;
 import dev.anhcraft.craftkit.internal.tasks.ArmorHandleTask;
 import dev.anhcraft.craftkit.utils.BungeeUtil;
+import dev.anhcraft.craftkit.utils.MaterialUtil;
 import dev.anhcraft.jvmkit.utils.JarUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLClassLoader;
 
@@ -36,6 +35,32 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
     public static final Chat DEFAULT_CHAT = new Chat("&6#craftkit:&f ");
     public static final Chat INFO_CHAT = new Chat("&6#craftkit:&b ");
     public static final Chat WARN_CHAT = new Chat("&6#craftkit:&c ");
+
+    private void loadCkInfo() {
+        InputStream in = getClass().getResourceAsStream("/ck_info.json");
+        CKInfo.init(in, true);
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadMtInfo() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/ck_material.txt")));
+            while(reader.ready()) {
+                String line = reader.readLine();
+                String[] p = line.split(" ");
+                if(p.length == 3){
+                    MaterialUtil.registerLegacyMaterial(p[0], Integer.parseInt(p[1]), p[2]);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onLoad() {
@@ -52,17 +77,10 @@ public final class CraftKit extends JavaPlugin implements CKPlugin {
         CKProvider.ACTIONBAR_NO_PREFIX = ActionBar.noPrefix();
         CKProvider.TASK_HELPER = new TaskHelper(this);
 
-        // load info
-        InputStream in = getClass().getResourceAsStream("/ck_info.json");
-        CKInfo.init(in, true);
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadCkInfo();
+        loadMtInfo();
 
         // load libraries
-        INFO_CHAT.messageConsole("Loading libraries...");
         libDir.mkdirs();
         handleNMSLib();
     }
