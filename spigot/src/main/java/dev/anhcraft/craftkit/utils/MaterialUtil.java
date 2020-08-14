@@ -2,8 +2,10 @@ package dev.anhcraft.craftkit.utils;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import dev.anhcraft.craftkit.LegacyMaterial;
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.jvmkit.utils.EnumUtil;
+import dev.anhcraft.jvmkit.utils.PresentPair;
 import dev.anhcraft.jvmkit.utils.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
@@ -11,16 +13,14 @@ import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * An utility class to work with {@link Material} as well as {@link MaterialData}.
  */
 public class MaterialUtil {
     private static final Table<String, Integer, String> LEGACY = HashBasedTable.create();
+    private static final Map<String, PresentPair<String, Integer>> MODERN = new HashMap<>();
     private static final List<Material> SKULL_TYPES = new ArrayList<>();
     private static final List<Material> ARMOR_TYPES = new ArrayList<>();
     private static final List<Material> ORE_TYPES = new ArrayList<>();
@@ -83,6 +83,7 @@ public class MaterialUtil {
     @Deprecated
     public static void registerLegacyMaterial(String legacy, int data, String modern){
         LEGACY.put(legacy, data, modern);
+        MODERN.put(modern, new PresentPair<>(legacy, data));
     }
 
     static {
@@ -1441,6 +1442,25 @@ public class MaterialUtil {
         material = material.toUpperCase();
         Material mt = (Material) EnumUtil.findEnum(Material.class, material);
         return mt != null ? material : LEGACY.get(material, data);
+    }
+
+    @Nullable
+    public static LegacyMaterial antiquate(@Nullable String material) {
+        if(material == null || material.isEmpty()) return null;
+        material = material.toUpperCase();
+        Material mt = (Material) EnumUtil.findEnum(Material.class, material);
+        if (mt != null) {
+            return new LegacyMaterial(mt, 0);
+        } else {
+            PresentPair<String, Integer> pair = MODERN.get(material);
+            if(pair != null) {
+                mt = (Material) EnumUtil.findEnum(Material.class, pair.getFirst());
+                if (mt != null) return new LegacyMaterial(mt, pair.getSecond());
+                mt = (Material) EnumUtil.findEnum(Material.class, "LEGACY_" + pair.getFirst());
+                if (mt != null) return new LegacyMaterial(mt, pair.getSecond());
+            }
+            return null;
+        }
     }
 
     @NotNull
