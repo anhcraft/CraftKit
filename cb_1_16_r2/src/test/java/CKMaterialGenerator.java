@@ -1,17 +1,16 @@
-import dev.anhcraft.jvmkit.utils.PresentPair;
+import dev.anhcraft.jvmkit.utils.FileUtil;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R1.legacy.CraftLegacy;
+import org.bukkit.craftbukkit.v1_16_R2.legacy.CraftLegacy;
 import org.bukkit.material.MaterialData;
 
+import java.io.File;
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 
-public class MainTest {
-    private final static Map<String, PresentPair<String, Integer>> LEGACY = new HashMap<>();
-
+public class CKMaterialGenerator {
     public static void main(String[] args) {
-        LEGACY.put("MUSIC_DISC_WAIT", new PresentPair<>("RECORD_12", 0));
+        File f = new File(FileUtil.WORKING_DIR_PATH, "spigot/src/main/resources/ck_material.txt");
+        FileUtil.clean(f);
+        StringBuffer buffer = new StringBuffer();
         for(Material mt : Material.values()){
             if(mt.isLegacy()) {
                 EnumSet<Material> set = EnumSet.noneOf(Material.class);
@@ -19,11 +18,14 @@ public class MainTest {
                     Material x = CraftLegacy.fromLegacy(new MaterialData(mt, i));
                     if(set.contains(x)) continue;
                     if(mt == Material.LEGACY_AIR || !x.isAir()) {
-                        System.out.println("LEGACY.put(\"" + x.name() + "\", new PresentPair<>(\"" + mt.name().substring("LEGACY_".length()) + "\", " + i + "));");
+                        buffer.append(mt.name().substring("LEGACY_".length())).append(" ");
+                        buffer.append(i).append(" ");
+                        buffer.append(x.name()).append('\n');
                         set.add(x);
                     }
                 }
             }
         }
+        FileUtil.write(f, buffer.toString());
     }
 }
