@@ -12,21 +12,34 @@ import java.util.List;
  */
 public class ItemUtil {
     /**
-     * Checks if the given item stack is null or its type is {@link Material#AIR}.
+     * Checks if the given item stack is null or its material type is {@link Material#AIR}.
      * @param item an item stack
      * @return {@code true} if it is "null". Otherwise is {@code false}.
      */
+    public static boolean isEmpty(@Nullable ItemStack item){
+        return item == null || MaterialUtil.isEmpty(item.getType());
+    }
+
+    /**
+     * Checks if the given item stack is null or its material type is {@link Material#AIR}.
+     * @param item an item stack
+     * @return {@code true} if it is "null". Otherwise is {@code false}.
+     * @deprecated use {@link ItemUtil#isEmpty(ItemStack)} instead.
+     */
+    @Deprecated
     public static boolean isNull(@Nullable ItemStack item){
-        return item == null || item.getType() == Material.AIR || item.getType().toString().endsWith("_AIR");
+        return isEmpty(item);
     }
 
     /**
      * Checks if the given material is null or is air.
      * @param material material
      * @return {@code true} if it is "null". Otherwise is {@code false}.
+     * @deprecated use {@link MaterialUtil#isEmpty(Material)} instead
      */
+    @Deprecated
     public static boolean isNull(@Nullable Material material) {
-        return material == null || material == Material.AIR || material.toString().endsWith("_AIR");
+        return MaterialUtil.isEmpty(material);
     }
 
     /**

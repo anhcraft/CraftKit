@@ -1431,6 +1431,15 @@ public class MaterialUtil {
         return Collections.unmodifiableList(HOE_TYPES);
     }
 
+    /**
+     * Checks if the given material is null or is air.
+     * @param material material
+     * @return {@code true} if it is "null". Otherwise is {@code false}.
+     */
+    public static boolean isEmpty(@Nullable Material material) {
+        return material == null || material == Material.AIR || material.toString().endsWith("_AIR");
+    }
+
     @Nullable
     public static String modernize(@Nullable String material) {
         return modernize(material, 0);
