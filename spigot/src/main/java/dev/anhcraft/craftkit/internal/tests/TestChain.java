@@ -32,7 +32,8 @@ public class TestChain {
                 new PreparedItemTest(),
                 new ArmorStandTest(),
                 new NPCTest(),
-                new PlayerSkinTest()
+                new PlayerSkinTest(),
+                new RecipeTest()
         );
         runNext();
     }
