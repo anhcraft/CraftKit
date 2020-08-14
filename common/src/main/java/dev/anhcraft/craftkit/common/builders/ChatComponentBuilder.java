@@ -58,6 +58,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
             component = new TextComponent(TextComponent.fromLegacyText(text));
         } else if(clazz.equals(TranslatableComponent.class)){
             component = new TranslatableComponent(text);
+        } else {
+            component = new TextComponent(TextComponent.fromLegacyText(text));
         }
     }
 
@@ -72,6 +74,8 @@ public class ChatComponentBuilder implements Builder<BaseComponent> {
             component = new TextComponent();
         } else if(clazz.equals(TranslatableComponent.class)){
             component = new TranslatableComponent();
+        } else {
+            component = new TextComponent();
         }
     }
 
