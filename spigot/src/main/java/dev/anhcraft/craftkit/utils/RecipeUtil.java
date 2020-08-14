@@ -3,7 +3,6 @@ package dev.anhcraft.craftkit.utils;
 import dev.anhcraft.craftkit.cb_common.NMSVersion;
 import dev.anhcraft.craftkit.cb_common.internal.backend.BackendManager;
 import dev.anhcraft.craftkit.cb_common.internal.backend.CBRecipeBackend;
-import dev.anhcraft.craftkit.cb_common.internal.utils.ReflectUtil;
 import dev.anhcraft.jvmkit.lang.annotation.Beta;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
@@ -56,14 +55,8 @@ public class RecipeUtil {
     public static boolean compare(@Nullable Recipe recipe, @Nullable Recipe otherRecipe){
         if(recipe == null && otherRecipe == null) return true;
         if(recipe == null || otherRecipe == null) return false;
-        if(!recipe.getClass().equals(otherRecipe.getClass())){
-            return false;
-        }
         if(NMSVersion.current().compare(NMSVersion.v1_12_R1) >= 0 && recipe instanceof Keyed && otherRecipe instanceof Keyed){
-            Object v = ReflectUtil.getFieldValue(recipe.getClass(), "key", recipe);
-            if(v != null) {
-                return v.equals(ReflectUtil.getFieldValue(otherRecipe.getClass(), "key", otherRecipe));
-            }
+            return ((Keyed) recipe).getKey().equals(((Keyed) otherRecipe).getKey());
         }
         if(recipe instanceof ShapedRecipe && otherRecipe instanceof ShapedRecipe) {
             ShapedRecipe a = (ShapedRecipe) recipe;
