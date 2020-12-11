@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <version.jvmKit>1.1.5</version.jvmKit>
-        <version.bungeecord>1.16-R0.2-SNAPSHOT</version.bungeecord>
+        <version.bungeecord>1.16-R0.3</version.bungeecord>
         <version.spigotApi>1.16.1-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.6.25</version.authlib>
