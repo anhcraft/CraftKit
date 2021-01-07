@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
@@ -18,7 +18,7 @@
 
         <version.jvmKit>1.1.5</version.jvmKit>
         <version.bungeecord>1.16-R0.2-SNAPSHOT</version.bungeecord>
-        <version.spigotApi>1.16.1-R0.1-SNAPSHOT</version.spigotApi>
+        <version.spigotApi>1.16.4-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.6.25</version.authlib>
         <version.confighelper>1.0.5</version.confighelper>
@@ -46,6 +46,7 @@
         <module>cb_1_15_r1</module>
         <module>cb_1_16_r1</module>
         <module>cb_1_16_r2</module>
+        <module>cb_1_16_r3</module>
         <module>spigot</module>
     </modules>
 
