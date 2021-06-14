@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
@@ -17,11 +17,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <version.jvmKit>1.1.5</version.jvmKit>
-        <version.bungeecord>1.16-R0.2-SNAPSHOT</version.bungeecord>
-        <version.spigotApi>1.16.4-R0.1-SNAPSHOT</version.spigotApi>
+        <version.bungeecord>1.17-R0.1-SNAPSHOT</version.bungeecord>
+        <version.spigotApi>1.17-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.6.25</version.authlib>
-        <version.confighelper>1.0.5</version.confighelper>
+        <version.config>1.0.0</version.config>
     </properties>
 
     <developers>
@@ -47,21 +47,22 @@
         <module>cb_1_16_r1</module>
         <module>cb_1_16_r2</module>
         <module>cb_1_16_r3</module>
+        <module>cb_1_17_r1</module>
         <module>spigot</module>
     </modules>
 
     <repositories>
         <repository>
-            <id>mcvn-repo</id>
-            <url>https://repo.minecraftvn.net/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>codemc-repo</id>
-            <url>https://repo.codemc.org/repository/maven-snapshots/</url>
+            <id>sonatype-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
         <repository>
             <id>codemc-nms-repo</id>
             <url>https://repo.codemc.org/repository/nms/</url>
+        </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-snapshots/</url>
         </repository>
         <repository>
             <id>minecraft-libraries</id>

@@ -13,6 +13,7 @@
         <module name="craftkit.cb_1_15_r1" />
         <module name="craftkit.cb_1_14_r1" />
         <module name="craftkit.cb_1_16_r2" />
+        <module name="cb_1_17_r1" />
         <module name="craftkit.cb_1_13_r2" />
         <module name="craftkit.cb_1_12_r1" />
         <module name="craftkit.cb_1_13_r1" />
@@ -37,6 +38,7 @@
       <module name="bukkit_1_14" target="1.5" />
       <module name="bukkit_1_9" target="1.8" />
       <module name="cb_1_16_r3" target="1.8" />
+      <module name="cb_1_17_r1" target="1.8" />
       <module name="cb_1_9_R1" target="1.8" />
       <module name="cb_1_9_r1" target="1.8" />
       <module name="cb_1_9_r2" target="11" />
@@ -62,6 +64,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cb_1_16_r3" options="-parameters" />
+      <module name="cb_1_17_r1" options="-parameters" />
       <module name="cb_1_9_r2" options="-Xlint:-requires-transitive-automatic" />
       <module name="common" options="-Xlint:-requires-transitive-automatic" />
       <module name="craftkit.bungee" options="-parameters" />

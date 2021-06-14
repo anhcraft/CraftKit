@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/cb_1_16_r3/cb_1_16_r3.iml" filepath="$PROJECT_DIR$/cb_1_16_r3/cb_1_16_r3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cb_1_17_r1/cb_1_17_r1.iml" filepath="$PROJECT_DIR$/cb_1_17_r1/cb_1_17_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/bungee/craftkit.bungee.iml" filepath="$PROJECT_DIR$/bungee/craftkit.bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_10_r1/craftkit.cb_1_10_r1.iml" filepath="$PROJECT_DIR$/cb_1_10_r1/craftkit.cb_1_10_r1.iml" />
       <module fileurl="file://$PROJECT_DIR$/cb_1_11_r1/craftkit.cb_1_11_r1.iml" filepath="$PROJECT_DIR$/cb_1_11_r1/craftkit.cb_1_11_r1.iml" />

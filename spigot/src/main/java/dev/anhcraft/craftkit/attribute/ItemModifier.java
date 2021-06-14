@@ -1,7 +1,11 @@
 package dev.anhcraft.craftkit.attribute;
 
-import dev.anhcraft.confighelper.ConfigSchema;
-import dev.anhcraft.confighelper.annotation.*;
+import dev.anhcraft.config.annotations.Configurable;
+import dev.anhcraft.config.annotations.Description;
+import dev.anhcraft.config.annotations.Setting;
+import dev.anhcraft.config.annotations.Validation;
+import dev.anhcraft.config.schema.ConfigSchema;
+import dev.anhcraft.config.schema.SchemaScanner;
 import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.inventory.EquipmentSlot;
@@ -15,26 +19,18 @@ import java.util.UUID;
 /**
  * Represents an attribute modifier for items.
  */
-@Schema
-@Example({
-        "name: abcxyz # identifier",
-        "amount: 3",
-        "operation: add_scalar",
-        "slot: feet"
-})
+@Configurable
 public class ItemModifier extends Modifier implements Serializable {
-    public static final ConfigSchema<ItemModifier> SCHEMA = ConfigSchema.of(ItemModifier.class);
+    public static final ConfigSchema SCHEMA = SchemaScanner.scanConfig(ItemModifier.class);
     private static final long serialVersionUID = 3443790587999457033L;
 
-    @Key("attr")
-    @Explanation("The attribute type of this modifier")
+    @Setting
+    @Description("The attribute type of this modifier")
     @Validation(notNull = true)
-    @PrettyEnum
     private Attribute attr;
 
-    @Key("slot")
-    @Explanation("The slot where this modifier will take effect")
-    @PrettyEnum
+    @Setting
+    @Description("The slot where this modifier will take effect")
     private EquipmentSlot slot;
 
     /**

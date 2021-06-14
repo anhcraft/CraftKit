@@ -27,7 +27,7 @@ public class CKCommand extends BaseCommand {
     @Description("Show plugin information")
     public void info(CommandSender sender) {
         Chat.noPrefix().message(sender, "&b&l=== CraftKit v" + CKInfo.getPluginVersion()+" ===")
-                .message(sender, "&aDiscord: https://discord.gg/QSpc5xH")
+                .message(sender, "&aTwitter: https://twitter.com/dyahtt")
                 .message(sender, "&eContact me if any errors occurs!");
     }
 

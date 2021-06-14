@@ -1,7 +1,11 @@
 package dev.anhcraft.craftkit.attribute;
 
-import dev.anhcraft.confighelper.ConfigSchema;
-import dev.anhcraft.confighelper.annotation.*;
+import dev.anhcraft.config.annotations.Configurable;
+import dev.anhcraft.config.annotations.Description;
+import dev.anhcraft.config.annotations.Setting;
+import dev.anhcraft.config.annotations.Validation;
+import dev.anhcraft.config.schema.ConfigSchema;
+import dev.anhcraft.config.schema.SchemaScanner;
 import dev.anhcraft.craftkit.common.internal.Supervisor;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.jetbrains.annotations.NotNull;
@@ -13,14 +17,9 @@ import java.util.UUID;
 /**
  * Represents an attribute modifier.
  */
-@Schema
-@Example({
-        "name: abcxyz # identifier",
-        "amount: 3",
-        "operation: add_number"
-})
+@Configurable
 public class Modifier implements Serializable {
-    public static final ConfigSchema<Modifier> SCHEMA = ConfigSchema.of(Modifier.class);
+    public static final ConfigSchema SCHEMA = SchemaScanner.scanConfig(Modifier.class);
     private static final long serialVersionUID = -4638305656316584438L;
 
     /**
@@ -54,18 +53,17 @@ public class Modifier implements Serializable {
         }
     }
 
-    @Key("name")
-    @Explanation("The name of this modifier")
+    @Setting
+    @Description("The name of this modifier")
     @Validation(notNull = true)
     protected String name;
 
-    @Key("amount")
+    @Setting
     protected double amount;
 
-    @Key("operation")
+    @Setting
     @Validation(notNull = true)
-    @Explanation("The operation this modifier will apply")
-    @PrettyEnum
+    @Description("The operation this modifier will apply")
     protected Operation operation;
 
     protected UUID uuid = UUID.randomUUID();

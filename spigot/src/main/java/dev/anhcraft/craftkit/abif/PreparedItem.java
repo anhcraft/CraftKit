@@ -1,13 +1,18 @@
 package dev.anhcraft.craftkit.abif;
 
-import dev.anhcraft.confighelper.ConfigHelper;
-import dev.anhcraft.confighelper.ConfigSchema;
-import dev.anhcraft.confighelper.EntryFilter;
-import dev.anhcraft.confighelper.annotation.*;
-import dev.anhcraft.confighelper.exception.InvalidValueException;
+import dev.anhcraft.config.ConfigDeserializer;
+import dev.anhcraft.config.ConfigSerializer;
+import dev.anhcraft.config.adapters.TypeAdapter;
+import dev.anhcraft.config.annotations.*;
+import dev.anhcraft.config.bukkit.BukkitConfigProvider;
+import dev.anhcraft.config.bukkit.struct.YamlConfigSection;
+import dev.anhcraft.config.schema.ConfigSchema;
+import dev.anhcraft.config.schema.SchemaScanner;
+import dev.anhcraft.config.struct.ConfigSection;
+import dev.anhcraft.craftkit.abif.adapters.EnchantmentAdapter;
+import dev.anhcraft.craftkit.abif.adapters.MaterialAdapter;
 import dev.anhcraft.craftkit.attribute.ItemModifier;
 import dev.anhcraft.craftkit.helpers.ItemNBTHelper;
-import dev.anhcraft.craftkit.utils.MaterialUtil;
 import dev.anhcraft.jvmkit.utils.Condition;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -33,183 +38,166 @@ import static dev.anhcraft.craftkit.abif.ABIF.Key.*;
  *     <li>Readable for most people</li>
  * </ul>
  */
-@Schema
-@Example({
-        "material: diamond_sword",
-        "name: '&2Emerald sword'",
-        "enchant:",
-        "  sharpness: 1",
-        "flag:",
-        "- hide_enchants"
-})
-@Example({
-        "material: written_book",
-        "amount: 1",
-        "name: Steve's diary",
-        "lore:",
-        "- This is the diary of Steve",
-        "flag:",
-        "- hide_unbreakable",
-        "modifiers:",
-        "  '0':",
-        "    name: '1'",
-        "    amount: 1.0",
-        "    operation: add_number",
-        "    attr: generic_attack_damage",
-        "    slot: off_hand",
-        "meta:",
-        "  type: book",
-        "  book:",
-        "    title: Steve's diary",
-        "    author: Steve",
-        "    generation: original",
-        "    pages:",
-        "    - My first day,...",
-        "    - My second day,...",
-        "    - The next day,...",
-})
+@Configurable
 public class PreparedItem implements Serializable {
-    public static final ConfigSchema<PreparedItem> SCHEMA = ConfigSchema.of(PreparedItem.class);
+    public static final ConfigSchema SCHEMA = SchemaScanner.scanConfig(PreparedItem.class);
     private static final long serialVersionUID = 7808305902298157946L;
-    private static final EntryFilter ENTRY_FILTER = ConfigHelper.newOptions().ignoreZero().ignoreEmptySection().ignoreEmptyArray().ignoreEmptyList();
+    private static final ConfigSerializer serializer;
+    private static final ConfigDeserializer deserializer;
 
-    @Key(MATERIAL)
-    @Explanation("The material that make up this item")
-    @IgnoreValue(ifNull = true)
-    @PrettyEnum
+    static {
+        TypeAdapter<?>[] adapters = new TypeAdapter<?>[]{
+                new MaterialAdapter(),
+                new EnchantmentAdapter()
+        };
+
+        serializer = BukkitConfigProvider.YAML.createSerializer();
+        serializer.registerTypeAdapter(Material.class, adapters[0]);
+        serializer.registerTypeAdapter(Enchantment.class, adapters[1]);
+
+        deserializer = BukkitConfigProvider.YAML.createDeserializer();
+        deserializer.registerTypeAdapter(Material.class, adapters[0]);
+        deserializer.registerTypeAdapter(Enchantment.class, adapters[1]);
+    }
+
+    @Setting
+    @Path(MATERIAL)
+    @Description("The material that make up this item")
+    @Validation(notNull = true, silent = true)
     private Material material = Material.AIR;
 
-    @Key(AMOUNT)
-    @Explanation("The amount of items in this stack")
+    @Setting
+    @Path(AMOUNT)
+    @Description("The amount of items in this stack")
     private int amount = 1;
 
-    @Key(NAME)
-    @Explanation("The name of this item")
+    @Setting
+    @Path(NAME)
+    @Description("The name of this item")
     private String name;
 
-    @Key(DAMAGE)
-    @Explanation("The damaged value")
+    @Setting
+    @Path(DAMAGE)
+    @Description("The damaged value")
     private int damage;
 
-    @Key(LORE)
-    @Explanation("Item's lore")
-    @IgnoreValue(ifNull = true)
+    @Setting
+    @Path(LORE)
+    @Description("Item's lore")
+    @Validation(notNull = true, silent = true)
     private List<String> lore = new ArrayList<>();
 
-    @Key(ENCHANT)
-    @Explanation("Item's enchantments")
-    @IgnoreValue(ifNull = true)
+    @Setting
+    @Path(ENCHANT)
+    @Description("Item's enchantments")
+    @Validation(notNull = true, silent = true)
     private Map<Enchantment, Integer> enchants = new HashMap<>();
 
-    @Key(FLAG)
-    @PrettyEnum
-    @Explanation("Items's flags that used to hide something")
-    @IgnoreValue(ifNull = true)
+    @Setting
+    @Path(FLAG)
+    @Description("Items's flags that used to hide something")
+    @Validation(notNull = true, silent = true)
     private List<ItemFlag> flags = new ArrayList<>();
 
-    @Key(UNBREAKABLE)
-    @Explanation("Make the item unbreakable")
+    @Setting
+    @Path(UNBREAKABLE)
+    @Description("Make the item unbreakable")
     private boolean unbreakable;
 
-    @Key(MODIFIERS)
-    @Explanation("List of attribute modifiers")
-    @IgnoreValue(ifNull = true)
-    @Example({
-            "modifiers:",
-            "  '0':",
-            "    name: '1'",
-            "    amount: 5.0",
-            "    operation: add_number",
-            "    attr: generic_attack_damage",
-            "    slot: hand",
-            "  '1':",
-            "    name: '1'",
-            "    amount: 2.0",
-            "    operation: add_number",
-            "    attr: generic_attack_damage",
-            "    slot: off_hand"
-    })
+    @Setting
+    @Path(MODIFIERS)
+    @Description("List of attribute modifiers")
+    @Validation(notNull = true, silent = true)
     private List<ItemModifier> itemModifiers = new ArrayList<>();
 
-    @Key(META_TYPE)
-    @Explanation("Item meta type")
-    @PrettyEnum
+    @Setting
+    @Path(META_TYPE)
+    @Description("Item meta type")
     private MetaType metaType;
 
-    @Key(META_POTION_TYPE)
-    @Explanation({
+    @Setting
+    @Path(META_POTION_TYPE)
+    @Description({
             "Set the potion type",
             "Required item meta: potion"
     })
-    @PrettyEnum
     private PotionType potionType;
 
-    @Key(META_POTION_EXTENDED)
-    @Explanation({
+    @Setting
+    @Path(META_POTION_EXTENDED)
+    @Description({
             "Set the 'extended' status",
             "Required item meta: potion"
     })
     private boolean potionExtended;
 
-    @Key(META_POTION_UPGRADED)
-    @Explanation({
+    @Setting
+    @Path(META_POTION_UPGRADED)
+    @Description({
             "Set the 'upgraded' status",
             "Required item meta: potion"
     })
     private boolean potionUpgraded;
 
-    @Key(META_LEATHER_COLOR_R)
-    @Explanation({
+    @Setting
+    @Path(META_LEATHER_COLOR_R)
+    @Description({
             "Set the leather color's red value",
             "Required item meta: leather"
     })
     private int leatherColorRed;
 
-    @Key(META_LEATHER_COLOR_G)
-    @Explanation({
+    @Setting
+    @Path(META_LEATHER_COLOR_G)
+    @Description({
             "Set the leather color's green value",
             "Required item meta: leather"
     })
     private int leatherColorGreen;
 
-    @Key(META_LEATHER_COLOR_B)
-    @Explanation({
+    @Setting
+    @Path(META_LEATHER_COLOR_B)
+    @Description({
             "Set the leather color's blue value",
             "Required item meta: leather"
     })
     private int leatherColorBlue;
 
-    @Key(META_SKULL_OWNER)
-    @Explanation({
+    @Setting
+    @Path(META_SKULL_OWNER)
+    @Description({
             "Set the skull owner",
             "Required item meta: skull"
     })
     private String skullOwner;
 
-    @Key(META_BOOK_TITLE)
-    @Explanation({
+    @Setting
+    @Path(META_BOOK_TITLE)
+    @Description({
             "Set the title of the book",
             "Required item meta: book"
     })
     private String bookTitle;
 
-    @Key(META_BOOK_AUTHOR)
-    @Explanation({
+    @Setting
+    @Path(META_BOOK_AUTHOR)
+    @Description({
             "Set the author of the book",
             "Required item meta: book"
     })
     private String bookAuthor;
 
-    @Key(META_BOOK_GENERATION)
-    @Explanation({
+    @Setting
+    @Path(META_BOOK_GENERATION)
+    @Description({
             "Set the generation of the book",
             "Required item meta: book"
     })
-    @PrettyEnum
     private BookMeta.Generation bookGeneration;
 
-    @Key(META_BOOK_PAGES)
-    @Explanation({
+    @Setting
+    @Path(META_BOOK_PAGES)
+    @Description({
             "Set the pages of the book",
             "Required item meta: book"
     })
@@ -250,14 +238,14 @@ public class PreparedItem implements Serializable {
     }
 
     /**
-     * Makes a {@link PreparedItem} from the given {@link ConfigurationSection}
+     * Makes a {@link PreparedItem} from the given {@link ConfigSection}
      * @param section configuration section
      * @return {@link PreparedItem}
-     * @throws InvalidValueException if having issues from the configuration
+     * @throws Exception if having issues from the configuration
      */
     @NotNull
-    public static PreparedItem of(@NotNull ConfigurationSection section) throws InvalidValueException {
-        return ConfigHelper.readConfig(section, PreparedItem.SCHEMA, new PreparedItem());
+    public static PreparedItem of(@NotNull ConfigSection section) throws Exception {
+        return deserializer.transformConfig(PreparedItem.SCHEMA, section, new PreparedItem());
     }
 
     @NotNull
@@ -566,65 +554,11 @@ public class PreparedItem implements Serializable {
     /**
      * Saves this item to configuration.
      * @param conf the configuration
-     * @param <T> data type
      * @return configuration
+     * @exception Exception if any error occured
      */
     @NotNull
-    public <T extends ConfigurationSection> T saveTo(@NotNull T conf){
-        ConfigHelper.writeConfig(conf, PreparedItem.SCHEMA, this, ENTRY_FILTER);
-        return conf;
-    }
-
-    @Middleware(Middleware.Direction.CONFIG_TO_SCHEMA)
-    private @Nullable Object conf2schema(ConfigSchema.Entry entry, @Nullable Object value) {
-        if(value != null){
-            if(entry.getKey().equals(MATERIAL) && value instanceof String) {
-                return MaterialUtil.modernize((String) value);
-            }
-            if(entry.getKey().equals(MODIFIERS)) {
-                ConfigurationSection cs = (ConfigurationSection) value;
-                List<ItemModifier> bullets = new ArrayList<>();
-                for (String s : cs.getKeys(false)) {
-                    try {
-                        bullets.add(ConfigHelper.readConfig(cs.getConfigurationSection(s), ItemModifier.SCHEMA));
-                    } catch (InvalidValueException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return bullets;
-            } else if(entry.getKey().equals(ENCHANT)){
-                ConfigurationSection cs = (ConfigurationSection) value;
-                Map<Enchantment, Integer> map = new HashMap<>();
-                for(String s : cs.getKeys(false)){
-                    map.put(ABIF.getEnchant(s), cs.getInt(s));
-                }
-                return map;
-            }
-        }
-        return value;
-    }
-
-    @Middleware(Middleware.Direction.SCHEMA_TO_CONFIG)
-    private @Nullable Object schema2conf(ConfigSchema.Entry entry, @Nullable Object value) {
-        if(value != null){
-            if(entry.getKey().equals(MODIFIERS)) {
-                ConfigurationSection parent = new YamlConfiguration();
-                int i = 0;
-                for(ItemModifier modifier : (List<ItemModifier>) value){
-                    YamlConfiguration c = new YamlConfiguration();
-                    ConfigHelper.writeConfig(c, ItemModifier.SCHEMA, modifier);
-                    parent.set(String.valueOf(i++), c);
-                }
-                return parent;
-            } else if(entry.getKey().equals(ENCHANT)){
-                ConfigurationSection parent = new YamlConfiguration();
-                Map<Enchantment, Integer> map = (Map<Enchantment, Integer>) value;
-                for(Map.Entry<Enchantment, Integer> x : map.entrySet()){
-                    parent.set(x.getKey().getName().toLowerCase(), x.getValue());
-                }
-                return parent;
-            }
-        }
-        return value;
+    public ConfigSection saveTo(@NotNull ConfigSection conf) throws Exception {
+        return serializer.transformConfig(SCHEMA, conf, this);
     }
 }

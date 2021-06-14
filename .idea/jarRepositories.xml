@@ -12,6 +12,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="sonatype-repo" />
+      <option name="name" value="sonatype-repo" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="aikar" />
       <option name="name" value="aikar" />
       <option name="url" value="https://repo.aikar.co/content/groups/aikar/" />
