@@ -3,6 +3,13 @@ A utility kit for Spigot/Bungeecord plugins.<br>
 
 Contributions are welcome!
 
+## warning
+Recent Java versions may throw exception when CraftKit tries to load the NMS library.<br>
+You must add this flag to the startup command:
+```
+--add-opens java.base/java.net=ALL-UNNAMED
+```
+
 ## implement
 Repo:
 ```xml
