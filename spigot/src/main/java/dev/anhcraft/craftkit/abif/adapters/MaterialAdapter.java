@@ -21,8 +21,8 @@ public class MaterialAdapter implements TypeAdapter<Material> {
     @Override
     public @Nullable Material complexify(@NotNull ConfigDeserializer configDeserializer, @NotNull Type type, @NotNull SimpleForm simpleForm) throws Exception {
         if(simpleForm.isString()) {
-            simpleForm = SimpleForm.of(Objects.requireNonNull(MaterialUtil.modernize(simpleForm.asString())));
+            return MaterialUtil.parse(simpleForm.asString()).orElse(null);
         }
-        return configDeserializer.transform(Enum.class, simpleForm);
+        return null;
     }
 }
