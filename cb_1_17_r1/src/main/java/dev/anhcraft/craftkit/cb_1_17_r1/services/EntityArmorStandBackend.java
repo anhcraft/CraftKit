@@ -85,7 +85,7 @@ public class EntityArmorStandBackend extends CBModule implements CBEntityArmorSt
     public void setEquipment(EquipmentSlot slot, org.bukkit.inventory.ItemStack itemStack) {
         ItemStack i = CraftItemStack.asNMSCopy(itemStack);
         EnumItemSlot s = CraftEquipmentSlot.getNMS(slot);
-        as.setSlot(s, i);
+        as.setSlot(s, i, true);
     }
 
     @Override
