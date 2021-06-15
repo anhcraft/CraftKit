@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.4.1</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
@@ -21,7 +21,7 @@
         <version.spigotApi>1.17-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.6.25</version.authlib>
-        <version.config>1.0.0</version.config>
+        <version.config>1.0.1</version.config>
     </properties>
 
     <developers>
