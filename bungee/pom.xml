@@ -84,7 +84,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>dev.anhcraft</groupId>
+            <groupId>com.github.anhcraft.config</groupId>
             <artifactId>config.bungee</artifactId>
             <version>${version.config}</version>
             <scope>compile</scope>

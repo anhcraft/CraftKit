@@ -100,10 +100,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.httpcomponents:httpcore:4.4.14" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:jcl-over-slf4j:1.7.30" level="project" />
     <orderEntry type="module" module-name="craftkit.common" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.github.anhcraft:JvmKit:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-bungee:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.bungee:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.common:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.bungee:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.common:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:20.0.0" level="project" />
   </component>
 </module>

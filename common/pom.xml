@@ -22,8 +22,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>dev.anhcraft</groupId>
-            <artifactId>jvmkit</artifactId>
+            <groupId>com.github.anhcraft</groupId>
+            <artifactId>JvmKit</artifactId>
             <version>${version.jvmKit}</version>
             <scope>compile</scope>
         </dependency>
