@@ -102,8 +102,8 @@
     <orderEntry type="module" module-name="craftkit.common" />
     <orderEntry type="library" name="Maven: dev.anhcraft:jvmkit:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-bungee:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.bungee:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.common:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:config.bungee:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:config.common:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:20.0.0" level="project" />
   </component>
 </module>

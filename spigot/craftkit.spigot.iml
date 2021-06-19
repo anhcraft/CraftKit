@@ -75,8 +75,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-api:2.0-beta9" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-core:2.0-beta9" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-paper:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.bukkit:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: dev.anhcraft:config.common:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:config.bukkit:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: dev.anhcraft:config.common:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:20.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-base:2.2.1" level="project" />
