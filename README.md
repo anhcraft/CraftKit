@@ -3,6 +3,8 @@ A utility kit for Spigot/Bungeecord plugins.<br>
 
 Contributions are welcome!
 
+[![](https://jitpack.io/v/anhcraft/CraftKit.svg)](https://jitpack.io/#anhcraft/CraftKit)
+
 ## warning
 Recent Java versions may throw exception when CraftKit tries to load the NMS library.<br>
 You must add this flag to the startup command:
@@ -13,10 +15,12 @@ You must add this flag to the startup command:
 ## implement
 Repo:
 ```xml
-<repository>
-    <id>mcvn-repo</id>
-    <url>https://repo.minecraftvn.net/repository/maven-public/</url>
-</repository>
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ```
 
 <br>
@@ -24,10 +28,9 @@ Spigot side:
 
 ```xml
 <dependency>
-    <groupId>dev.anhcraft</groupId>
+    <groupId>com.github.anhcraft.CraftKit</groupId>
     <artifactId>craftkit.spigot</artifactId>
     <version>VERSION</version>
-    <scope>provided</scope>
 </dependency>
 ```
 
@@ -36,10 +39,9 @@ Bungeecord side:
 
 ```xml
 <dependency>
-    <groupId>dev.anhcraft</groupId>
+    <groupId>com.github.anhcraft.CraftKit</groupId>
     <artifactId>craftkit.bungee</artifactId>
     <version>VERSION</version>
-    <scope>provided</scope>
 </dependency>
 ```
 
