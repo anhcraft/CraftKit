@@ -2,7 +2,7 @@ package dev.anhcraft.craftkit.cb_common.callbacks.gui;
 
 import dev.anhcraft.craftkit.cb_common.gui.BaseGUI;
 import dev.anhcraft.craftkit.common.callbacks.Callback;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -20,7 +20,7 @@ public interface GuiCallback extends Callback {
 
         @Override
         public void open(InventoryOpenEvent event, Player player, BaseGUI gui) {
-            if(contents == null) contents = (ItemStack[]) ArrayUtils.clone(gui.getContents());
+            if(contents == null) contents = ArrayUtils.clone(gui.getContents());
             else gui.setContents(contents);
         }
     };
@@ -33,7 +33,7 @@ public interface GuiCallback extends Callback {
 
         @Override
         public void open(InventoryOpenEvent event, Player player, BaseGUI gui) {
-            contents = (ItemStack[]) ArrayUtils.clone(gui.getContents());
+            contents = ArrayUtils.clone(gui.getContents());
         }
 
         @Override
