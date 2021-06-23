@@ -21,7 +21,7 @@
         <version.spigotApi>1.17-R0.1-SNAPSHOT</version.spigotApi>
         <version.vaultApi>1.7</version.vaultApi>
         <version.authlib>1.6.25</version.authlib>
-        <version.config>1.0.3</version.config>
+        <version.config>v1.0.4</version.config>
     </properties>
 
     <developers>
