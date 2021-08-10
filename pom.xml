@@ -6,7 +6,7 @@
 
     <groupId>dev.anhcraft</groupId>
     <artifactId>craftkit.parent</artifactId>
-    <version>1.2.4.2</version>
+    <version>1.2.4.3</version>
     <packaging>pom</packaging>
 
     <name>CraftKit</name>
@@ -47,7 +47,7 @@
         <module>cb_1_16_r1</module>
         <module>cb_1_16_r2</module>
         <module>cb_1_16_r3</module>
-        <module>cb_1_17_r1</module>
+        <!--<module>cb_1_17_r1</module>-->
         <module>spigot</module>
     </modules>
 

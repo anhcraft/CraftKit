@@ -7,7 +7,7 @@
     <parent>
         <groupId>dev.anhcraft</groupId>
         <artifactId>craftkit.parent</artifactId>
-        <version>1.2.4.2</version>
+        <version>1.2.4.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -139,6 +139,30 @@
             <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>craftkit.cb_1_16_r1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>craftkit.cb_1_16_r2</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>craftkit.cb_1_16_r3</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>dev.anhcraft</groupId>
+            <artifactId>craftkit.cb_1_17_r1</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>-->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>

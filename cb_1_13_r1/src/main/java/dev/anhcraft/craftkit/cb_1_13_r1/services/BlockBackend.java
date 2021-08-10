@@ -371,7 +371,7 @@ public class BlockBackend extends CBModule implements CBBlockBackend {
         CraftBlock craftBlock = (CraftBlock) block;
         IBlockAccess blockAccess = craftBlock.getCraftWorld().getHandle();
         IBlockData blockData = craftBlock.getNMS();
-        VoxelShape vs = blockData.getBlock().a(blockData, blockAccess, craftBlock.getPosition());
+        VoxelShape vs = blockData.g(blockAccess, craftBlock.getPosition());
         if(vs.b()) return new BoundingBox();
         else {
             AxisAlignedBB aabb = vs.a();

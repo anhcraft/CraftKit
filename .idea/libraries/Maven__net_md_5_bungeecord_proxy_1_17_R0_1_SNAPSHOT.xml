@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: net.md-5:bungeecord-proxy:1.17-R0.1-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210614.231143-8.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210722.015254-20.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210614.231143-8-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210722.015254-20-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210614.231143-8-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/md-5/bungeecord-proxy/1.17-R0.1-SNAPSHOT/bungeecord-proxy-1.17-R0.1-20210722.015254-20-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

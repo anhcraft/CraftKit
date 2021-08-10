@@ -62,6 +62,9 @@
     <orderEntry type="module" module-name="craftkit.cb_1_13_r2" scope="PROVIDED" />
     <orderEntry type="module" module-name="craftkit.cb_1_14_r1" scope="PROVIDED" />
     <orderEntry type="module" module-name="craftkit.cb_1_15_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_16_r1" scope="PROVIDED" />
+    <orderEntry type="module" module-name="craftkit.cb_1_16_r2" scope="PROVIDED" />
+    <orderEntry type="module" module-name="cb_1_16_r3" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.milkbowl.vault:VaultAPI:1.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.13.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
@@ -75,8 +78,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-api:2.0-beta9" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.logging.log4j:log4j-core:2.0-beta9" level="project" />
     <orderEntry type="library" name="Maven: co.aikar:acf-paper:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.bukkit:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.common:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.bukkit:1.0.6" level="project" />
+    <orderEntry type="library" name="Maven: com.github.anhcraft.config:config.common:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:20.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-base:2.2.1" level="project" />
